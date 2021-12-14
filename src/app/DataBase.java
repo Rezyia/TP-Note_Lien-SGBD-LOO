@@ -116,9 +116,9 @@ public class DataBase {
 		try {
 			Statement s = connection.createStatement();
 			s.executeUpdate(ctEtudiant);
-			s.executeUpdate(ctBourse);			
 			s.executeUpdate(ctEnseignant);			
-			s.executeUpdate(ctEnseignement);			
+			s.executeUpdate(ctEnseignement);
+			s.executeUpdate(ctBourse);			
 			s.executeUpdate(ctPlan);		
 			s.executeUpdate(ctCandidature);
 		} catch (SQLException e) {

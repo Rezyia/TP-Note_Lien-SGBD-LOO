@@ -5,7 +5,7 @@ public class Application {
 	
 	public static void main(String [] args) {
 		System.out.println("Début du programme...");
-		DBConnection db = new DBConnection();
+		DataBase db = new DataBase();
 		System.out.println("Fin du programme.");
 	}
 }

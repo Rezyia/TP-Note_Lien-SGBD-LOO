@@ -2,7 +2,7 @@ package app;
 import java.sql.*;
 import java.util.Properties;
 
-public class DBConnection {
+public class DataBase {
 
 	public static Connection connection;
 	private static Properties properties;
@@ -13,10 +13,10 @@ public class DBConnection {
 	private static String pwd = "root";
 	
 	
-	public DBConnection() {
+	public DataBase() {
 		connected = connect();
 		if (connected) {
-			//dbTableInit();
+			dbTableInit();
 			//dbTuplesInit();	
 		}
 	}

@@ -16,7 +16,7 @@ public class DBConnection {
 	public DBConnection() {
 		connected = connect();
 		if (connected) {
-			dbTableInit();
+			//dbTableInit();
 			//dbTuplesInit();	
 		}
 	}

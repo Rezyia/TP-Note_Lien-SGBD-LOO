@@ -119,8 +119,8 @@ public class DataBase {
 			s.executeUpdate(ctEnseignant);			
 			s.executeUpdate(ctEnseignement);
 			s.executeUpdate(ctBourse);			
-			s.executeUpdate(ctPlan);		
 			s.executeUpdate(ctCandidature);
+			s.executeUpdate(ctPlan);		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

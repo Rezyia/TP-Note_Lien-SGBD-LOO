@@ -2,7 +2,7 @@ package app;
 import java.sql.*;
 import java.util.Properties;
 
-public class DataBase {
+public class BDD {
 
 	public static Connection connection;
 	private static Properties properties;
@@ -13,7 +13,7 @@ public class DataBase {
 	private static String pwd = "root";
 	
 	
-	public DataBase() {
+	public BDD() {
 		connected = connect();
 		if (connected) {
 			dbDropTables();

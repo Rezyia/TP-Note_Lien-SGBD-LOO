@@ -1,6 +1,6 @@
 package modele;
 
-public class Candidature extends Table {
+public class Candidature extends TableWithId {
 
 	private Etudiant etudiant;
 	private Bourse bourse;
@@ -77,6 +77,13 @@ public class Candidature extends Table {
 
 	public void setNoteErasmus(Double noteErasmus) {
 		this.noteErasmus = noteErasmus;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Candidature [id=" + getId() + ", etudiant=" + etudiant + ", bourse=" + bourse + ", respLocal=" + respLocal
+				+ ", respErasmus=" + respErasmus + ", noteLocale=" + noteLocale + ", noteErasmus=" + noteErasmus + "]";
 	}
 
 }

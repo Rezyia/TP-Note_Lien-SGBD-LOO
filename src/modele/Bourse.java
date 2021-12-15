@@ -1,6 +1,6 @@
 package modele;
 
-public class Bourse extends Table {
+public class Bourse extends TableWithId {
 	
 	private String destination;
 	private Integer nbPostes;
@@ -43,6 +43,12 @@ public class Bourse extends Table {
 
 	public void setRespLocal(Enseignant respLocal) {
 		this.respLocal = respLocal;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Bourse [id=" + getId() + ", destination=" + destination + ", nbPostes=" + nbPostes + ", respLocal=" + respLocal + "]";
 	}
 
 }

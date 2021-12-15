@@ -41,7 +41,7 @@ private static List<Bourse> listeBourse = null;
 				
 				
 				
-				listeBourse.add(new Bourse(id , respLocal, destination, nbPostes));
+				//listeBourse.add(new Bourse(id , respLocal, destination, nbPostes));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

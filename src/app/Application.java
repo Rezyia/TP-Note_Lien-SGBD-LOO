@@ -3,7 +3,6 @@ package app;
 import dao.EnseignantDAO;
 import dao.EnseignementDAO;
 import dao.EtudiantDAO;
-import modele.Bourse;
 
 public class Application {
 	

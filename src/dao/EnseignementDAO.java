@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import app.BDD;
@@ -46,5 +47,19 @@ public class EnseignementDAO {
 		return listeEnseignement;
 	}
 	
+	public static Enseignement getEnseignement(Integer id) {
+		if (listeEnseignement == null) getEnseignements();
+		Enseignement ens = null;
+		boolean fin = false;
+		
+		Iterator<Enseignement> ite = listeEnseignement.iterator();
+		while (ite.hasNext() && !fin) {
+			ens = ite.next();
+			if (ens.getId() == id) fin = true;
+		}
+		if (fin == false) ens = null;
+		
+		return ens;
+	}
 	
 }

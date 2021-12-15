@@ -13,7 +13,7 @@ public class Bourse extends TableWithId {
 	 * @param nbPostes
 	 * @param respLocal
 	 */
-	public Bourse(Integer id, String destination, Integer nbPostes, Enseignant respLocal) {
+	public Bourse(Integer id, Enseignant respLocal, String destination, Integer nbPostes) {
 		super(id);
 		this.destination = destination;
 		this.nbPostes = nbPostes;

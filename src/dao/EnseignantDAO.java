@@ -15,7 +15,7 @@ public class EnseignantDAO {
 	private static List<Enseignant> listeEnseignant = null;
 	
 	
-	public static List<Enseignant> getEtudiants() {
+	public static List<Enseignant> getEnseignants() {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
 		
@@ -25,7 +25,7 @@ public class EnseignantDAO {
 		
 		if (listeEnseignant == null) // Si la liste n'a pas été initialisée
 			listeEnseignant = new ArrayList<>();
-		String sql = "SELECT * FROM Etudiant";
+		String sql = "SELECT * FROM Enseignant";
 		
 		try {
 			Statement stmt = conn.createStatement();

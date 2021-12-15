@@ -2,30 +2,30 @@ package modele;
 
 public class Enseignement extends TableWithId {
 
-	private String nom;
+	private String intitule;
 	private Integer credits;
 	private Integer volumeH;
 
 	/**
 	 * @param id
-	 * @param nom
+	 * @param intitule
 	 * @param credits
 	 * @param volumeH
 	 */
 	public Enseignement(Integer id, String intitule, Integer credits, Integer volumeH) {
 		super(id);
-		this.nom = nom;
+		this.intitule = intitule;
 		this.credits = credits;
 		this.volumeH = volumeH;
 	}
 
 
 	public String getNom() {
-		return nom;
+		return intitule;
 	}
 
 	public void setNom(String nom) {
-		this.nom = nom;
+		this.intitule = nom;
 	}
 
 	public Integer getCredits() {
@@ -47,7 +47,7 @@ public class Enseignement extends TableWithId {
 
 	@Override
 	public String toString() {
-		return "Enseignement [id=" + getId() + ", nom=" + nom + ", credits=" + credits + ", volumeH=" + volumeH + "]";
+		return "Enseignement [id=" + getId() + ", intitule=" + intitule + ", credits=" + credits + ", volumeH=" + volumeH + "]";
 	}
 	
 }

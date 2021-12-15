@@ -13,11 +13,14 @@ public class BDD {
 	private static String pwd = "root";
 	
 	
+	/**
+	 * Drop les tables si elles existent déjà puis les recrée et insert des exemples dans la BDD.
+	 */
 	public BDD() {
 		if (connect()) {
 			dbDropTables();
 			dbTableInit();
-			//dbTuplesInit();
+			dbTuplesInit();
 		}
 	}
 	

@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import modele.Etudiant;
 
@@ -46,6 +47,21 @@ public class EtudiantDAO {
 		}
 		
 		return listeEtudiant;
+	}
+	
+	public static Etudiant getEtudiant(Integer numero) {
+		if (listeEtudiant == null) getEtudiants();
+		Etudiant etu = null;
+		boolean fin = false;
+		
+		Iterator<Etudiant> ite = listeEtudiant.iterator();
+		while (ite.hasNext() && !fin) {
+			etu = ite.next();
+			if (etu.getNumero() == numero) fin = true;
+		}
+		if (fin == false) etu = null;
+		
+		return etu;
 	}
 	
 }

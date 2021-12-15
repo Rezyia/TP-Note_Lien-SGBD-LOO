@@ -5,23 +5,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import app.BDD;
 import modele.Bourse;
-import modele.Etudiant;
+import modele.Enseignant;
 
 public class BourseDAO {
 	
-	/*
-	public static <Bourse> getBourses() {
+private static List<Bourse> listeBourse = null;
+	
+	
+	public static List<Bourse> getBourses() {
 		if (!BDD.isConnected()) BDD.connect();
-		if (!BDD.isConnected()) return null;
-		
 		Connection conn = BDD.getConnection();
 		
-		List<Bourse> liste = new ArrayList<>();
-		String sql = "SELECT * FROM Bourse;";
+		if (!BDD.isConnected()) {
+			return null;
+		}
+		
+		if (listeBourse == null) // Si la liste n'a pas été initialisée
+			listeBourse = new ArrayList<>();
+		String sql = "SELECT * FROM Bourse";
 		
 		try {
 			Statement stmt = conn.createStatement();
@@ -29,26 +35,21 @@ public class BourseDAO {
 			
 			while (rs.next()) {
 				Integer id = rs.getInt(1);
-				Integer idResponsable = rs.getInt(2);
+				Integer idRespLocal = rs.getInt(2);
 				String destination = rs.getString(3);
-				Integer nbPoste = rs.getInt(4);
+				Integer nbPostes = rs.getInt(4);
 				
 				
-				List<Enseignant> ens = EnseignantDAO.getEnseignants();
-				Enseignant e = null;
-				for (e : ens)
 				
-				liste.add(new Bourse(id, idResponsable, destination, nbPoste));
+				listeBourse.add(new Bourse(id , respLocal, destination, nbPostes));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return liste;
-		
+		return listeBourse;
 	}
-	*/
 	
 
 	
-}
+}	

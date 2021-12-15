@@ -39,15 +39,31 @@ private static List<Bourse> listeBourse = null;
 				String destination = rs.getString(3);
 				Integer nbPostes = rs.getInt(4);
 				
+				Enseignant respLocal = EnseignantDAO.getEnseignant(idRespLocal);
 				
-				
-				//listeBourse.add(new Bourse(id , respLocal, destination, nbPostes));
+				listeBourse.add(new Bourse(id , respLocal, destination, nbPostes));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		return listeBourse;
+	}
+	
+	
+	public static Bourse getBourse(Integer id) {
+		if (listeBourse == null) getBourses();
+		Bourse ens = null;
+		boolean fin = false;
+		
+		Iterator<Bourse> ite = listeBourse.iterator();
+		while (ite.hasNext() && !fin) {
+			ens = ite.next();
+			if (ens.getId() == id) fin = true;
+		}
+		if (fin == false) ens = null;
+		
+		return ens;
 	}
 	
 

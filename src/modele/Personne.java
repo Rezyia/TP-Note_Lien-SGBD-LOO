@@ -1,16 +1,17 @@
 package modele;
 
-public class Personne {
+public abstract class Personne extends Table {
 
-	protected String nom;
-	protected String prenom;
+	private String nom;
+	private String prenom;
 	
 	
 	/**
 	 * @param nom
 	 * @param prenom
 	 */
-	public Personne(String nom, String prenom) {
+	public Personne(Integer id, String nom, String prenom) {
+		super(id);
 		this.nom = nom;
 		this.prenom = prenom;
 	}

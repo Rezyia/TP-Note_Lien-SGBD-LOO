@@ -13,7 +13,7 @@ public class Etudiant extends Personne {
 	 * @param moyDS
 	 */
 	public Etudiant(Integer numero, String nom, String prenom, Double moyDS) {
-		super(nom, prenom);
+		super(numero, nom, prenom);
 		this.numero = numero;
 		this.moyDS = moyDS;
 	}
@@ -23,8 +23,12 @@ public class Etudiant extends Personne {
 		return numero;
 	}
 
-	private void setNumero(Integer numero) {
+	protected void setNumero(Integer numero) {
 		this.numero = numero;
+	}
+	
+	protected void setId(Integer id) {
+		setNumero(id);
 	}
 
 	public Double getMoyDS() {

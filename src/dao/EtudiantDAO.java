@@ -15,7 +15,9 @@ import modele.Etudiant;
 public class EtudiantDAO {
 	
 	public List<Etudiant> getEtudiants() {
-		Connection conn = BDD.connect();
+		if (!BDD.isConnected()) BDD.connect();
+		Connection conn = BDD.getConnection();
+		
 		if (!BDD.isConnected()) {
 			return null;
 		}

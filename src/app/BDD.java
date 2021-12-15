@@ -14,8 +14,7 @@ public class BDD {
 	
 	
 	public BDD() {
-		connected = connect() != null;
-		if (connected) {
+		if (connect()) {
 			dbDropTables();
 			dbTableInit();
 			//dbTuplesInit();
@@ -29,7 +28,8 @@ public class BDD {
 	 * @return true if connection successful, false otherwise.
 	 * @throws SQLException
 	 */
-	public static Connection connect() {
+	public static boolean connect() {
+		boolean res = true;
 		try {
 			System.out.println("Connecting to database...");
 		
@@ -41,12 +41,12 @@ public class BDD {
 					"jdbc:mysql://localhost:3306/tpnote", properties);
 	
 			System.out.println("Connection successful.");
-			return connection;
-			
 		} catch (SQLException eSQL) {
 			System.out.println("Couldn't connect to database :");
-			return null;
+			res = false;
 		}
+		connected = res;
+		return res;
 	}
 	
 
@@ -164,10 +164,16 @@ public class BDD {
 		
 		
 		String iCandidature = "INSERT INTO Candidature(etudiant, bourse, respLocal, respErasmus) VALUES" 
-				+ "();"; // Fait manuellement lors de l'exécution du programme 
+				+ "(1, 1, 2, 4),"		// id = 1
+				+ "(1, 2, 2, 4);"; 		// id = 2
 		
-		String iPlan = "INSERT INTO  VALUES"
-				+ "();"; // Fait manuellement lors de l'exécution du programme
+		String iPlan = "INSERT INTO Plan VALUES"
+				+ "(1, 1),"			// id = 1
+				+ "(1, 4), "		// id = 2
+				+ "(2, 1), "		// id = 3
+				+ "(2, 2),"			// id = 4
+				+ "(2, 3),"			// id = 5
+				+ "(2, 4);";		// id = 6
 		
 
 		try {
@@ -176,6 +182,8 @@ public class BDD {
 			s.executeUpdate(iEnseignant);
 			s.executeUpdate(iEnseignement);
 			s.executeUpdate(iBourse);
+			s.executeUpdate(iCandidature);
+			s.executeUpdate(iPlan);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

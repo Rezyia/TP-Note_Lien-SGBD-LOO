@@ -157,7 +157,7 @@ public class DataBase {
 				+ "('Informatique', 4, 2000),"									// id = 1
 				+ "('Électronique et génie électrique', 2, 1900),"				// id = 2
 				+ "('Génie de l aménagement et de l environnement', 1, 1800),"	// id = 3
-				+ "('Mécanique et conception des systèmes', 3, 2000);";		// id = 4
+				+ "('Mécanique et conception des systèmes', 3, 2000);";			// id = 4
 		
 		String iBourse = "INSERT INTO Bourse(idResponsable, destination, nbPostes) VALUES"
 				+ "(2, 'Montréal', 29),"	// id = 1

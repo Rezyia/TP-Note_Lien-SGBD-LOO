@@ -4,17 +4,17 @@ import java.util.Properties;
 
 public class BDD {
 
-	public static Connection connection;
+	private static Connection connection;
 	private static Properties properties;
 	
-	public static boolean connected = false;
+	private static boolean connected = false;
 	
 	private static String user = "root";
 	private static String pwd = "root";
 	
 	
 	public BDD() {
-		connected = connect();
+		connected = connect() != null;
 		if (connected) {
 			dbDropTables();
 			dbTableInit();
@@ -29,7 +29,7 @@ public class BDD {
 	 * @return true if connection successful, false otherwise.
 	 * @throws SQLException
 	 */
-	public static boolean connect() {
+	public static Connection connect() {
 		try {
 			System.out.println("Connecting to database...");
 		
@@ -41,12 +41,11 @@ public class BDD {
 					"jdbc:mysql://localhost:3306/tpnote", properties);
 	
 			System.out.println("Connection successful.");
-			return true;
+			return connection;
 			
 		} catch (SQLException eSQL) {
 			System.out.println("Couldn't connect to database :");
-			eSQL.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 	
@@ -171,7 +170,6 @@ public class BDD {
 				+ "();"; // Fait manuellement lors de l'exécution du programme
 		
 
-
 		try {
 			Statement s = connection.createStatement();
 			s.executeUpdate(iEtudiant);
@@ -184,4 +182,46 @@ public class BDD {
 		}
 		
 	}
+
+
+	public static Connection getConnection() {
+		return connection;
+	}
+
+	public static void setConnection(Connection connection) {
+		BDD.connection = connection;
+	}
+
+	public static Properties getProperties() {
+		return properties;
+	}
+
+	public static void setProperties(Properties properties) {
+		BDD.properties = properties;
+	}
+
+	public static boolean isConnected() {
+		return connected;
+	}
+
+	public static void setConnected(boolean connected) {
+		BDD.connected = connected;
+	}
+
+	public static String getUser() {
+		return user;
+	}
+
+	public static void setUser(String user) {
+		BDD.user = user;
+	}
+
+	public static String getPwd() {
+		return pwd;
+	}
+
+	public static void setPwd(String pwd) {
+		BDD.pwd = pwd;
+	}
+	
 }

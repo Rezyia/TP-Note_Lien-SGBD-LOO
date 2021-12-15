@@ -7,13 +7,13 @@ import modele.TableWithId;
 
 public abstract class ToolBox {
 
-	public static Object getObject(List<Object> liste, Integer id) {
+	public static Object getObject(Object liste, Integer id) {
 		TableWithId elem = null;
 		boolean fin = false;
 		
-		Iterator<Object> ite = liste.iterator();
+		Iterator<TableWithId> ite = ((List<TableWithId>) liste).iterator();
 		while (ite.hasNext() && !fin) {
-			elem = (TableWithId) ite.next();
+			elem = ite.next();
 			if (elem.getId() == id) fin = true;
 		}
 		if (fin == false) elem = null;

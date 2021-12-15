@@ -1,9 +1,6 @@
 package app;
 
-import dao.CandidatureDAO;
-import dao.EnseignantDAO;
-import dao.EnseignementDAO;
-import dao.EtudiantDAO;
+import dao.*;
 
 public class Application {
 	
@@ -21,8 +18,9 @@ public class Application {
 		BDD db = new BDD();
 		
 		System.out.println(CandidatureDAO.getCandidatures());
-		
-		System.out.println(EtudiantDAO.getEtudiant(1));
+		System.out.println(PlanDAO.getPlans());
+		System.out.println(System.lineSeparator());
+		System.out.println(EnseignantDAO.getEnseignant(1));
 		System.out.println("Fin du programme.");
 	}
 }

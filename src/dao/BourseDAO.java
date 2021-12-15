@@ -14,7 +14,7 @@ import modele.Enseignant;
 
 public class BourseDAO {
 	
-private static List<Bourse> listeBourse = null;
+	private static List<Bourse> listeBourses = null;
 	
 	
 	public static List<Bourse> getBourses() {
@@ -25,8 +25,8 @@ private static List<Bourse> listeBourse = null;
 			return null;
 		}
 		
-		if (listeBourse == null) // Si la liste n'a pas été initialisée
-			listeBourse = new ArrayList<>();
+		if (listeBourses == null) // Si la liste n'a pas été initialisée
+			listeBourses = new ArrayList<>();
 		String sql = "SELECT * FROM Bourse";
 		
 		try {
@@ -41,31 +41,19 @@ private static List<Bourse> listeBourse = null;
 				
 				Enseignant respLocal = EnseignantDAO.getEnseignant(idRespLocal);
 				
-				listeBourse.add(new Bourse(id , respLocal, destination, nbPostes));
+				listeBourses.add(new Bourse(id , respLocal, destination, nbPostes));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return listeBourse;
+		return listeBourses;
 	}
 	
 	
 	public static Bourse getBourse(Integer id) {
-		if (listeBourse == null) getBourses();
-		Bourse ens = null;
-		boolean fin = false;
-		
-		Iterator<Bourse> ite = listeBourse.iterator();
-		while (ite.hasNext() && !fin) {
-			ens = ite.next();
-			if (ens.getId() == id) fin = true;
-		}
-		if (fin == false) ens = null;
-		
-		return ens;
+		if (listeBourses == null) getBourses();
+		return (Bourse) ToolBox.getObject(listeBourses, id);
 	}
-	
-
 	
 }	

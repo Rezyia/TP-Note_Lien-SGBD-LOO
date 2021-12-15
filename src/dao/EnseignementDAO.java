@@ -9,11 +9,13 @@ import java.util.Iterator;
 import java.util.List;
 
 import app.BDD;
+import modele.Candidature;
 import modele.Enseignement;
 
 public class EnseignementDAO {
 
-	private static List<Enseignement> listeEnseignement = null;
+	private static List<Enseignement> listeEnseignements = null;
+	
 	
 	public static List<Enseignement> getEnseignements() {
 		if (!BDD.isConnected()) BDD.connect();
@@ -23,8 +25,8 @@ public class EnseignementDAO {
 			return null;
 		}
 		
-		if (listeEnseignement == null) // Si la liste n'a pas été initialisée
-			listeEnseignement = new ArrayList<>();
+		if (listeEnseignements == null) // Si la liste n'a pas été initialisée
+			listeEnseignements = new ArrayList<>();
 		
 		String sql = "SELECT * FROM Enseignement";
 		
@@ -38,28 +40,19 @@ public class EnseignementDAO {
 				Integer credits = rs.getInt(3);
 				Integer volumeHeures = rs.getInt(4);
 				
-				listeEnseignement.add(new Enseignement(id, intitule, credits, volumeHeures));
+				listeEnseignements.add(new Enseignement(id, intitule, credits, volumeHeures));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return listeEnseignement;
+		return listeEnseignements;
 	}
 	
+	
 	public static Enseignement getEnseignement(Integer id) {
-		if (listeEnseignement == null) getEnseignements();
-		Enseignement ens = null;
-		boolean fin = false;
-		
-		Iterator<Enseignement> ite = listeEnseignement.iterator();
-		while (ite.hasNext() && !fin) {
-			ens = ite.next();
-			if (ens.getId() == id) fin = true;
-		}
-		if (fin == false) ens = null;
-		
-		return ens;
+		if (listeEnseignements == null) getEnseignements();
+		return (Enseignement) ToolBox.getObject(listeEnseignements, id);
 	}
 	
 }

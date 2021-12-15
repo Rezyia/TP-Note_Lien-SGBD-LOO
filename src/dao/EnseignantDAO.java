@@ -14,7 +14,7 @@ import modele.Enseignant;
 
 public class EnseignantDAO {
 	
-	private static List<Enseignant> listeEnseignant = null;
+	private static List<Enseignant> listeEnseignants = null;
 	
 	
 	public static List<Enseignant> getEnseignants() {
@@ -25,8 +25,8 @@ public class EnseignantDAO {
 			return null;
 		}
 		
-		if (listeEnseignant == null) // Si la liste n'a pas été initialisée
-			listeEnseignant = new ArrayList<>();
+		if (listeEnseignants == null) // Si la liste n'a pas été initialisée
+			listeEnseignants = new ArrayList<>();
 		String sql = "SELECT * FROM Enseignant";
 		
 		try {
@@ -38,28 +38,19 @@ public class EnseignantDAO {
 				String nom = rs.getString(2);
 				String prenom = rs.getString(3);
 				
-				listeEnseignant.add(new Enseignant(numero, nom, prenom));
+				listeEnseignants.add(new Enseignant(numero, nom, prenom));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return listeEnseignant;
+		return listeEnseignants;
 	}
 	
+	
 	public static Enseignant getEnseignant(Integer id) {
-		if (listeEnseignant == null) getEnseignants();
-		Enseignant ens = null;
-		boolean fin = false;
-		
-		Iterator<Enseignant> ite = listeEnseignant.iterator();
-		while (ite.hasNext() && !fin) {
-			ens = ite.next();
-			if (ens.getId() == id) fin = true;
-		}
-		if (fin == false) ens = null;
-		
-		return ens;
+		if (listeEnseignants == null) getEnseignants();
+		return (Enseignant) ToolBox.getObject(listeEnseignants, id);
 	}
 	
 }

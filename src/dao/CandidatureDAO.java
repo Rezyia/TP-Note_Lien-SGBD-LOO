@@ -16,7 +16,7 @@ import modele.Etudiant;
 
 public class CandidatureDAO {
 
-	private static List<Candidature> listeCandidature = null;
+	private static List<Candidature> listeCandidatures = null;
 	
 	
 	public static List<Candidature> getCandidatures() {
@@ -27,8 +27,8 @@ public class CandidatureDAO {
 			return null;
 		}
 		
-		if (listeCandidature == null) // Si la liste n'a pas été initialisée
-			listeCandidature = new ArrayList<>();
+		if (listeCandidatures == null) // Si la liste n'a pas été initialisée
+			listeCandidatures = new ArrayList<>();
 		String sql = "SELECT * FROM Candidature";
 		
 		try {
@@ -44,29 +44,20 @@ public class CandidatureDAO {
 				Double noteLocale = rs.getDouble(6);
 				Double noteErasmus = rs.getDouble(7);
 				
-				listeCandidature.add(new Candidature(id, etudiant, bourse, respLocal,
+				listeCandidatures.add(new Candidature(id, etudiant, bourse, respLocal,
 						respErasmus, noteLocale, noteErasmus));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return listeCandidature;
+		return listeCandidatures;
 	}
 	
+	
 	public static Candidature getCandidature(Integer id) {
-		if (listeCandidature == null) getCandidatures();
-		Candidature can = null;
-		boolean fin = false;
-		
-		Iterator<Candidature> ite = listeCandidature.iterator();
-		while (ite.hasNext() && !fin) {
-			can = ite.next();
-			if (can.getId() == id) fin = true;
-		}
-		if (fin == false) can = null;
-		
-		return can;
+		if (listeCandidatures == null) getCandidatures();
+		return (Candidature) ToolBox.getObject(listeCandidatures, id);
 	}
 	
 }

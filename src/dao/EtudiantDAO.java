@@ -15,7 +15,7 @@ import modele.Etudiant;
 
 public class EtudiantDAO {
 	
-	private static List<Etudiant> listeEtudiant = null;
+	private static List<Etudiant> listeEtudiants = null;
 	
 	
 	public static List<Etudiant> getEtudiants() {
@@ -26,8 +26,8 @@ public class EtudiantDAO {
 			return null;
 		}
 		
-		if (listeEtudiant == null) // Si la liste n'a pas été initialisée
-			listeEtudiant = new ArrayList<>();
+		if (listeEtudiants == null) // Si la liste n'a pas été initialisée
+			listeEtudiants = new ArrayList<>();
 		String sql = "SELECT * FROM Etudiant";
 		
 		try {
@@ -40,21 +40,22 @@ public class EtudiantDAO {
 				String prenom = rs.getString(3);
 				Double moyDS = rs.getDouble(4);
 				
-				listeEtudiant.add(new Etudiant(numero, nom, prenom, moyDS));
+				listeEtudiants.add(new Etudiant(numero, nom, prenom, moyDS));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return listeEtudiant;
+		return listeEtudiants;
 	}
 	
+	
 	public static Etudiant getEtudiant(Integer numero) {
-		if (listeEtudiant == null) getEtudiants();
+		if (listeEtudiants == null) getEtudiants();
 		Etudiant etu = null;
 		boolean fin = false;
 		
-		Iterator<Etudiant> ite = listeEtudiant.iterator();
+		Iterator<Etudiant> ite = listeEtudiants.iterator();
 		while (ite.hasNext() && !fin) {
 			etu = ite.next();
 			if (etu.getNumero() == numero) fin = true;

@@ -14,7 +14,7 @@ import modele.Etudiant;
 public class BourseDAO {
 	
 	/*
-	public List<Bourse> getBourses() {
+	public static <Bourse> getBourses() {
 		if (!BDD.isConnected()) BDD.connect();
 		if (!BDD.isConnected()) return null;
 		

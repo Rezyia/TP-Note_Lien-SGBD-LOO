@@ -6,14 +6,13 @@ public class Enseignement extends TableWithId {
 	private Integer credits;
 	private Integer volumeH;
 
-
 	/**
 	 * @param id
 	 * @param nom
 	 * @param credits
 	 * @param volumeH
 	 */
-	public Enseignement(Integer id, String nom, Integer credits, Integer volumeH) {
+	public Enseignement(Integer id, String intitule, Integer credits, Integer volumeH) {
 		super(id);
 		this.nom = nom;
 		this.credits = credits;

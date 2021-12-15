@@ -1,6 +1,6 @@
 package modele;
 
-public abstract class Table {
+public abstract class TableWithId {
 	
 	private Integer id;
 	
@@ -8,7 +8,7 @@ public abstract class Table {
 	/**
 	 * @param id
 	 */
-	public Table(Integer id) {
+	public TableWithId(Integer id) {
 		this.id = id;
 	}
 

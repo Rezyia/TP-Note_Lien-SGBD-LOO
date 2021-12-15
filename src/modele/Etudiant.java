@@ -24,6 +24,7 @@ public class Etudiant extends Personne {
 	}
 
 	protected void setNumero(Integer numero) {
+		super.setId(numero);
 		this.numero = numero;
 	}
 	
@@ -37,6 +38,12 @@ public class Etudiant extends Personne {
 
 	public void setMoyDS(Double moyDS) {
 		this.moyDS = moyDS;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Etudiant [numero=" + numero + ", nom=" + getNom() + ", prenom=" + getPrenom() + ", moyDS=" + moyDS + "]";
 	}
 	
 }

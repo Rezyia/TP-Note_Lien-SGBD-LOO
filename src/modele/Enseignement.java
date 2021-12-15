@@ -1,6 +1,6 @@
 package modele;
 
-public class Enseignement extends Table {
+public class Enseignement extends TableWithId {
 
 	private String nom;
 	private Integer credits;
@@ -43,6 +43,12 @@ public class Enseignement extends Table {
 
 	public void setVolumeH(Integer volumeH) {
 		this.volumeH = volumeH;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Enseignement [id=" + getId() + ", nom=" + nom + ", credits=" + credits + ", volumeH=" + volumeH + "]";
 	}
 	
 }

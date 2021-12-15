@@ -1,18 +1,16 @@
 package modele;
 
-public class Plan extends Table {
+public class Plan {
 
 	private Candidature candidature;
 	private Enseignement enseignement;
 	
 	
 	/**
-	 * @param id
 	 * @param candidature
 	 * @param enseignement
 	 */
-	public Plan(Integer id, Candidature candidature, Enseignement enseignement) {
-		super(id);
+	public Plan(Candidature candidature, Enseignement enseignement) {
 		this.candidature = candidature;
 		this.enseignement = enseignement;
 	}
@@ -32,6 +30,12 @@ public class Plan extends Table {
 	
 	public void setEnseignement(Enseignement enseignement) {
 		this.enseignement = enseignement;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Plan [candidature=" + candidature + ", enseignement=" + enseignement + "]";
 	}
 		
 }

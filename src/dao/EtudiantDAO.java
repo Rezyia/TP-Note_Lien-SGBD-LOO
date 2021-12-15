@@ -14,7 +14,10 @@ import modele.Etudiant;
 
 public class EtudiantDAO {
 	
-	public List<Etudiant> getEtudiants() {
+	private static List<Etudiant> listeEtudiant = null;
+	
+	
+	public static List<Etudiant> getEtudiants() {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
 		
@@ -22,7 +25,8 @@ public class EtudiantDAO {
 			return null;
 		}
 		
-		List<Etudiant> liste = new ArrayList<>();
+		if (listeEtudiant == null) // Si la liste n'a pas été initialisée
+			listeEtudiant = new ArrayList<>();
 		String sql = "SELECT * FROM Etudiant";
 		
 		try {
@@ -35,13 +39,13 @@ public class EtudiantDAO {
 				String prenom = rs.getString(3);
 				Double moyDS = rs.getDouble(4);
 				
-				liste.add(new Etudiant(numero, nom, prenom, moyDS));
+				listeEtudiant.add(new Etudiant(numero, nom, prenom, moyDS));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return liste;
+		return listeEtudiant;
 	}
 	
 }

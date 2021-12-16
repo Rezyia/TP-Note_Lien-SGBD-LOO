@@ -28,7 +28,7 @@ public class Evaluation {
 	}
 	
 	
-	public static boolean changeNote(Candidature c, Enseignant resp, BigDecimal note) {
+	public static boolean changeNote(Candidature c, Enseignant resp, Double note) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
 		try {
@@ -50,7 +50,7 @@ public class Evaluation {
 			
 			PreparedStatement pstmt = conn.prepareStatement(str);
 			System.out.println(str);
-			pstmt.setBigDecimal(1, note);
+			pstmt.setBigDecimal(1, BigDecimal.valueOf(note));
 			pstmt.setInt(2, c.getId());
 			pstmt.execute();
 			

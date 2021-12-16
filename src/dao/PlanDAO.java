@@ -1,21 +1,33 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import app.BDD;
+import modele.Plan;
 import modele.Candidature;
 import modele.Enseignement;
-import modele.Plan;
 
 public class PlanDAO {
+	
+	private static void addPlan(ResultSet rs, List<Plan> liste) throws SQLException {
+		Candidature candidature = CandidatureDAO.getCandidatureById(rs.getInt(1));
+		Enseignement enseignement = EnseignementDAO.getEnseignementById(rs.getInt(2));
 
-	private static List<Plan> listePlans = null;
+		liste.add(new Plan(candidature, enseignement));
+	}
+	
+	private static Plan askPlan(ResultSet rs) throws SQLException {
+		Candidature candidature = CandidatureDAO.getCandidatureById(rs.getInt(1));
+		Enseignement enseignement = EnseignementDAO.getEnseignementById(rs.getInt(2));
+
+		return new Plan(candidature, enseignement);
+	}
 	
 	
 	public static List<Plan> getPlans() {
@@ -26,43 +38,49 @@ public class PlanDAO {
 			return null;
 		}
 		
-		if (listePlans == null) // Si la liste n'a pas été initialisée
-			listePlans = new ArrayList<>();
-		String sql = "SELECT * FROM Plan";
+		List<Plan> listePlans = new ArrayList<>();
+		String sql = "SELECT * FROM Plan;";
 		
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
-				Candidature candidature = CandidatureDAO.getCandidature(rs.getInt(1));
-				Enseignement enseignement = EnseignementDAO.getEnseignement(rs.getInt(2));
-				
-				listePlans.add(new Plan(candidature, enseignement));
+				addPlan(rs, listePlans);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		
 		return listePlans;
 	}
 	
 	
-	public static Plan getEnseignement(Integer idCandidature, Integer idEnseignement) {
-		if (listePlans == null) getPlans();
-		Plan pl = null;
-		boolean fin = false;
+	public static Plan getPlanById(Integer idCandidature, Integer idEnseignement) {
+		if (!BDD.isConnected()) BDD.connect();
+		Connection conn = BDD.getConnection();
 		
-		Iterator<Plan> ite = listePlans.iterator();
-		while (ite.hasNext() && !fin) {
-			pl = ite.next();
-			if (pl.getCandidature().getId() == idCandidature && pl.getEnseignement().getId() == idEnseignement) {
-				fin = true;
-			}
+		if (!BDD.isConnected()) {
+			return null;
 		}
-		if (fin == false) pl = null;
 		
-		return pl;
+		Plan pla = null;
+		String sql = "SELECT * FROM Plan WHERE idCandidature=? and idEnseignement=?;";
+		
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, idCandidature);
+			ps.setInt(2, idEnseignement);
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				pla = askPlan(rs);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return pla;
 	}
 	
 }

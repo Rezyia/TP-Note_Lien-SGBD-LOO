@@ -12,85 +12,67 @@ import dao.EnseignantDAO;
 import modele.Candidature;
 import modele.Enseignant;
 
-public class Evaluation {
-
-	public static String evalue(Integer idResponsable, Integer idCandidature) {
-		String message = "Erreur blablabla";
-		
-		//chercher responsable selon id
-		Enseignant resp = EnseignantDAO.getEnseignantById(idResponsable);
-		
-		//confirmer nom prenom
-		if (resp.getNom().equals("")) ; // confirmation nom / prénom 
-		
-		//chercher candidature selon id
-		Candidature candidature = CandidatureDAO.getCandidatureById(idCandidature);
-		
-		// Scanner
-		Double note = 0.0, score = 0.0; // Valeur à mettre dans changeNote & score à afficher ensuite
-		
-		//appeler changeNote
-		changeNote(candidature, resp, note);
-		
-		
-		//appeler calculerScore si pertinent
-		if (true) score = calculerScore(candidature); // <- qu'est-ce qui est pertinent ?
-		
-		//adapter le message
-		message = "Le score de cette candidature est de " + score + "/20";
-		
-		//retourner le message à la vue
-		return message;
-	}
+public abstract class Evaluation {
 	
-	
-	public static boolean changeNote(Candidature c, Enseignant resp, Double note) {
+	public static boolean changeNote(Integer idCandidature, Integer idResponsable, Double note) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
+		
 		try {
 			conn.setAutoCommit(false);
+			Candidature c = CandidatureDAO.getCandidatureById(idCandidature);
+			Enseignant resp = EnseignantDAO.getEnseignantById(idResponsable);
 			String str = "";
-			
-			if (c.getRespErasmus().equals(resp)) // Si responsable Erasmus
+
+			if (c.getRespErasmus().getId() == resp.getId()) { // Si responsable Erasmus
 				str = "UPDATE Candidature" 
-						+ " SET noteErasmus = ?"
-						+ " WHERE id = ?;";
-			else if (c.getRespLocal().equals(resp)) // Si responsable Erasmus
+						+ " SET noteErasmus=?"
+						+ " WHERE id=?;";
+			}
+			else if (c.getRespLocal().getId() == resp.getId()) { // Si responsable Local
 				str = "UPDATE Candidature" 
-						+ " SET noteLocal = ?"
-						+ " WHERE id = ?;";
+						+ " SET noteLocal=?"
+						+ " WHERE id=?;";
+			}
 			else {
 				conn.rollback();
 				return false;
 			}
 			
 			PreparedStatement pstmt = conn.prepareStatement(str);
-			System.out.println(str);
 			pstmt.setBigDecimal(1, BigDecimal.valueOf(note));
 			pstmt.setInt(2, c.getId());
-			pstmt.execute();
+			pstmt.executeUpdate();
 			
 			conn.commit();
 			conn.setAutoCommit(true);
+			return true;
+		} catch (NullPointerException e) {
+			System.out.println("Candidature ou enseignant non trouvé.");
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return true;
+		return false;
 	}
 	
 	
-	public static Double calculerScore(Candidature c) {
-		Double score = 0.0;
+	public static Double calculerScore(Integer idCandidature) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
 		
+		Candidature c = CandidatureDAO.getCandidatureById(idCandidature);
 		String req = "SELECT moyDernierSemestre, noteLocal, noteErasmus "
 				+ "FROM Candidature NATURAL JOIN Etudiant "
 				+ "WHERE id = ?;";
-		PreparedStatement pstmt;
+		Double score = 0.0;
 		
 		try {
-			pstmt = conn.prepareStatement(req);
+			PreparedStatement pstmt = conn.prepareStatement(req);
 			pstmt.setInt(1, c.getId());
 
 			ResultSet res = pstmt.executeQuery();

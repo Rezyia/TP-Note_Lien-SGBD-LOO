@@ -32,7 +32,7 @@ public class BDD {
 	 * @throws SQLException
 	 */
 	public static boolean connect() {
-		boolean res = true;
+		boolean res = false;
 		try {
 			System.out.println("Connecting to database...");
 		
@@ -44,12 +44,11 @@ public class BDD {
 					"jdbc:mysql://localhost:3306/tpnote", properties);
 	
 			System.out.println("Connection successful.");
+			res = true;
 		} catch (SQLException eSQL) {
 			System.out.println("Couldn't connect to database :");
-			res = false;
 		}
-		connected = res;
-		return res;
+		return connected = res;
 	}
 	
 

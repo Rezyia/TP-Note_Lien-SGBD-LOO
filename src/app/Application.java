@@ -1,9 +1,8 @@
 package app;
 
-import java.math.BigDecimal;
-
 import dao.*;
 import metier.*;
+import vue.*;
 
 public class Application {
 	
@@ -21,17 +20,18 @@ public class Application {
 		BDD db = new BDD();
 		
 		// Appel vue principale ...
+		MenuAcceuil acceuil = new MenuAcceuil();
 		
-		System.out.println(CandidatureDAO.getCandidatureById(1));
+		/*System.out.println(CandidatureDAO.getCandidatureById(1));
 		System.out.println(EnseignantDAO.getEnseignantById(1));
 		System.out.println(EtudiantDAO.getEtudiants());
 		System.out.println(PlanDAO.getPlans());
 		
 		
-		Evaluation.changeNote(CandidatureDAO.getCandidatureById(1), EnseignantDAO.getEnseignantById(2), 10.25);
-		Evaluation.changeNote(CandidatureDAO.getCandidatureById(2), EnseignantDAO.getEnseignantById(4), 16.33);
-		Double score = Evaluation.calculerScore(CandidatureDAO.getCandidatureById(1));
-		System.out.println("Score = " + score);
+		Evaluation.changeNote(1, 2, 10.25);
+		Evaluation.changeNote(2, 4, 16.33);
+		Double score = Evaluation.calculerScore(1);
+		System.out.println("Score = " + score);*/
 		System.out.println("Fin du programme.");
 	}
 }

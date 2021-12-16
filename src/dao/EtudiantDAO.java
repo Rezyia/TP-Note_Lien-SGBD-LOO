@@ -57,8 +57,12 @@ public class EtudiantDAO {
 		return listeEtudiants;
 	}
 	
+
+	public static Etudiant getEtudiantById(Integer id) {
+		return getEtudiantByNumero(id);
+	}
 	
-	public static Etudiant getEtudiantById(Integer numero) {
+	public static Etudiant getEtudiantByNumero(Integer numero) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
 		

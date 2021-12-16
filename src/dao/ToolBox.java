@@ -3,6 +3,7 @@ package dao;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
@@ -66,11 +67,44 @@ public abstract class ToolBox {
 	}
 	
 	
-	public static void calculerScore() {
+	public static Double calculerScore(Candidature c) {
+		Double score = 0.0;
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
 		
+		String req = "SELECT moyDernierSemestre, noteLocal, noteErasmus "
+				+ "FROM Candidature NATURAL JOIN Etudiant "
+				+ "WHERE id = ?;";
+		PreparedStatement pstmt;
 		
+		try {
+			pstmt = conn.prepareStatement(req);
+			pstmt.setInt(1, c.getId());
+
+			ResultSet res = pstmt.executeQuery();
+			res.next();
+			
+			Double noteDS = 0.0;
+			Double noteRespLocal = 0.0;
+			Double noteRespErasmus = 0.0;
+			
+			BigDecimal nDS = res.getBigDecimal(1);
+			BigDecimal nRL = res.getBigDecimal(2);
+			BigDecimal nRE = res.getBigDecimal(3);
+			
+			if (nDS != null) noteDS = nDS.doubleValue();
+			if (nRL != null) noteRespLocal = nRL.doubleValue();
+			if (nRE != null) noteRespErasmus = nRE.doubleValue();
+
+			// Si Toutes les valeurs sont non nulles : 
+			if (noteDS * noteRespLocal * noteRespErasmus != 0)
+				score = (noteDS + noteRespLocal + noteRespErasmus) / 3;
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return score;
 	}
 	
 }

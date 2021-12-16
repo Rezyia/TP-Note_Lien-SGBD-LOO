@@ -27,7 +27,8 @@ public class Application {
 		
 		ToolBox.changeNote(CandidatureDAO.getCandidature(1), EnseignantDAO.getEnseignant(2), BigDecimal.valueOf(10.25));
 		ToolBox.changeNote(CandidatureDAO.getCandidature(2), EnseignantDAO.getEnseignant(4), BigDecimal.valueOf(16.33));
-		
+		Double score = ToolBox.calculerScore(CandidatureDAO.getCandidature(1));
+		System.out.println("Score = " + score);
 		System.out.println("Fin du programme.");
 	}
 }

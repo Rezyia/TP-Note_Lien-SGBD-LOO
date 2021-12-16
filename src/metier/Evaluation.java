@@ -7,23 +7,36 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import app.BDD;
+import dao.CandidatureDAO;
 import dao.EnseignantDAO;
 import modele.Candidature;
 import modele.Enseignant;
 
 public class Evaluation {
 
-	public static String evalue(String idResponsable, String idCandidature) {
+	public static String evalue(Integer idResponsable, Integer idCandidature) {
 		String message = "Erreur blablabla";
 		
 		//chercher responsable selon id
+		Enseignant resp = EnseignantDAO.getEnseignantById(idResponsable);
 		//confirmer nom prenom
-		//chercher candidature selon id
-		//appeler changeNote
-		//appeler calculerScore si pertinent
-		//adapter le message
-		//retourner le message à la vue
+		if (resp.getNom().equals("")) ; // confirmation nom / prénom 
 		
+		//chercher candidature selon id
+		Candidature candidature = CandidatureDAO.getCandidatureById(idCandidature);
+		
+		Double note = 0.0, score = 0.0; // Valeur à mettre dans changeNote & score à afficher ensuite
+		
+		//appeler changeNote
+		changeNote(candidature, resp, note);
+		
+		//appeler calculerScore si pertinent
+		if (true) score = calculerScore(candidature); // <- qu'est-ce qui est pertinent ?
+		
+		//adapter le message
+		message = "Le score de cette candidature est de " + score + "/20";
+		
+		//retourner le message à la vue
 		return message;
 	}
 	

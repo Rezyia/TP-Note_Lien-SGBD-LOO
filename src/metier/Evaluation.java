@@ -19,16 +19,19 @@ public class Evaluation {
 		
 		//chercher responsable selon id
 		Enseignant resp = EnseignantDAO.getEnseignantById(idResponsable);
+		
 		//confirmer nom prenom
 		if (resp.getNom().equals("")) ; // confirmation nom / prénom 
 		
 		//chercher candidature selon id
 		Candidature candidature = CandidatureDAO.getCandidatureById(idCandidature);
 		
+		// Scanner
 		Double note = 0.0, score = 0.0; // Valeur à mettre dans changeNote & score à afficher ensuite
 		
 		//appeler changeNote
 		changeNote(candidature, resp, note);
+		
 		
 		//appeler calculerScore si pertinent
 		if (true) score = calculerScore(candidature); // <- qu'est-ce qui est pertinent ?

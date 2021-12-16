@@ -20,6 +20,8 @@ public class Application {
 		// Drop les tables si elles existent déjà puis les recrée et insert des exemples dans la BDD
 		BDD db = new BDD();
 		
+		// Appel vue principale ...
+		
 		System.out.println(CandidatureDAO.getCandidatureById(1));
 		System.out.println(EnseignantDAO.getEnseignantById(1));
 		System.out.println(EtudiantDAO.getEtudiants());

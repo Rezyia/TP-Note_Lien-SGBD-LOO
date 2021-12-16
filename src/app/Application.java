@@ -1,5 +1,7 @@
 package app;
 
+import java.math.BigDecimal;
+
 import dao.*;
 
 public class Application {
@@ -18,9 +20,14 @@ public class Application {
 		BDD db = new BDD();
 		
 		System.out.println(CandidatureDAO.getCandidatures());
-		System.out.println(PlanDAO.getPlans());
-		System.out.println(System.lineSeparator());
-		System.out.println(EnseignantDAO.getEnseignant(1));
+		System.out.println(EtudiantDAO.getEtudiants());
+		//System.out.println(PlanDAO.getPlans());
+		//System.out.println(System.lineSeparator());
+		//System.out.println(EnseignantDAO.getEnseignant(1));
+		
+		ToolBox.changeNote(CandidatureDAO.getCandidature(1), EnseignantDAO.getEnseignant(2), BigDecimal.valueOf(10.25));
+		ToolBox.changeNote(CandidatureDAO.getCandidature(2), EnseignantDAO.getEnseignant(4), BigDecimal.valueOf(16.33));
+		
 		System.out.println("Fin du programme.");
 	}
 }

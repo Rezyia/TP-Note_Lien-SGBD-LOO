@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class MenuAccueil {
 	
-	private MenuEnseignant menuEns;
+	private MenuEtudiant menuEns;
 	private Scanner scan;
 
 	public MenuAccueil() {
@@ -23,7 +23,7 @@ public class MenuAccueil {
 					//
 					break;
 				case 2:
-					setMenuEns(new MenuEnseignant(this, askEnseignant()));
+					setMenuEns(new MenuEtudiant(this, askEnseignant()));
 					break;
 				case 3:
 					running = false;
@@ -51,11 +51,11 @@ public class MenuAccueil {
 	}
 
 	
-	public MenuEnseignant getMenuEns() {
+	public MenuEtudiant getMenuEns() {
 		return menuEns;
 	}
 
-	public void setMenuEns(MenuEnseignant menuEns) {
+	public void setMenuEns(MenuEtudiant menuEns) {
 		this.menuEns = menuEns;
 	}
 

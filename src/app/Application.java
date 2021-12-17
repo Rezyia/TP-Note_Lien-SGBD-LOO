@@ -11,7 +11,7 @@ public class Application {
 		BDD db = new BDD();
 		
 		// Appel vue principale ...
-		MenuAccueil acceuil = new MenuAccueil();
+		MenuAccueil accueil = new MenuAccueil();
 		
 		/*System.out.println(CandidatureDAO.getCandidatureById(1));
 		System.out.println(EnseignantDAO.getEnseignantById(1));

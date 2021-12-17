@@ -78,22 +78,16 @@ public abstract class Evaluation {
 			ResultSet res = pstmt.executeQuery();
 			res.next();
 			
-			Double noteDS = 0.0;
-			Double noteRespLocal = 0.0;
-			Double noteRespErasmus = 0.0;
-			
 			BigDecimal nDS = res.getBigDecimal(1);
 			BigDecimal nRL = res.getBigDecimal(2);
 			BigDecimal nRE = res.getBigDecimal(3);
 			
-			if (nDS != null) noteDS = nDS.doubleValue();
-			if (nRL != null) noteRespLocal = nRL.doubleValue();
-			if (nRE != null) noteRespErasmus = nRE.doubleValue();
-
-			// Si Toutes les valeurs sont non nulles : 
-			if (noteDS * noteRespLocal * noteRespErasmus != 0)
+			if (nDS != null && nRL != null && nRE != null) {
+				Double noteDS = nDS.doubleValue();
+				Double noteRespLocal = nRL.doubleValue();
+				Double noteRespErasmus = nRE.doubleValue();
 				score = (noteDS + noteRespLocal + noteRespErasmus) / 3;
-			
+			}			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

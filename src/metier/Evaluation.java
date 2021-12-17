@@ -24,12 +24,14 @@ public abstract class Evaluation {
 			Enseignant resp = EnseignantDAO.getEnseignantById(idResponsable);
 			String str = "";
 
-			if (c.getRespErasmus().getId() == resp.getId()) { // Si responsable Erasmus
+			Enseignant era = c.getRespErasmus();
+			Enseignant local = c.getRespLocal();
+			if (era != null && era.getId() == resp.getId()) { // Si responsable Erasmus
 				str = "UPDATE Candidature" 
 						+ " SET noteErasmus=?"
 						+ " WHERE id=?;";
 			}
-			else if (c.getRespLocal().getId() == resp.getId()) { // Si responsable Local
+			else if (local != null && local.getId() == resp.getId()) { // Si responsable Local
 				str = "UPDATE Candidature" 
 						+ " SET noteLocal=?"
 						+ " WHERE id=?;";
@@ -48,7 +50,7 @@ public abstract class Evaluation {
 			conn.setAutoCommit(true);
 			return true;
 		} catch (NullPointerException e) {
-			System.out.println("Candidature ou enseignant non trouvé.");
+			System.out.println("Candidature ou enseignant non trouvé : " + e.getMessage());
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {

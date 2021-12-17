@@ -122,9 +122,9 @@ public class MenuEnseignant {
 		String champ = scan.nextLine();
 		
 		boolean executionOK = true;
-		if ("local".contains(champ.toLowerCase()))
+		if ("local".startsWith(champ.toLowerCase()))
 			executionOK = Enregistrement.updateCandidature(idCandidature, idResponsable, Champs.RESPONSABLE_LOCAL);
-		else if ("erasmus".contains(champ.toLowerCase()))
+		else if ("erasmus".startsWith(champ.toLowerCase()))
 			executionOK = Enregistrement.updateCandidature(idCandidature, idResponsable, Champs.RESPONSABLE_LOCAL);
 		else {
 			System.out.println("Erreur d'input, opération annulée.");

@@ -8,6 +8,8 @@ public class Application {
 		System.out.println("Début du programme...");
 		
 		// Drop les tables si elles existent déjà puis les recrée et insert des exemples dans la BDD
+		// Commenter ou décommenter les fonctions dans le constructeur de la classe BDD
+		//  pour garder les données entre 2 exécutions de cette application.
 		BDD db = new BDD();
 		
 		// Appel vue principale ...

@@ -79,10 +79,12 @@ public class MenuEnseignant {
 			System.out.println(ite.next());
 		}
 		
-		System.out.print("ID candidature : ");
+		System.out.println("ID candidature : ");
+		System.out.print("> ");
 		idCandidature = Integer.valueOf(scan.nextLine());
 	
-		System.out.print("Entrez la note (/20) : ");
+		System.out.println("Entrez la note (/20) :");
+		System.out.print("> ");
 		note = Double.valueOf(scan.nextLine());
 		
 		//appeler changeNote
@@ -115,10 +117,12 @@ public class MenuEnseignant {
 			System.out.println(ite.next());
 		}
 		
-		System.out.print("ID candidature : ");
+		System.out.println("ID candidature :");
+		System.out.print("> ");
 		idCandidature = Integer.valueOf(scan.nextLine());
 		
-		System.out.print("Champ (local ou erasmus) : ");
+		System.out.println("Champ (local ou erasmus) :");
+		System.out.print("> ");
 		String champ = scan.nextLine();
 		
 		boolean executionOK = true;

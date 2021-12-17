@@ -95,4 +95,31 @@ public class CandidatureDAO {
 		return can;
 	}
 	
+	public static List<Candidature> getCandidaturesByResponsable(Integer idResp) {
+		if (!BDD.isConnected()) BDD.connect();
+		Connection conn = BDD.getConnection();
+		
+		if (!BDD.isConnected()) {
+			return null;
+		}
+		
+		List<Candidature> listeCandidatures = new ArrayList<>();
+		String sql = "SELECT * FROM Candidature WHERE respLocal=? OR respErasmus=?;";
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idResp);
+			pstmt.setInt(2, idResp);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				addCandidature(rs, listeCandidatures);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return listeCandidatures;
+	}
+	
 }

@@ -1,17 +1,8 @@
 package app;
 
-import dao.*;
-import metier.*;
 import vue.*;
 
 public class Application {
-	
-	
-	public static void refreshLocal() {
-		EtudiantDAO.getEtudiants();
-		EnseignantDAO.getEnseignants();
-		EnseignementDAO.getEnseignements();
-	}
 	
 	public static void main(String [] args) {
 		System.out.println("Début du programme...");
@@ -20,7 +11,7 @@ public class Application {
 		BDD db = new BDD();
 		
 		// Appel vue principale ...
-		MenuAcceuil acceuil = new MenuAcceuil();
+		MenuAccueil acceuil = new MenuAccueil();
 		
 		/*System.out.println(CandidatureDAO.getCandidatureById(1));
 		System.out.println(EnseignantDAO.getEnseignantById(1));

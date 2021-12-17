@@ -2,12 +2,12 @@ package vue;
 
 import java.util.Scanner;
 
-public class MenuAcceuil {
+public class MenuAccueil {
 	
 	private MenuEnseignant menuEns;
 	private Scanner scan;
 
-	public MenuAcceuil() {
+	public MenuAccueil() {
 		this.menuEns = null;
 		this.scan = new Scanner(System.in);
 		moteur();
@@ -15,7 +15,8 @@ public class MenuAcceuil {
 	
 	
 	public void moteur() {
-		while (true) {
+		boolean running = true;
+		while (running) {
 			try {
 				switch (askUtilisateur()) {
 				case 1:
@@ -23,6 +24,9 @@ public class MenuAcceuil {
 					break;
 				case 2:
 					setMenuEns(new MenuEnseignant(this, askEnseignant()));
+					break;
+				case 3:
+					running = false;
 					break;
 				default:
 					//
@@ -36,7 +40,8 @@ public class MenuAcceuil {
 	public Integer askUtilisateur() {
 		System.out.println("Quel type d'utilisateur êtes-vous ?" + System.lineSeparator()
 		+ "1: etudiant" + System.lineSeparator()
-		+ "2: enseignant");
+		+ "2: enseignant" + System.lineSeparator()
+		+ "3: quitter");
 		return Integer.valueOf(getScan().nextLine());
 	}
 	

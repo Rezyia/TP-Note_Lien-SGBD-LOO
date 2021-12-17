@@ -1,16 +1,19 @@
 package vue;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 import dao.CandidatureDAO;
 import metier.Authentification;
 import metier.Evaluation;
+import modele.Candidature;
 
 public class MenuEnseignant {
 	
-	private MenuAcceuil menuAcc;
+	private MenuAccueil menuAcc;
 	
-	public MenuEnseignant(MenuAcceuil menuAcc, Integer idEnseignant) {
+	public MenuEnseignant(MenuAccueil menuAcc, Integer idEnseignant) {
 		this.menuAcc = menuAcc;
 		
 		if (!Authentification.controlerEnseignant(menuAcc.getScan(), idEnseignant)) {
@@ -47,29 +50,38 @@ public class MenuEnseignant {
 	public static void evaluer(Scanner scan, Integer idResponsable) throws NumberFormatException {
 		//chercher candidature selon id
 		Integer idCandidature = null; Double note = null;
-		System.out.print("Quelle candidature souhaitez-vous evaluer ? ");
-			idCandidature = Integer.valueOf(scan.nextLine());
+		System.out.println("Quelle candidature souhaitez-vous evaluer ? ");
 		
-			System.out.print("Entrez la note (/20) : ");
-			note = Double.valueOf(scan.nextLine());
-			
-			//appeler changeNote
-			if (!Evaluation.changeNote(idCandidature, idResponsable, note)) {
-				System.out.println("La note n'a pas pu être modifiée..."
-						+ "Vérifiez que vous cette candidature est bien enregistrée parmi les vôtres.");
-			}
-			
-			//appeler calculerScore
-			Double score = Evaluation.calculerScore(idCandidature);
-			System.out.println("Score : " + score + System.lineSeparator());
+		// Affichage des candidatures évaluables :
+		List<Candidature> candidatures = CandidatureDAO.getCandidaturesByResponsable(idResponsable);
+		Iterator<Candidature> ite = candidatures.iterator();
+		while (ite.hasNext()) {
+			System.out.println(ite.next());
+		}
+		
+		System.out.print("ID candidature : ");
+		idCandidature = Integer.valueOf(scan.nextLine());
+	
+		System.out.print("Entrez la note (/20) : ");
+		note = Double.valueOf(scan.nextLine());
+		
+		//appeler changeNote
+		if (!Evaluation.changeNote(idCandidature, idResponsable, note)) {
+			System.out.println("La note n'a pas pu être modifiée..."
+					+ "Vérifiez que vous cette candidature est bien enregistrée parmi les vôtres.");
+		}
+		
+		//appeler calculerScore
+		Double score = Evaluation.calculerScore(idCandidature);
+		System.out.println("Score : " + score + System.lineSeparator());
 	}
 
 
-	public MenuAcceuil getMenuAcc() {
+	public MenuAccueil getMenuAcc() {
 		return menuAcc;
 	}
 
-	public void setMenuAcc(MenuAcceuil menuAcc) {
+	public void setMenuAcc(MenuAccueil menuAcc) {
 		this.menuAcc = menuAcc;
 	}
 	

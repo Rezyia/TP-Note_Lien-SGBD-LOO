@@ -52,6 +52,9 @@ public class BDD {
 	}
 	
 
+	/**
+	 * Supprime les tables de la BDD
+	 */
 	private void dbDropTables() {
 		String dropTables = "DROP TABLE IF EXISTS Plan, Candidature, Bourse, Enseignement, Etudiant, Enseignant CASCADE;";
 		
@@ -65,7 +68,7 @@ public class BDD {
 	
 	
 	/**
-	 * Create tables in the DB
+	 * Crée les tables dans la DB
 	 * @throws SQLException
 	 */
 	private void dbTableInit() {		
@@ -140,7 +143,7 @@ public class BDD {
 	
 	
 	/**
-	 * Insert tuples in the DB tables 
+	 * Insert les tuples dans les tables de la BDD
 	 * @throws SQLException
 	 */
 	public void dbTuplesInit() {

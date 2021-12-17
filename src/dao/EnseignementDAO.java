@@ -12,7 +12,13 @@ import app.BDD;
 import modele.Enseignement;
 
 public class EnseignementDAO {
-	
+
+	/**
+	 * 
+	 * @param rs
+	 * @param liste
+	 * @throws SQLException
+	 */
 	private static void addEnseignement(ResultSet rs, List<Enseignement> liste) throws SQLException {
 		Integer id = rs.getInt(1);
 		String intitule = rs.getString(2);
@@ -22,6 +28,14 @@ public class EnseignementDAO {
 		liste.add(new Enseignement(id, intitule, credits, volumeHeures));
 	}
 	
+	
+	
+	/**
+	 * 
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
 	private static Enseignement askEnseignement(ResultSet rs) throws SQLException {
 		Integer id = rs.getInt(1);
 		String intitule = rs.getString(2);
@@ -32,6 +46,11 @@ public class EnseignementDAO {
 	}
 	
 	
+	
+	/**
+	 * Retourne une liste d'objets Enseignement initialisés à partir des données récupérées par la BDD
+	 * @return
+	 */
 	public static List<Enseignement> getEnseignements() {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
@@ -58,6 +77,12 @@ public class EnseignementDAO {
 	}
 	
 	
+	
+	/**
+	 * Retourne un objets Enseignement associé à l'id passé en paramètre
+	 * @param id
+	 * @return
+	 */
 	public static Enseignement getEnseignementById(Integer id) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();

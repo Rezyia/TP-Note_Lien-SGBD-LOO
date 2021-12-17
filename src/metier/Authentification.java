@@ -10,6 +10,12 @@ import modele.Personne;
 
 public abstract class Authentification {
 	
+	/**
+	 * 
+	 * @param scan
+	 * @param resp
+	 * @return
+	 */
 	private static boolean decider(Scanner scan, Personne resp) {
 		System.out.println("Etes-vous bien " + resp.getPrenom() + " " + resp.getNom() + " ? (oui / non) ");
 		System.out.print("> ");
@@ -22,6 +28,12 @@ public abstract class Authentification {
 	}
 	
 	
+	/**
+	 * 
+	 * @param scan
+	 * @param id
+	 * @return
+	 */
 	public static boolean controlerEnseignant(Scanner scan, Integer id) {
 		// chercher selon id
 		Personne resp = EnseignantDAO.getEnseignantById(id);
@@ -29,6 +41,13 @@ public abstract class Authentification {
 		return decider(scan, resp);
 	}
 
+	
+	/**
+	 * 
+	 * @param scan
+	 * @param numero
+	 * @return
+	 */
 	public static boolean controlerEtudiant(Scanner scan, Integer numero) {
 		// chercher selon id
 		Personne resp = EtudiantDAO.getEtudiantByNumero(numero);

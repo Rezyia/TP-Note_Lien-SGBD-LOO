@@ -7,6 +7,10 @@ public class MenuAccueil {
 	private MenuEnseignant menuEns;
 	private Scanner scan;
 
+	
+	/**
+	 * Constructeur
+	 */
 	public MenuAccueil() {
 		this.menuEns = null;
 		this.scan = new Scanner(System.in);
@@ -14,6 +18,9 @@ public class MenuAccueil {
 	}
 	
 	
+	/**
+	 * 
+	 */
 	public void moteur() {
 		boolean running = true;
 		while (running) {
@@ -37,6 +44,11 @@ public class MenuAccueil {
 		}
 	}
 	
+	
+	/**
+	 * 
+	 * @return 1: étudiant, 2: enseignant, 3: quitter 
+	 */
 	public Integer askUtilisateur() {
 		System.out.println("Quel type d'utilisateur êtes-vous ?" + System.lineSeparator()
 		+ "1: etudiant" + System.lineSeparator()
@@ -46,6 +58,12 @@ public class MenuAccueil {
 		return Integer.valueOf(getScan().nextLine());
 	}
 	
+	
+	/**
+	 * 
+	 * @return Integer de l'id entré en input
+	 * @throws NumberFormatException
+	 */
 	public Integer askEnseignant() throws NumberFormatException {
 		System.out.println("Quel est votre identifiant ?");
 		System.out.print("> ");
@@ -53,18 +71,34 @@ public class MenuAccueil {
 	}
 
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public MenuEnseignant getMenuEns() {
 		return menuEns;
 	}
 
+	/**
+	 * 
+	 * @param menuEns
+	 */
 	public void setMenuEns(MenuEnseignant menuEns) {
 		this.menuEns = menuEns;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Scanner getScan() {
 		return scan;
 	}
 
+	/**
+	 * 
+	 * @param scan
+	 */
 	public void setScan(Scanner scan) {
 		this.scan = scan;
 	}

@@ -13,6 +13,12 @@ import modele.Enseignant;
 
 public class EnseignantDAO {
 	
+	/**
+	 * 
+	 * @param rs
+	 * @param liste
+	 * @throws SQLException
+	 */
 	private static void addEnseignant(ResultSet rs, List<Enseignant> liste) throws SQLException {
 		Integer id = rs.getInt(1);
 		String nom = rs.getString(2);
@@ -21,6 +27,14 @@ public class EnseignantDAO {
 		liste.add(new Enseignant(id, nom, prenom));
 	}
 	
+	
+	
+	/**
+	 * 
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
 	private static Enseignant askEnseignant(ResultSet rs) throws SQLException {
 		Integer id = rs.getInt(1);
 		String nom = rs.getString(2);
@@ -30,6 +44,11 @@ public class EnseignantDAO {
 	}
 	
 	
+	
+	/**
+	 * Retourne une liste d'objets Enseignant initialisés à partir des données récupérées par la BDD
+	 * @return
+	 */
 	public static List<Enseignant> getEnseignants() {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
@@ -56,6 +75,12 @@ public class EnseignantDAO {
 	}
 	
 	
+	
+	/**
+	 * Retourne un objets Enseignant associé à l'id passé en paramètre
+	 * @param id
+	 * @return
+	 */
 	public static Enseignant getEnseignantById(Integer id) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();

@@ -16,6 +16,12 @@ import modele.Etudiant;
 
 public class CandidatureDAO {
 	
+	/**
+	 * 
+	 * @param rs
+	 * @param liste
+	 * @throws SQLException
+	 */
 	private static void addCandidature(ResultSet rs, List<Candidature> liste) throws SQLException {
 		Integer id = rs.getInt(1);
 		Etudiant etudiant = EtudiantDAO.getEtudiantByNumero(rs.getInt(2));
@@ -29,6 +35,14 @@ public class CandidatureDAO {
 				respErasmus, noteLocale, noteErasmus));
 	}
 	
+	
+	
+	/**
+	 * 
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
 	private static Candidature askCandidature(ResultSet rs) throws SQLException {
 		Integer id = rs.getInt(1);
 		Etudiant etudiant = EtudiantDAO.getEtudiantByNumero(rs.getInt(2));
@@ -43,6 +57,11 @@ public class CandidatureDAO {
 	}
 	
 	
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public static List<Candidature> getCandidatures() {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
@@ -69,6 +88,12 @@ public class CandidatureDAO {
 	}
 	
 	
+	
+	/**
+	 * Retourne un objets Candidature associé à l'id passé en paramètre 
+	 * @param id
+	 * @return
+	 */
 	public static Candidature getCandidatureById(Integer id) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
@@ -95,6 +120,13 @@ public class CandidatureDAO {
 		return can;
 	}
 	
+	
+	
+	/**
+	 * Retourne une liste d'objets Candidature ayant comme responsable idResp.
+	 * @param idResp
+	 * @return
+	 */
 	public static List<Candidature> getCandidaturesByResponsable(Integer idResp) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
@@ -122,6 +154,12 @@ public class CandidatureDAO {
 		return listeCandidatures;
 	}
 	
+	
+	
+	/**
+	 * Retourne une liste d'objets Candidature disponibles pour être affectées à des responsables.
+	 * @return
+	 */
 	public static List<Candidature> getCandidaturesDisponibles() {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();

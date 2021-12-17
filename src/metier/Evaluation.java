@@ -14,6 +14,13 @@ import modele.Enseignant;
 
 public abstract class Evaluation {
 	
+	/**
+	 * Change la note d'une candidature lié au responsable passé en paramètre 
+	 * @param idCandidature
+	 * @param idResponsable
+	 * @param note
+	 * @return
+	 */
 	public static boolean changeNote(Integer idCandidature, Integer idResponsable, Double note) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
@@ -63,6 +70,12 @@ public abstract class Evaluation {
 	}
 	
 	
+	
+	/**
+	 * Calcule le score d'une candidature passée en paramètre
+	 * @param idCandidature
+	 * @return null si le score n'a pas pu être calculé, un Double de la moyenne des 3 notes sinon
+	 */
 	public static Double calculerScore(Integer idCandidature) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();

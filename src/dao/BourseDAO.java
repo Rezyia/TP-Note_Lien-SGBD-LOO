@@ -14,6 +14,12 @@ import modele.Enseignant;
 
 public class BourseDAO {
 	
+	/**
+	 * 
+	 * @param rs
+	 * @param liste
+	 * @throws SQLException
+	 */
 	private static void addBourse(ResultSet rs, List<Bourse> liste) throws SQLException {
 		Integer id = rs.getInt(1);
 		Integer idRespLocal = rs.getInt(2);
@@ -25,6 +31,12 @@ public class BourseDAO {
 		liste.add(new Bourse(id , respLocal, destination, nbPostes));
 	}
 	
+	/**
+	 * 
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
 	private static Bourse askBourse(ResultSet rs) throws SQLException {
 		Integer id = rs.getInt(1);
 		Integer idRespLocal = rs.getInt(2);
@@ -37,6 +49,10 @@ public class BourseDAO {
 	}
 	
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public static List<Bourse> getBourses() {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
@@ -63,6 +79,11 @@ public class BourseDAO {
 	}
 	
 	
+	/**
+	 * Retourne un objet Bourse initialisé à partir des données récupérées depuis la BDD.
+	 * @param id
+	 * @return
+	 */
 	public static Bourse getBourseById(Integer id) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();

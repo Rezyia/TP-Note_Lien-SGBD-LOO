@@ -15,6 +15,12 @@ import modele.Enseignement;
 
 public class PlanDAO {
 	
+	/**
+	 * 
+	 * @param rs
+	 * @param liste
+	 * @throws SQLException
+	 */
 	private static void addPlan(ResultSet rs, List<Plan> liste) throws SQLException {
 		Candidature candidature = CandidatureDAO.getCandidatureById(rs.getInt(1));
 		Enseignement enseignement = EnseignementDAO.getEnseignementById(rs.getInt(2));
@@ -22,6 +28,14 @@ public class PlanDAO {
 		liste.add(new Plan(candidature, enseignement));
 	}
 	
+	
+	
+	/**
+	 * 
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
 	private static Plan askPlan(ResultSet rs) throws SQLException {
 		Candidature candidature = CandidatureDAO.getCandidatureById(rs.getInt(1));
 		Enseignement enseignement = EnseignementDAO.getEnseignementById(rs.getInt(2));
@@ -30,6 +44,11 @@ public class PlanDAO {
 	}
 	
 	
+	
+	/**
+	 * Retourne une liste d'objets Plan initialisés à partir des données récupérées par la BDD
+	 * @return
+	 */
 	public static List<Plan> getPlans() {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
@@ -56,6 +75,13 @@ public class PlanDAO {
 	}
 	
 	
+	
+	/**
+	 * Retourne un objets Plan associé à l'id passé en paramètre
+	 * @param idCandidature
+	 * @param idEnseignement
+	 * @return
+	 */
 	public static Plan getPlanById(Integer idCandidature, Integer idEnseignement) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();

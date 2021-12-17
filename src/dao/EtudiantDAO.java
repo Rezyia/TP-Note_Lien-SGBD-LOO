@@ -13,6 +13,12 @@ import modele.Etudiant;
 
 public class EtudiantDAO {
 	
+	/**
+	 * 
+	 * @param rs
+	 * @param liste
+	 * @throws SQLException
+	 */
 	private static void addEtudiant(ResultSet rs, List<Etudiant> liste) throws SQLException {
 		Integer numero = rs.getInt(1);
 		String nom = rs.getString(2);
@@ -22,6 +28,14 @@ public class EtudiantDAO {
 		liste.add(new Etudiant(numero, nom, prenom, moyDS));
 	}
 	
+	
+	
+	/**
+	 * 
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
 	private static Etudiant askEtudiant(ResultSet rs) throws SQLException {
 		Integer numero = rs.getInt(1);
 		String nom = rs.getString(2);
@@ -32,6 +46,11 @@ public class EtudiantDAO {
 	}
 	
 	
+	
+	/**
+	 * Retourne une liste d'objets Etudiant initialisés à partir des données récupérées par la BDD
+	 * @return
+	 */
 	public static List<Etudiant> getEtudiants() {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
@@ -58,6 +77,12 @@ public class EtudiantDAO {
 	}
 	
 
+	
+	/**
+	 * Retourne un objets Etudiant associé à l'id passé en paramètre
+	 * @param id
+	 * @return
+	 */
 	public static Etudiant getEtudiantById(Integer id) {
 		return getEtudiantByNumero(id);
 	}

@@ -164,10 +164,10 @@ public class BDD {
 				+ "(2, 'Montréal', 29),"	// id = 1
 				+ "(3, 'Akita', 42);";		// id = 2
 		
-		
 		String iCandidature = "INSERT INTO Candidature(etudiant, bourse, respLocal, respErasmus) VALUES" 
-				+ "(1, 1, 2, 4),"		// id = 1
-				+ "(1, 2, 2, 4);"; 		// id = 2
+				+ "(1, 1, 2, 4),"			// id = 1
+				+ "(1, 2, 2, 4),"			// id = 2
+				+ "(2, 2, NULL, NULL);"; 	// id = 3
 		
 		String iPlan = "INSERT INTO Plan VALUES"
 				+ "(1, 1),"			// id = 1
@@ -176,8 +176,7 @@ public class BDD {
 				+ "(2, 2),"			// id = 4
 				+ "(2, 3),"			// id = 5
 				+ "(2, 4);";		// id = 6
-		
-
+	
 		try {
 			Statement s = connection.createStatement();
 			s.executeUpdate(iEtudiant);

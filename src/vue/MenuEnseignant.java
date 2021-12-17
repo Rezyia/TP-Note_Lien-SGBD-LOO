@@ -48,8 +48,10 @@ public class MenuEnseignant {
 				switch (Integer.valueOf(choix)) {
 				case 1:
 					evaluer(menuAcc.getScan(), idEnseignant);
+					break;
 				case 2:
 					enregistrer(menuAcc.getScan(), idEnseignant);
+					break;
 				}
 			} catch (NumberFormatException e) {
 				System.out.println(e.getMessage());
@@ -119,13 +121,16 @@ public class MenuEnseignant {
 		System.out.print("Champ (local ou erasmus) : ");
 		String champ = scan.nextLine();
 		
-		if (champ.toLowerCase().equals("local") )
-			Enregistrement.updateCandidature(idCandidature, idResponsable, Champs.RESPONSABLE_LOCAL);
-		else if (champ.toLowerCase().equals("erasmus") )
-			Enregistrement.updateCandidature(idCandidature, idResponsable, Champs.RESPONSABLE_LOCAL);
+		boolean executionOK = true;
+		if ("local".contains(champ.toLowerCase()))
+			executionOK = Enregistrement.updateCandidature(idCandidature, idResponsable, Champs.RESPONSABLE_LOCAL);
+		else if ("erasmus".contains(champ.toLowerCase()))
+			executionOK = Enregistrement.updateCandidature(idCandidature, idResponsable, Champs.RESPONSABLE_LOCAL);
 		else {
 			System.out.println("Erreur d'input, opération annulée.");
 		}
+		
+		if (executionOK) System.out.println("L'enregistrement a bien été effectuée.");
 	}
 	
 	

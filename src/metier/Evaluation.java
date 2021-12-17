@@ -69,7 +69,7 @@ public abstract class Evaluation {
 		String req = "SELECT moyDernierSemestre, noteLocal, noteErasmus "
 				+ "FROM Candidature NATURAL JOIN Etudiant "
 				+ "WHERE id = ?;";
-		Double score = 0.0;
+		Double score = null;
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(req);

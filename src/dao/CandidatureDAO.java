@@ -122,4 +122,27 @@ public class CandidatureDAO {
 		return listeCandidatures;
 	}
 	
+	public static List<Candidature> getCandidaturesDisponibles() {
+		if (!BDD.isConnected()) BDD.connect();
+		Connection conn = BDD.getConnection();
+		
+		if (!BDD.isConnected()) return null;
+		
+		List<Candidature> listeCandidatures = new ArrayList<>();
+		String sql = "SELECT * FROM Candidature WHERE respLocal IS NULL OR respErasmus IS NULL;";
+		
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				addCandidature(rs, listeCandidatures);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erreur : " + e.getMessage());
+		}
+		
+		return listeCandidatures;
+	}
+	
 }

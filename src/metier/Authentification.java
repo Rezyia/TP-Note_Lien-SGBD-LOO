@@ -11,7 +11,8 @@ import modele.Personne;
 public abstract class Authentification {
 	
 	private static boolean decider(Scanner scan, Personne resp) {
-		System.out.print("Etes-vous bien " + resp.getPrenom() + " " + resp.getNom() + " ? ");
+		System.out.println("Etes-vous bien " + resp.getPrenom() + " " + resp.getNom() + " ? (oui / non) ");
+		System.out.print("> ");
 		String confirmation = scan.nextLine().toLowerCase();
 		System.out.print(System.lineSeparator());
 		if (confirmation.equals("o") || confirmation.equals("oui")) {

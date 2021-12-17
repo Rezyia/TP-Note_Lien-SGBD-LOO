@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class MenuAccueil {
 	
-	private MenuEtudiant menuEns;
+	private MenuEnseignant menuEns;
 	private Scanner scan;
 
 	public MenuAccueil() {
@@ -23,7 +23,7 @@ public class MenuAccueil {
 					//
 					break;
 				case 2:
-					setMenuEns(new MenuEtudiant(this, askEnseignant()));
+					setMenuEns(new MenuEnseignant(this, askEnseignant()));
 					break;
 				case 3:
 					running = false;
@@ -42,20 +42,22 @@ public class MenuAccueil {
 		+ "1: etudiant" + System.lineSeparator()
 		+ "2: enseignant" + System.lineSeparator()
 		+ "3: quitter");
+		System.out.print("> ");
 		return Integer.valueOf(getScan().nextLine());
 	}
 	
 	public Integer askEnseignant() throws NumberFormatException {
 		System.out.println("Quel est votre identifiant ?");
+		System.out.print("> ");
 		return Integer.valueOf(getScan().nextLine());
 	}
 
 	
-	public MenuEtudiant getMenuEns() {
+	public MenuEnseignant getMenuEns() {
 		return menuEns;
 	}
 
-	public void setMenuEns(MenuEtudiant menuEns) {
+	public void setMenuEns(MenuEnseignant menuEns) {
 		this.menuEns = menuEns;
 	}
 

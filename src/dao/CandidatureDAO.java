@@ -155,6 +155,37 @@ public class CandidatureDAO {
 	}
 	
 	
+	/**
+	 * Retourne une liste d'objets Candidature ayant comme etudiant idEtu.
+	 * @param idEtu
+	 * @return
+	 */
+	public static List<Candidature> getCandidaturesByEtudiant(Integer idEtu) {
+		if (!BDD.isConnected()) BDD.connect();
+		Connection conn = BDD.getConnection();
+		
+		if (!BDD.isConnected()) {
+			return null;
+		}
+		
+		List<Candidature> listeCandidatures = new ArrayList<>();
+		String sql = "SELECT * FROM Candidature WHERE etudiant=?;";
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idEtu);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				addCandidature(rs, listeCandidatures);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return listeCandidatures;
+	}
+	
 	
 	/**
 	 * Retourne une liste d'objets Candidature disponibles pour être affectées à des responsables.

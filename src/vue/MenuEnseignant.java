@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import dao.CandidatureDAO;
+import metier.Affichage;
 import metier.Authentification;
 import metier.Champs;
 import metier.Enregistrement;
@@ -56,6 +57,9 @@ public class MenuEnseignant {
 				case 2:
 					enregistrer(menuAcc.getScan(), idEnseignant, getUtilisateur());
 					break;
+				case 3:
+					Affichage.afficherCandidatures(idEnseignant, Champs.ENSEIGNANT);
+					break;
 				}
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
@@ -70,6 +74,7 @@ public class MenuEnseignant {
 		System.out.println("Que souhaitez-vous faire ?" + System.lineSeparator()
 		+ "1: evaluer mes candidatures enregistrées" + System.lineSeparator()
 		+ "2: enregistrer une nouvelle candidature" + System.lineSeparator()
+		+ "3: afficher mes candidatures" + System.lineSeparator()
 		+ "q: retour à l'acceuil");
 		System.out.print(getUtilisateur() + "> ");
 		return getMenuAcc().getScan().nextLine();

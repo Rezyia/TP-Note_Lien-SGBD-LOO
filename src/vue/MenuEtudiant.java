@@ -2,13 +2,10 @@ package vue;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 
-import dao.CandidatureDAO;
 import metier.Affichage;
 import metier.Authentification;
 import metier.Champs;
-import metier.Evaluation;
 import modele.Candidature;
 
 public class MenuEtudiant {
@@ -37,9 +34,10 @@ public class MenuEtudiant {
 			try {
 				switch (Integer.valueOf(choix)) {
 				case 1:
+					afficherInfos(idEtudiant);
 					break;
 				case 2:
-					Affichage.afficherCandidatures(idEtudiant, Champs.ETUDIANT);
+					afficherCandidatures(idEtudiant);
 					break;
 				}
 			} catch (NumberFormatException e) {
@@ -47,6 +45,21 @@ public class MenuEtudiant {
 			}
 		} while (!choix.equals("q"));
 		return;
+	}
+	
+	
+	public static void afficherCandidatures(Integer idEtudiant) {
+		// Affichage des candidatures évaluables :
+		List<Candidature> candidatures = Affichage.afficherCandidatures(idEtudiant, Champs.ETUDIANT);
+		Iterator<Candidature> ite = candidatures.iterator();
+		while (ite.hasNext()) {
+			System.out.println(ite.next());
+		}
+	}
+	
+	
+	public static void afficherInfos(Integer idEtudiant) {
+		System.out.println(Affichage.afficherEtudiant(idEtudiant));
 	}
 
 

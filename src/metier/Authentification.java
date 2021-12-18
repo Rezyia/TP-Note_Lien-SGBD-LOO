@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 import dao.EnseignantDAO;
 import dao.EtudiantDAO;
-import modele.Enseignant;
-import modele.Etudiant;
 import modele.Personne;
 import vue.MenuEnseignant;
 
@@ -22,7 +20,7 @@ public abstract class Authentification {
 		System.out.print("> ");
 		String confirmation = scan.nextLine().toLowerCase();
 		System.out.print(System.lineSeparator());
-		if (confirmation.equals("o") || confirmation.equals("oui")) {
+		if ("oui".startsWith(confirmation)) {
 			return true;
 		}
 		return false;

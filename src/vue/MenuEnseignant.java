@@ -43,7 +43,7 @@ public class MenuEnseignant {
 		String choix = "";
 		do {
 			choix = askAction();
-			Integer choixNum = null;
+			Integer choixNum = 0;
 			try {
 				choixNum = Integer.valueOf(choix);
 			} catch (NumberFormatException e) {
@@ -58,7 +58,7 @@ public class MenuEnseignant {
 					enregistrer(menuAcc.getScan(), idEnseignant, getUtilisateur());
 					break;
 				case 3:
-					Affichage.afficherCandidatures(idEnseignant, Champs.ENSEIGNANT);
+					afficher(idEnseignant);
 					break;
 				}
 			} catch (Exception e) {
@@ -169,6 +169,29 @@ public class MenuEnseignant {
 			System.out.println("L'enregistrement a bien été effectuée.");
 		}
 		return;
+	}
+	
+	
+	public static void afficher(Integer idResponsable) {
+		//chercher candidature selon id
+		System.out.println("Candidatures enregistrées : ");
+		
+		// Affichage des candidatures évaluables :
+		List<Candidature> candidatures = Affichage.afficherCandidatures(idResponsable, Champs.ENSEIGNANT);
+		Iterator<Candidature> ite = candidatures.iterator();
+		if (!ite.hasNext()) {
+			System.out.println("Aucune");
+		}
+		while (ite.hasNext()) {
+			Candidature can = ite.next();
+			Double score = Evaluation.calculerScore(can.getId());
+			String scoreStr = "Au moins une note n'a pas été évaluée";
+			if (score != null && score.toString().length() >= 5) {
+				scoreStr = score.toString().substring(0,5) + "/20";
+			}
+			System.out.print(can + "\n\tScore = " + scoreStr);
+			System.out.println();
+		}
 	}
 	
 	

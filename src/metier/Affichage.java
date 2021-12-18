@@ -4,11 +4,13 @@ import java.util.Iterator;
 import java.util.List;
 
 import dao.CandidatureDAO;
+import dao.EtudiantDAO;
 import modele.Candidature;
+import modele.Etudiant;
 
 public class Affichage {
 
-	public static boolean afficherCandidatures(Integer id, Champs type) {
+	public static List<Candidature> afficherCandidatures(Integer id, Champs type) {
 		List<Candidature> liste = null;
 		
 		if (type == Champs.ETUDIANT) {
@@ -16,16 +18,15 @@ public class Affichage {
 		} else if (type == Champs.ENSEIGNANT) {
 			liste = CandidatureDAO.getCandidaturesByResponsable(id);
 		} else {
-			return false;
-		}		
-		
-		System.out.println("Liste des candidatures :");
-		Iterator<Candidature> ite = liste.iterator();
-		while (ite.hasNext()) {
-			System.out.println(ite.next());
+			return null;
 		}
 		
-		return true;
+		return liste;
+	}
+	
+	public static String afficherEtudiant(Integer numero) {
+		Etudiant etu = EtudiantDAO.getEtudiantByNumero(numero);
+		return etu.toString();
 	}
 	
 }

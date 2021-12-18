@@ -7,6 +7,7 @@ import dao.EtudiantDAO;
 import modele.Enseignant;
 import modele.Etudiant;
 import modele.Personne;
+import vue.MenuEnseignant;
 
 public abstract class Authentification {
 	
@@ -34,11 +35,12 @@ public abstract class Authentification {
 	 * @param id
 	 * @return
 	 */
-	public static boolean controlerEnseignant(Scanner scan, Integer id) {
+	public static boolean controlerEnseignant(MenuEnseignant menu, Integer id) {
 		// chercher selon id
 		Personne resp = EnseignantDAO.getEnseignantById(id);
+		menu.setUtilisateur(resp.getPrenom() + " " + resp.getNom());
 		// confirmation nom / prénom
-		return decider(scan, resp);
+		return decider(menu.getMenuAcc().getScan(), resp);
 	}
 
 	

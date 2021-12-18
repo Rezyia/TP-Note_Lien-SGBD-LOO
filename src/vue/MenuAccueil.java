@@ -22,26 +22,23 @@ public class MenuAccueil {
 	 * 
 	 */
 	public void moteur() {
-		boolean running = true;
-		while (running) {
+		String choix = "";
+		do {
+			choix = askUtilisateur();
 			try {
-				switch (askUtilisateur()) {
+				switch (Integer.valueOf(choix)) {
 				case 1:
 					//
 					break;
 				case 2:
 					setMenuEns(new MenuEnseignant(this, askEnseignant()));
 					break;
-				case 3:
-					running = false;
-					break;
-				default:
-					//
 				}
 			} catch (NumberFormatException e) {
-				System.out.println(e.getMessage());
+				// pas de problème
 			}
-		}
+		} while (!choix.equals("q"));
+		return;
 	}
 	
 	
@@ -49,13 +46,13 @@ public class MenuAccueil {
 	 * 
 	 * @return 1: étudiant, 2: enseignant, 3: quitter 
 	 */
-	public Integer askUtilisateur() {
+	public String askUtilisateur() {
 		System.out.println("Quel type d'utilisateur êtes-vous ?" + System.lineSeparator()
 		+ "1: etudiant" + System.lineSeparator()
 		+ "2: enseignant" + System.lineSeparator()
-		+ "3: quitter");
+		+ "q: quitter");
 		System.out.print("> ");
-		return Integer.valueOf(getScan().nextLine());
+		return getScan().nextLine();
 	}
 	
 	

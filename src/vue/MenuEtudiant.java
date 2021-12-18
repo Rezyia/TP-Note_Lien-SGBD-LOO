@@ -16,7 +16,7 @@ public class MenuEtudiant {
 	public MenuEtudiant(MenuAccueil menuAcc, Integer idEtudiant) {
 		this.menuAcc = menuAcc;
 		
-		if (!Authentification.controlerEnseignant(menuAcc.getScan(), idEtudiant)) {
+		if (!Authentification.controlerEtudiant(menuAcc.getScan(), idEtudiant)) {
 			System.out.println("Vous n'êtes pas authentifié. Retour au menu...");
 		}
 		

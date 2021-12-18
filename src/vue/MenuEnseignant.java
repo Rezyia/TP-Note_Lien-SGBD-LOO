@@ -14,6 +14,7 @@ import modele.Candidature;
 public class MenuEnseignant {
 	
 	private MenuAccueil menuAcc;
+	private String utilisateur;
 	
 	/**
 	 * Constructeur
@@ -22,12 +23,14 @@ public class MenuEnseignant {
 	 */
 	public MenuEnseignant(MenuAccueil menuAcc, Integer idEnseignant) {
 		this.menuAcc = menuAcc;
+		this.utilisateur = "";
 		
-		if (!Authentification.controlerEnseignant(menuAcc.getScan(), idEnseignant)) {
+		if (!Authentification.controlerEnseignant(this, idEnseignant)) {
 			System.out.println("Vous n'êtes pas authentifié. Retour au menu...");
 		}
-		
-		moteur(idEnseignant);
+		else {
+			moteur(idEnseignant);
+		}
 	}
 	
 	
@@ -38,26 +41,31 @@ public class MenuEnseignant {
 	public void moteur(Integer idEnseignant) {
 		String choix = "";
 		do {
-			System.out.println("Que souhaitez-vous faire ?" + System.lineSeparator()
-					+ "1: evaluer mes candidatures enregistrées" + System.lineSeparator()
-					+ "2: enregistrer une nouvelle candidature" + System.lineSeparator()
-					+ "q: retour à l'acceuil");
-			System.out.print("> ");
-			choix = menuAcc.getScan().nextLine();
+			choix = askAction();
 			try {
 				switch (Integer.valueOf(choix)) {
 				case 1:
-					evaluer(menuAcc.getScan(), idEnseignant);
+					evaluer(menuAcc.getScan(), idEnseignant, getUtilisateur());
 					break;
 				case 2:
-					enregistrer(menuAcc.getScan(), idEnseignant);
+					enregistrer(menuAcc.getScan(), idEnseignant, getUtilisateur());
 					break;
 				}
 			} catch (NumberFormatException e) {
-				System.out.println(e.getMessage());
+				System.out.println("Retour au menu...");
 			}
 		} while (!choix.equals("q"));
 		return;
+	}
+	
+	
+	public String askAction() {
+		System.out.println("Que souhaitez-vous faire ?" + System.lineSeparator()
+		+ "1: evaluer mes candidatures enregistrées" + System.lineSeparator()
+		+ "2: enregistrer une nouvelle candidature" + System.lineSeparator()
+		+ "q: retour à l'acceuil");
+		System.out.print(getUtilisateur() + "> ");
+		return getMenuAcc().getScan().nextLine();
 	}
 
 	
@@ -67,7 +75,7 @@ public class MenuEnseignant {
 	 * @param idResponsable
 	 * @throws NumberFormatException
 	 */
-	public static void evaluer(Scanner scan, Integer idResponsable) throws NumberFormatException {
+	public static void evaluer(Scanner scan, Integer idResponsable, String login) throws NumberFormatException {
 		//chercher candidature selon id
 		Integer idCandidature = null; Double note = null;
 		System.out.println("Quelle candidature souhaitez-vous evaluer ? ");
@@ -80,11 +88,11 @@ public class MenuEnseignant {
 		}
 		
 		System.out.println("ID candidature : ");
-		System.out.print("> ");
+		System.out.print(login+"> ");
 		idCandidature = Integer.valueOf(scan.nextLine());
 	
 		System.out.println("Entrez la note (/20) :");
-		System.out.print("> ");
+		System.out.print(login+"> ");
 		note = Double.valueOf(scan.nextLine());
 		
 		//appeler changeNote
@@ -105,7 +113,7 @@ public class MenuEnseignant {
 	 * @param idResponsable
 	 * @throws NumberFormatException
 	 */
-	public static void enregistrer(Scanner scan, Integer idResponsable) throws NumberFormatException {
+	public static void enregistrer(Scanner scan, Integer idResponsable, String login) throws NumberFormatException {
 		//chercher candidature selon id
 		Integer idCandidature = null; Double note = null;
 		System.out.println("Candidatures disponibles : ");
@@ -118,11 +126,11 @@ public class MenuEnseignant {
 		}
 		
 		System.out.println("ID candidature :");
-		System.out.print("> ");
+		System.out.print(login+"> ");
 		idCandidature = Integer.valueOf(scan.nextLine());
 		
 		System.out.println("Champ (local ou erasmus) :");
-		System.out.print("> ");
+		System.out.print(login+"> ");
 		String champ = scan.nextLine();
 		
 		boolean executionOK = true;
@@ -152,6 +160,13 @@ public class MenuEnseignant {
 	 */
 	public void setMenuAcc(MenuAccueil menuAcc) {
 		this.menuAcc = menuAcc;
+	}
+	
+	public String getUtilisateur() {
+		return utilisateur;
+	}
+	public void setUtilisateur(String utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 	
 }

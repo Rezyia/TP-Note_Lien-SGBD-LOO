@@ -48,7 +48,7 @@ public class MenuEtudiant {
 	}
 	
 	
-	public static void afficherCandidatures(Integer idEtudiant) {
+	public  void afficherCandidatures(Integer idEtudiant) {
 		// Affichage des candidatures évaluables :
 		List<Candidature> candidatures = Affichage.afficherCandidatures(idEtudiant, Champs.ETUDIANT);
 		Iterator<Candidature> ite = candidatures.iterator();
@@ -58,7 +58,7 @@ public class MenuEtudiant {
 	}
 	
 	
-	public static void afficherInfos(Integer idEtudiant) {
+	public  void afficherInfos(Integer idEtudiant) {
 		System.out.println(Affichage.afficherEtudiant(idEtudiant));
 	}
 

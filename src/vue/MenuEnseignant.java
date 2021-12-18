@@ -52,10 +52,10 @@ public class MenuEnseignant {
 			try {
 				switch (choixNum) {
 				case 1:
-					evaluer(menuAcc.getScan(), idEnseignant, getUtilisateur());
+					evaluer(idEnseignant, getUtilisateur());
 					break;
 				case 2:
-					enregistrer(menuAcc.getScan(), idEnseignant, getUtilisateur());
+					enregistrer(idEnseignant, getUtilisateur());
 					break;
 				case 3:
 					afficher(idEnseignant);
@@ -87,7 +87,7 @@ public class MenuEnseignant {
 	 * @param idResponsable
 	 * @throws NumberFormatException
 	 */
-	public static void evaluer(Scanner scan, Integer idResponsable, String utilisateur) throws NumberFormatException {
+	public  void evaluer(Integer idResponsable, String utilisateur) throws NumberFormatException {
 		//chercher candidature selon id
 		Integer idCandidature = null; Double note = null;
 		System.out.println("Quelle candidature souhaitez-vous evaluer ? ");
@@ -101,11 +101,11 @@ public class MenuEnseignant {
 		
 		System.out.println("ID candidature : ");
 		System.out.print(utilisateur+"> ");
-		idCandidature = Integer.valueOf(scan.nextLine());
+		idCandidature = Integer.valueOf(getMenuAcc().getScan().nextLine());
 	
 		System.out.println("Entrez la note (/20) :");
 		System.out.print(utilisateur+"> ");
-		note = Double.valueOf(scan.nextLine());
+		note = Double.valueOf(getMenuAcc().getScan().nextLine());
 		
 		//appeler changeNote
 		if (!Evaluation.changeNote(idCandidature, idResponsable, note)) {
@@ -125,7 +125,7 @@ public class MenuEnseignant {
 	 * @param idResponsable
 	 * @throws Exception 
 	 */
-	public static void enregistrer(Scanner scan, Integer idResponsable, String utilisateur) throws Exception {
+	public  void enregistrer(Integer idResponsable, String utilisateur) throws Exception {
 		//chercher candidature selon id
 		Integer idCandidature = null;
 		System.out.println("Candidatures disponibles : ");
@@ -139,7 +139,7 @@ public class MenuEnseignant {
 		
 		System.out.println("ID candidature :");
 		System.out.print(utilisateur+"> ");
-		idCandidature = Integer.valueOf(scan.nextLine());
+		idCandidature = Integer.valueOf(getMenuAcc().getScan().nextLine());
 		
 		boolean candidatureTrouvee = false;
 		Iterator<Candidature> itecheck1 = candidatures.iterator();
@@ -154,7 +154,7 @@ public class MenuEnseignant {
 			
 		System.out.println("Champ (local ou erasmus) :");
 		System.out.print(utilisateur+"> ");
-		String champ = scan.nextLine();
+		String champ = getMenuAcc().getScan().nextLine();
 		
 		boolean executionOK = true;
 		if ("local".startsWith(champ.toLowerCase()))
@@ -172,7 +172,7 @@ public class MenuEnseignant {
 	}
 	
 	
-	public static void afficher(Integer idResponsable) {
+	public  void afficher(Integer idResponsable) {
 		//chercher candidature selon id
 		System.out.println("Candidatures enregistrées : ");
 		

@@ -42,8 +42,14 @@ public class MenuEnseignant {
 		String choix = "";
 		do {
 			choix = askAction();
+			Integer choixNum = null;
 			try {
-				switch (Integer.valueOf(choix)) {
+				choixNum = Integer.valueOf(choix);
+			} catch (NumberFormatException e) {
+				System.out.println("Retour au menu...");
+			}
+			try {
+				switch (choixNum) {
 				case 1:
 					evaluer(menuAcc.getScan(), idEnseignant, getUtilisateur());
 					break;
@@ -51,8 +57,9 @@ public class MenuEnseignant {
 					enregistrer(menuAcc.getScan(), idEnseignant, getUtilisateur());
 					break;
 				}
-			} catch (NumberFormatException e) {
-				System.out.println("Retour au menu...");
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				System.out.println("Annulation...");
 			}
 		} while (!choix.equals("q"));
 		return;
@@ -75,7 +82,7 @@ public class MenuEnseignant {
 	 * @param idResponsable
 	 * @throws NumberFormatException
 	 */
-	public static void evaluer(Scanner scan, Integer idResponsable, String login) throws NumberFormatException {
+	public static void evaluer(Scanner scan, Integer idResponsable, String utilisateur) throws NumberFormatException {
 		//chercher candidature selon id
 		Integer idCandidature = null; Double note = null;
 		System.out.println("Quelle candidature souhaitez-vous evaluer ? ");
@@ -88,11 +95,11 @@ public class MenuEnseignant {
 		}
 		
 		System.out.println("ID candidature : ");
-		System.out.print(login+"> ");
+		System.out.print(utilisateur+"> ");
 		idCandidature = Integer.valueOf(scan.nextLine());
 	
 		System.out.println("Entrez la note (/20) :");
-		System.out.print(login+"> ");
+		System.out.print(utilisateur+"> ");
 		note = Double.valueOf(scan.nextLine());
 		
 		//appeler changeNote
@@ -111,11 +118,11 @@ public class MenuEnseignant {
 	 * 
 	 * @param scan
 	 * @param idResponsable
-	 * @throws NumberFormatException
+	 * @throws Exception 
 	 */
-	public static void enregistrer(Scanner scan, Integer idResponsable, String login) throws NumberFormatException {
+	public static void enregistrer(Scanner scan, Integer idResponsable, String utilisateur) throws Exception {
 		//chercher candidature selon id
-		Integer idCandidature = null; Double note = null;
+		Integer idCandidature = null;
 		System.out.println("Candidatures disponibles : ");
 		
 		// Affichage des candidatures évaluables :
@@ -126,23 +133,37 @@ public class MenuEnseignant {
 		}
 		
 		System.out.println("ID candidature :");
-		System.out.print(login+"> ");
+		System.out.print(utilisateur+"> ");
 		idCandidature = Integer.valueOf(scan.nextLine());
 		
+		boolean candidatureTrouvee = false;
+		Iterator<Candidature> itecheck1 = candidatures.iterator();
+		while (itecheck1.hasNext() && !candidatureTrouvee) {
+			if (itecheck1.next().getId() == idCandidature) {
+				candidatureTrouvee = true;
+			}
+		}
+		if (!candidatureTrouvee) {
+			throw new Exception("ID non reconnu");
+		}
+			
 		System.out.println("Champ (local ou erasmus) :");
-		System.out.print(login+"> ");
+		System.out.print(utilisateur+"> ");
 		String champ = scan.nextLine();
 		
 		boolean executionOK = true;
 		if ("local".startsWith(champ.toLowerCase()))
 			executionOK = Enregistrement.updateCandidature(idCandidature, idResponsable, Champs.RESPONSABLE_LOCAL);
 		else if ("erasmus".startsWith(champ.toLowerCase()))
-			executionOK = Enregistrement.updateCandidature(idCandidature, idResponsable, Champs.RESPONSABLE_LOCAL);
+			executionOK = Enregistrement.updateCandidature(idCandidature, idResponsable, Champs.RESPONSABLE_ERASMUS);
 		else {
-			System.out.println("Erreur d'input, opération annulée.");
+			throw new Exception("Champ non reconnu");
 		}
 		
-		if (executionOK) System.out.println("L'enregistrement a bien été effectuée.");
+		if (executionOK) {
+			System.out.println("L'enregistrement a bien été effectuée.");
+		}
+		return;
 	}
 	
 	

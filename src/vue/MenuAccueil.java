@@ -44,7 +44,7 @@ public class MenuAccueil {
 	
 	/**
 	 * 
-	 * @return 1: étudiant, 2: enseignant, 3: quitter 
+	 * @return 1: étudiant, 2: enseignant, q: quitter 
 	 */
 	public String askUtilisateur() {
 		System.out.println("Quel type d'utilisateur êtes-vous ?" + System.lineSeparator()

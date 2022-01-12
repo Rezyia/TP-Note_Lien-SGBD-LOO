@@ -33,12 +33,12 @@ public abstract class Evaluation {
 
 			Enseignant era = c.getRespErasmus();
 			Enseignant local = c.getRespLocal();
-			if (era != null && era.getId() == resp.getId()) { // Si responsable Erasmus
+			if (era != null && era.getNumero() == resp.getNumero()) { // Si responsable Erasmus
 				str = "UPDATE Candidature" 
 						+ " SET noteErasmus=?"
 						+ " WHERE id=?;";
 			}
-			else if (local != null && local.getId() == resp.getId()) { // Si responsable Local
+			else if (local != null && local.getNumero() == resp.getNumero()) { // Si responsable Local
 				str = "UPDATE Candidature" 
 						+ " SET noteLocal=?"
 						+ " WHERE id=?;";
@@ -50,7 +50,7 @@ public abstract class Evaluation {
 			
 			PreparedStatement pstmt = conn.prepareStatement(str);
 			pstmt.setBigDecimal(1, BigDecimal.valueOf(note));
-			pstmt.setInt(2, c.getId());
+			pstmt.setInt(2, c.getNumero());
 			pstmt.executeUpdate();
 			
 			conn.commit();
@@ -88,7 +88,7 @@ public abstract class Evaluation {
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(req);
-			pstmt.setInt(1, c.getId());
+			pstmt.setInt(1, c.getNumero());
 
 			ResultSet res = pstmt.executeQuery();
 			res.next();

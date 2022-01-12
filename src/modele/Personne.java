@@ -1,6 +1,9 @@
 package modele;
 
-public abstract class Personne extends TableWithId {
+import javax.persistence.*;
+
+@Entity
+public abstract class Personne extends TableNumero {
 
 	private String nom;
 	private String prenom;

@@ -1,11 +1,15 @@
 package modele;
 
-public class Enseignement extends TableWithId {
+import javax.persistence.*;
+
+@Entity
+public class Enseignement extends TableNumero {
 
 	private String intitule;
 	private Integer credits;
 	private Integer volumeH;
 
+	
 	/**
 	 * @param id
 	 * @param intitule
@@ -47,7 +51,7 @@ public class Enseignement extends TableWithId {
 
 	@Override
 	public String toString() {
-		return "Enseignement [id=" + getId() + ", intitule=" + intitule + ", credits=" + credits + ", volumeH=" + volumeH + "]";
+		return "Enseignement [id=" + getNumero() + ", intitule=" + intitule + ", credits=" + credits + ", volumeH=" + volumeH + "]";
 	}
 	
 }

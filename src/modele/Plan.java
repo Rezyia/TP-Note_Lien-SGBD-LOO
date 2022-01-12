@@ -1,18 +1,29 @@
 package modele;
 
+import java.util.List;
+
+import javax.persistence.*;
+
+@Entity
+@IdClass(CompositePlanId.class)
 public class Plan {
 
+	@Id
+	@ManyToOne
 	private Candidature candidature;
-	private Enseignement enseignement;
+	
+	@Id
+	@ManyToMany(mappedBy = "") //TODO Creer attribut Plan dans Enseignement
+	private List<Enseignement> enseignements;
 	
 	
 	/**
 	 * @param candidature
 	 * @param enseignement
 	 */
-	public Plan(Candidature candidature, Enseignement enseignement) {
+	public Plan(Candidature candidature, List<Enseignement> enseignements) {
 		this.candidature = candidature;
-		this.enseignement = enseignement;
+		this.enseignements = enseignements;
 	}
 	
 	
@@ -24,18 +35,35 @@ public class Plan {
 		this.candidature = candidature;
 	}
 	
-	public Enseignement getEnseignement() {
-		return enseignement;
+	public List<Enseignement> getEnseignements() {
+		return enseignements;
 	}
 	
-	public void setEnseignement(Enseignement enseignement) {
-		this.enseignement = enseignement;
+	public void setEnseignement(List<Enseignement> enseignements) {
+		this.enseignements = enseignements;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Plan [candidature=" + candidature + ", enseignement=" + enseignement + "]";
+		return "Plan [candidature=" + candidature + ", enseignement=" + enseignements + "]";
 	}
 		
+}
+
+
+abstract class CompositePlanId {
+
+	@SuppressWarnings("unused")
+	private Candidature candidature;
+	@SuppressWarnings("unused")
+	private List<Enseignement> enseignements;
+	
+	
+	/**
+	 * 
+	 */
+	public CompositePlanId() {
+	}
+	
 }

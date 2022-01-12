@@ -1,9 +1,19 @@
 package modele;
 
-public class Bourse extends TableWithId {
+import java.util.List;
+
+import javax.persistence.*;
+
+@Entity
+public class Bourse extends TableNumero {
 	
 	private String destination;
 	private Integer nbPostes;
+	
+	@OneToMany(mappedBy = "bourse")
+	public List<Candidature> candidatures;
+	
+	@OneToOne(mappedBy = "") //TODO Creer 'List<Bourse> copies' dans Enseignant
 	private Enseignant respLocal;
 
 	
@@ -48,7 +58,7 @@ public class Bourse extends TableWithId {
 
 	@Override
 	public String toString() {
-		return "Bourse [id=" + getId() + ", destination=" + destination + ", nbPostes=" + nbPostes + ", respLocal=" + respLocal + "]";
+		return "Bourse [id=" + getNumero() + ", destination=" + destination + ", nbPostes=" + nbPostes + ", respLocal=" + respLocal + "]";
 	}
 
 }

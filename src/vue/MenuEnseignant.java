@@ -144,7 +144,7 @@ public class MenuEnseignant {
 		boolean candidatureTrouvee = false;
 		Iterator<Candidature> itecheck1 = candidatures.iterator();
 		while (itecheck1.hasNext() && !candidatureTrouvee) {
-			if (itecheck1.next().getId() == idCandidature) {
+			if (itecheck1.next().getNumero() == idCandidature) {
 				candidatureTrouvee = true;
 			}
 		}
@@ -184,7 +184,7 @@ public class MenuEnseignant {
 		}
 		while (ite.hasNext()) {
 			Candidature can = ite.next();
-			Double score = Evaluation.calculerScore(can.getId());
+			Double score = Evaluation.calculerScore(can.getNumero());
 			String scoreStr = "Au moins une note n'a pas été évaluée";
 			if (score != null && score.toString().length() >= 5) {
 				scoreStr = score.toString().substring(0,5) + "/20";

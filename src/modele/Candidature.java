@@ -1,11 +1,22 @@
 package modele;
 
-public class Candidature extends TableWithId {
+import javax.persistence.*;
 
+@Entity
+public class Candidature extends TableNumero {
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Etudiant etudiant;
+	
+	@ManyToOne(cascade = CascadeType.ALL) //TODO Creer 'List<Candidature> candidatures' dans Bourse
 	private Bourse bourse;
+	
+	@ManyToOne //TODO Creer 'List<Candidature> copies' dans Enseignant
 	private Enseignant respLocal;
+
+	@ManyToOne //TODO Idem
 	private Enseignant respErasmus;
+	
 	private Double noteLocale;
 	private Double noteErasmus;
 	
@@ -82,7 +93,7 @@ public class Candidature extends TableWithId {
 
 	@Override
 	public String toString() {
-		return "Candidature [id=" + getId() + ", etudiant=" + etudiant + ", bourse=" + bourse + ", respLocal=" + respLocal
+		return "Candidature [id=" + getNumero() + ", etudiant=" + etudiant + ", bourse=" + bourse + ", respLocal=" + respLocal
 				+ ", respErasmus=" + respErasmus + ", noteLocale=" + noteLocale + ", noteErasmus=" + noteErasmus + "]";
 	}
 

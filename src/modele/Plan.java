@@ -13,7 +13,7 @@ public class Plan {
 	private Candidature candidature;
 	
 	@Id
-	@ManyToMany(mappedBy = "") //TODO Creer attribut Plan dans Enseignement
+	@ManyToMany(mappedBy = "plans")
 	private List<Enseignement> enseignements;
 	
 	
@@ -50,7 +50,6 @@ public class Plan {
 	}
 		
 }
-
 
 abstract class CompositePlanId {
 

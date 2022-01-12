@@ -1,14 +1,22 @@
 package modele;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
-public class Enseignement extends TableNumero {
-
+public class Enseignement {
+	
+	@Id
+	@Column(length = 50)
 	private String intitule;
+	
 	private Integer credits;
 	private Integer volumeH;
-
+	
+	@ManyToMany(mappedBy = "enseignements")
+	private List<Plan> plans;
+	
 	
 	/**
 	 * @param id
@@ -16,14 +24,21 @@ public class Enseignement extends TableNumero {
 	 * @param credits
 	 * @param volumeH
 	 */
-	public Enseignement(Integer id, String intitule, Integer credits, Integer volumeH) {
-		super(id);
+	public Enseignement(String intitule, Integer credits, Integer volumeH) {
 		this.intitule = intitule;
 		this.credits = credits;
 		this.volumeH = volumeH;
 	}
 
 
+	public String getIntitule() {
+		return intitule;
+	}
+
+	public void setIntitule(String intitule) {
+		this.intitule = intitule;
+	}
+	
 	public String getNom() {
 		return intitule;
 	}
@@ -48,10 +63,18 @@ public class Enseignement extends TableNumero {
 		this.volumeH = volumeH;
 	}
 
+	public List<Plan> getPlans() {
+		return plans;
+	}
+
+	public void setPlans(List<Plan> plans) {
+		this.plans = plans;
+	}
+
 
 	@Override
 	public String toString() {
-		return "Enseignement [id=" + getNumero() + ", intitule=" + intitule + ", credits=" + credits + ", volumeH=" + volumeH + "]";
+		return "Enseignement [intitule=" + intitule + ", credits=" + credits + ", volumeH=" + volumeH + "]";
 	}
 	
 }

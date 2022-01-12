@@ -2,19 +2,23 @@ package vue;
 
 import java.util.Scanner;
 
-public class MenuAccueil {
+import javax.persistence.*;
+
+import app.Application;
+
+public class App {
 	
 	private MenuEnseignant menuEns;
 	private MenuEtudiant menuEtu;
-	private Scanner scan;
+	
 
 	
 	/**
 	 * Constructeur
 	 */
-	public MenuAccueil() {
+	public App() {
 		this.menuEns = null;
-		this.scan = new Scanner(System.in);
+		this.menuEtu = null;
 		moteur();
 	}
 	
@@ -29,10 +33,10 @@ public class MenuAccueil {
 			try {
 				switch (Integer.valueOf(choix)) {
 				case 1:
-					setMenuEtu(new MenuEtudiant(this, askID()));
+					setMenuEtu(new MenuEtudiant(askID()));
 					break;
 				case 2:
-					setMenuEns(new MenuEnseignant(this, askID()));
+					setMenuEns(new MenuEnseignant(askID()));
 					break;
 				}
 			} catch (NumberFormatException e) {
@@ -53,7 +57,7 @@ public class MenuAccueil {
 		+ "2: enseignant" + System.lineSeparator()
 		+ "q: quitter");
 		System.out.print("> ");
-		return getScan().nextLine();
+		return Application.scan.nextLine();
 	}
 	
 	
@@ -65,7 +69,7 @@ public class MenuAccueil {
 	public Integer askID() throws NumberFormatException {
 		System.out.println("Quel est votre identifiant ?");
 		System.out.print("> ");
-		return Integer.valueOf(getScan().nextLine());
+		return Integer.valueOf(Application.scan.nextLine());
 	}
 
 	
@@ -85,27 +89,16 @@ public class MenuAccueil {
 		this.menuEns = menuEns;
 	}
 	
-	
-	public void setMenuEtu(MenuEtudiant menuEtu) {
-		this.menuEtu = menuEtu;
-	}
-
-	
-
 	/**
 	 * 
 	 * @return
 	 */
-	public Scanner getScan() {
-		return scan;
+	public MenuEtudiant getMenuEtu() {
+		return menuEtu;
 	}
-
-	/**
-	 * 
-	 * @param scan
-	 */
-	public void setScan(Scanner scan) {
-		this.scan = scan;
+	
+	public void setMenuEtu(MenuEtudiant menuEtu) {
+		this.menuEtu = menuEtu;
 	}
 	
 }

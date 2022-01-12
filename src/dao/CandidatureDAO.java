@@ -23,7 +23,6 @@ public class CandidatureDAO {
 	 * @throws SQLException
 	 */
 	private static void addCandidature(ResultSet rs, List<Candidature> liste) throws SQLException {
-		Integer id = rs.getInt(1);
 		Etudiant etudiant = EtudiantDAO.getEtudiantByNumero(rs.getInt(2));
 		Bourse bourse = BourseDAO.getBourseById(rs.getInt(3));
 		Enseignant respLocal = EnseignantDAO.getEnseignantById(rs.getInt(4));
@@ -31,7 +30,7 @@ public class CandidatureDAO {
 		Double noteLocale = rs.getDouble(6);
 		Double noteErasmus = rs.getDouble(7);
 		
-		liste.add(new Candidature(id, etudiant, bourse, respLocal,
+		liste.add(new Candidature(etudiant, bourse, respLocal,
 				respErasmus, noteLocale, noteErasmus));
 	}
 	
@@ -44,7 +43,6 @@ public class CandidatureDAO {
 	 * @throws SQLException
 	 */
 	private static Candidature askCandidature(ResultSet rs) throws SQLException {
-		Integer id = rs.getInt(1);
 		Etudiant etudiant = EtudiantDAO.getEtudiantByNumero(rs.getInt(2));
 		Bourse bourse = BourseDAO.getBourseById(rs.getInt(3));
 		Enseignant respLocal = EnseignantDAO.getEnseignantById(rs.getInt(4));
@@ -52,7 +50,7 @@ public class CandidatureDAO {
 		Double noteLocale = rs.getDouble(6);
 		Double noteErasmus = rs.getDouble(7);
 
-		return new Candidature(id, etudiant, bourse, respLocal,
+		return new Candidature(etudiant, bourse, respLocal,
 				respErasmus, noteLocale, noteErasmus);
 	}
 	

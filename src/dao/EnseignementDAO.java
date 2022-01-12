@@ -20,12 +20,11 @@ public class EnseignementDAO {
 	 * @throws SQLException
 	 */
 	private static void addEnseignement(ResultSet rs, List<Enseignement> liste) throws SQLException {
-		Integer id = rs.getInt(1);
 		String intitule = rs.getString(2);
 		Integer credits = rs.getInt(3);
 		Integer volumeHeures = rs.getInt(4);
 		
-		liste.add(new Enseignement(id, intitule, credits, volumeHeures));
+		liste.add(new Enseignement(intitule, credits, volumeHeures));
 	}
 	
 	
@@ -37,12 +36,11 @@ public class EnseignementDAO {
 	 * @throws SQLException
 	 */
 	private static Enseignement askEnseignement(ResultSet rs) throws SQLException {
-		Integer id = rs.getInt(1);
 		String intitule = rs.getString(2);
 		Integer credits = rs.getInt(3);
 		Integer volumeHeures = rs.getInt(4);
 		
-		return new Enseignement(id, intitule, credits, volumeHeures);
+		return new Enseignement(intitule, credits, volumeHeures);
 	}
 	
 	

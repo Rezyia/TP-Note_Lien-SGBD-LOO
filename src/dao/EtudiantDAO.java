@@ -20,12 +20,11 @@ public class EtudiantDAO {
 	 * @throws SQLException
 	 */
 	private static void addEtudiant(ResultSet rs, List<Etudiant> liste) throws SQLException {
-		Integer numero = rs.getInt(1);
 		String nom = rs.getString(2);
 		String prenom = rs.getString(3);
 		Double moyDS = rs.getDouble(4);
 		
-		liste.add(new Etudiant(numero, nom, prenom, moyDS));
+		liste.add(new Etudiant(nom, prenom, moyDS));
 	}
 	
 	
@@ -37,12 +36,11 @@ public class EtudiantDAO {
 	 * @throws SQLException
 	 */
 	private static Etudiant askEtudiant(ResultSet rs) throws SQLException {
-		Integer numero = rs.getInt(1);
 		String nom = rs.getString(2);
 		String prenom = rs.getString(3);
 		Double moyDS = rs.getDouble(4);
 		
-		return new Etudiant(numero, nom, prenom, moyDS);
+		return new Etudiant(nom, prenom, moyDS);
 	}
 	
 	

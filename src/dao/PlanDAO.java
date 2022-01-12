@@ -15,33 +15,34 @@ import modele.Enseignement;
 
 public class PlanDAO {
 	
+	//TODO TO CORRECT
 	/**
 	 * 
 	 * @param rs
 	 * @param liste
 	 * @throws SQLException
 	 */
-	private static void addPlan(ResultSet rs, List<Plan> liste) throws SQLException {
+	/*private static void addPlan(ResultSet rs, List<Plan> liste) throws SQLException {
 		Candidature candidature = CandidatureDAO.getCandidatureById(rs.getInt(1));
-		Enseignement enseignement = EnseignementDAO.getEnseignementById(rs.getInt(2));
+		List<Enseignement> enseignements = EnseignementDAO.getEnseignementById(rs.getInt(2));
 
-		liste.add(new Plan(candidature, enseignement));
-	}
+		liste.add(new Plan(candidature, enseignements));
+	}*/
 	
 	
-	
+	//TODO TO CORRECT
 	/**
 	 * 
 	 * @param rs
 	 * @return
 	 * @throws SQLException
 	 */
-	private static Plan askPlan(ResultSet rs) throws SQLException {
+	/*private static Plan askPlan(ResultSet rs) throws SQLException {
 		Candidature candidature = CandidatureDAO.getCandidatureById(rs.getInt(1));
-		Enseignement enseignement = EnseignementDAO.getEnseignementById(rs.getInt(2));
+		List<Enseignement> enseignements = EnseignementDAO.getEnseignementById(rs.getInt(2));
 
-		return new Plan(candidature, enseignement);
-	}
+		return new Plan(candidature, enseignements);
+	}*/
 	
 	
 	
@@ -49,7 +50,7 @@ public class PlanDAO {
 	 * Retourne une liste d'objets Plan initialisés à partir des données récupérées par la BDD
 	 * @return
 	 */
-	public static List<Plan> getPlans() {
+	/*public static List<Plan> getPlans() {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
 		
@@ -72,7 +73,7 @@ public class PlanDAO {
 		}
 		
 		return listePlans;
-	}
+	}*/
 	
 	
 	
@@ -82,7 +83,7 @@ public class PlanDAO {
 	 * @param idEnseignement
 	 * @return
 	 */
-	public static Plan getPlanById(Integer idCandidature, Integer idEnseignement) {
+	/*public static Plan getPlanById(Integer idCandidature, Integer idEnseignement) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
 		
@@ -107,6 +108,6 @@ public class PlanDAO {
 		}
 		
 		return pla;
-	}
+	}*/
 	
 }

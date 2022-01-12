@@ -1,28 +1,37 @@
 package modele;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
-public class Candidature extends TableNumero {
-
+@IdClass(CompositeCandidatureId.class)
+public class Candidature {
+	
+	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Etudiant etudiant;
 	
-	@ManyToOne(cascade = CascadeType.ALL) //TODO Creer 'List<Candidature> candidatures' dans Bourse
+	@Id
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Bourse bourse;
 	
-	@ManyToOne //TODO Creer 'List<Candidature> copies' dans Enseignant
+	@Id
+	@OneToMany(mappedBy = "candidature")
+	private List<Plan> plans;
+	
+	@ManyToOne
 	private Enseignant respLocal;
-
-	@ManyToOne //TODO Idem
-	private Enseignant respErasmus;
 	
 	private Double noteLocale;
+
+	@ManyToOne
+	private Enseignant respErasmus;
+	
 	private Double noteErasmus;
 	
 	
 	/**
-	 * @param id
 	 * @param etudiant
 	 * @param bourse
 	 * @param respLocal
@@ -30,9 +39,8 @@ public class Candidature extends TableNumero {
 	 * @param noteLocale
 	 * @param noteErasmus
 	 */
-	public Candidature(Integer id, Etudiant etudiant, Bourse bourse, Enseignant respLocal, Enseignant respErasmus,
+	public Candidature(Etudiant etudiant, Bourse bourse, Enseignant respLocal, Enseignant respErasmus,
 			Double noteLocale, Double noteErasmus) {
-		super(id);
 		this.etudiant = etudiant;
 		this.bourse = bourse;
 		this.respLocal = respLocal;
@@ -40,7 +48,7 @@ public class Candidature extends TableNumero {
 		this.noteLocale = noteLocale;
 		this.noteErasmus = noteErasmus;
 	}
-
+	
 	
 	public Etudiant getEtudiant() {
 		return etudiant;
@@ -57,7 +65,15 @@ public class Candidature extends TableNumero {
 	public void setBourse(Bourse bourse) {
 		this.bourse = bourse;
 	}
-	
+
+	public List<Plan> getPlans() {
+		return plans;
+	}
+
+	public void setPlans(List<Plan> plans) {
+		this.plans = plans;
+	}
+
 	public Enseignant getRespLocal() {
 		return respLocal;
 	}
@@ -93,8 +109,26 @@ public class Candidature extends TableNumero {
 
 	@Override
 	public String toString() {
-		return "Candidature [id=" + getNumero() + ", etudiant=" + etudiant + ", bourse=" + bourse + ", respLocal=" + respLocal
+		return "Candidature [etudiant=" + etudiant + ", bourse=" + bourse + ", respLocal=" + respLocal
 				+ ", respErasmus=" + respErasmus + ", noteLocale=" + noteLocale + ", noteErasmus=" + noteErasmus + "]";
 	}
 
+}
+
+abstract class CompositeCandidatureId {
+
+	@SuppressWarnings("unused")
+	private Etudiant etudiant;
+	@SuppressWarnings("unused")
+	private Bourse bourse;
+	@SuppressWarnings("unused")
+	private List<Plan> plans;
+	
+	
+	/**
+	 * 
+	 */
+	public CompositeCandidatureId() {
+	}
+	
 }

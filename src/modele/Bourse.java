@@ -5,15 +5,19 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-public class Bourse extends TableNumero {
+public class Bourse {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 	
 	private String destination;
 	private Integer nbPostes;
 	
 	@OneToMany(mappedBy = "bourse")
-	public List<Candidature> candidatures;
+	private List<Candidature> candidatures;
 	
-	@OneToOne(mappedBy = "") //TODO Creer 'List<Bourse> copies' dans Enseignant
+	@ManyToOne
 	private Enseignant respLocal;
 
 	
@@ -24,12 +28,20 @@ public class Bourse extends TableNumero {
 	 * @param respLocal
 	 */
 	public Bourse(Integer id, Enseignant respLocal, String destination, Integer nbPostes) {
-		super(id);
+		this.id = id;
 		this.destination = destination;
 		this.nbPostes = nbPostes;
 		this.respLocal = respLocal;
 	}
+
 	
+	public Integer getId() {
+		return id;
+	}
+	
+	protected void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getDestination() {
 		return destination;
@@ -47,6 +59,14 @@ public class Bourse extends TableNumero {
 		this.nbPostes = nbPostes;
 	}
 
+	public List<Candidature> getCandidatures() {
+		return candidatures;
+	}
+
+	public void setCandidatures(List<Candidature> candidatures) {
+		this.candidatures = candidatures;
+	}
+
 	public Enseignant getRespLocal() {
 		return respLocal;
 	}
@@ -58,7 +78,7 @@ public class Bourse extends TableNumero {
 
 	@Override
 	public String toString() {
-		return "Bourse [id=" + getNumero() + ", destination=" + destination + ", nbPostes=" + nbPostes + ", respLocal=" + respLocal + "]";
+		return "Bourse [id=" + getId() + ", destination=" + destination + ", nbPostes=" + nbPostes + ", respLocal=" + respLocal + "]";
 	}
 
 }

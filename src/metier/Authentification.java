@@ -2,6 +2,7 @@ package metier;
 
 import java.util.Scanner;
 
+import app.Application;
 import dao.EnseignantDAO;
 import dao.EtudiantDAO;
 import modele.Personne;
@@ -38,7 +39,7 @@ public abstract class Authentification {
 		Personne resp = EnseignantDAO.getEnseignantById(id);
 		menu.setUtilisateur(resp.getPrenom() + " " + resp.getNom());
 		// confirmation nom / prénom
-		return decider(menu.getMenuAcc().getScan(), resp);
+		return decider(Application.scan, resp);
 	}
 
 	

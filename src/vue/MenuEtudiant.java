@@ -3,6 +3,7 @@ package vue;
 import java.util.Iterator;
 import java.util.List;
 
+import app.Application;
 import metier.Affichage;
 import metier.Authentification;
 import metier.Champs;
@@ -10,12 +11,8 @@ import modele.Candidature;
 
 public class MenuEtudiant {
 	
-	private MenuAccueil menuAcc;
-	
-	public MenuEtudiant(MenuAccueil menuAcc, Integer idEtudiant) {
-		this.menuAcc = menuAcc;
-		
-		if (!Authentification.controlerEtudiant(menuAcc.getScan(), idEtudiant)) {
+	public MenuEtudiant(Integer idEtudiant) {
+		if (!Authentification.controlerEtudiant(Application.scan, idEtudiant)) {
 			System.out.println("Vous n'êtes pas authentifié. Retour au menu...");
 		} else {
 			moteur(idEtudiant);
@@ -30,7 +27,7 @@ public class MenuEtudiant {
 					+ "1: Afficher mes informations" + System.lineSeparator()
 					+ "2: afficher mes candidatures" + System.lineSeparator()
 					+ "q: retour à l'acceuil");
-			choix = menuAcc.getScan().nextLine();
+			choix = Application.scan.nextLine();
 			try {
 				switch (Integer.valueOf(choix)) {
 				case 1:
@@ -60,15 +57,6 @@ public class MenuEtudiant {
 	
 	public  void afficherInfos(Integer idEtudiant) {
 		System.out.println(Affichage.afficherEtudiant(idEtudiant));
-	}
-
-
-	public MenuAccueil getMenuAcc() {
-		return menuAcc;
-	}
-
-	public void setMenuAcc(MenuAccueil menuAcc) {
-		this.menuAcc = menuAcc;
 	}
 	
 }

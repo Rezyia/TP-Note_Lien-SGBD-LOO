@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import app.Application;
 import dao.CandidatureDAO;
 import metier.Affichage;
 import metier.Authentification;
@@ -14,7 +15,6 @@ import modele.Candidature;
 
 public class MenuEnseignant {
 	
-	private MenuAccueil menuAcc;
 	private String utilisateur;
 	
 	/**
@@ -22,8 +22,7 @@ public class MenuEnseignant {
 	 * @param menuAcc
 	 * @param idEnseignant
 	 */
-	public MenuEnseignant(MenuAccueil menuAcc, Integer idEnseignant) {
-		this.menuAcc = menuAcc;
+	public MenuEnseignant(Integer idEnseignant) {
 		this.utilisateur = "";
 		
 		if (!Authentification.controlerEnseignant(this, idEnseignant)) {
@@ -50,7 +49,7 @@ public class MenuEnseignant {
 				System.out.println("Retour au menu...");
 			}
 			try {
-				switch (choixNum) {
+				/*switch (choixNum) {
 				case 1:
 					evaluer(idEnseignant, getUtilisateur());
 					break;
@@ -60,7 +59,7 @@ public class MenuEnseignant {
 				case 3:
 					afficher(idEnseignant);
 					break;
-				}
+				}*/
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 				System.out.println("Annulation...");
@@ -77,17 +76,18 @@ public class MenuEnseignant {
 		+ "3: afficher mes candidatures" + System.lineSeparator()
 		+ "q: retour à l'acceuil");
 		System.out.print(getUtilisateur() + "> ");
-		return getMenuAcc().getScan().nextLine();
+		return Application.scan.nextLine();
 	}
 
-	
+
+	//TODO ADAPTER L'ID DE CANDIDATURE AUX CLES PRIMAIRES MULTIPLES
 	/**
 	 * 
 	 * @param scan
 	 * @param idResponsable
 	 * @throws NumberFormatException
 	 */
-	public  void evaluer(Integer idResponsable, String utilisateur) throws NumberFormatException {
+	/*public  void evaluer(Integer idResponsable, String utilisateur) throws NumberFormatException {
 		//chercher candidature selon id
 		Integer idCandidature = null; Double note = null;
 		System.out.println("Quelle candidature souhaitez-vous evaluer ? ");
@@ -101,11 +101,11 @@ public class MenuEnseignant {
 		
 		System.out.println("ID candidature : ");
 		System.out.print(utilisateur+"> ");
-		idCandidature = Integer.valueOf(getMenuAcc().getScan().nextLine());
+		idCandidature = Integer.valueOf(Application.scan.nextLine());
 	
 		System.out.println("Entrez la note (/20) :");
 		System.out.print(utilisateur+"> ");
-		note = Double.valueOf(getMenuAcc().getScan().nextLine());
+		note = Double.valueOf(Application.scan.nextLine());
 		
 		//appeler changeNote
 		if (!Evaluation.changeNote(idCandidature, idResponsable, note)) {
@@ -116,16 +116,16 @@ public class MenuEnseignant {
 		//appeler calculerScore
 		Double score = Evaluation.calculerScore(idCandidature);
 		System.out.println("Score : " + score + System.lineSeparator());
-	}
+	}*/
 
 	
+	//TODO ADAPTER L'ID DE CANDIDATURE AUX CLES PRIMAIRES MULTIPLES
 	/**
 	 * 
-	 * @param scan
 	 * @param idResponsable
 	 * @throws Exception 
 	 */
-	public  void enregistrer(Integer idResponsable, String utilisateur) throws Exception {
+	/*public  void enregistrer(Integer idResponsable, String utilisateur) throws Exception {
 		//chercher candidature selon id
 		Integer idCandidature = null;
 		System.out.println("Candidatures disponibles : ");
@@ -139,12 +139,12 @@ public class MenuEnseignant {
 		
 		System.out.println("ID candidature :");
 		System.out.print(utilisateur+"> ");
-		idCandidature = Integer.valueOf(getMenuAcc().getScan().nextLine());
+		idCandidature = Integer.valueOf(Application.scan.nextLine());
 		
 		boolean candidatureTrouvee = false;
 		Iterator<Candidature> itecheck1 = candidatures.iterator();
 		while (itecheck1.hasNext() && !candidatureTrouvee) {
-			if (itecheck1.next().getNumero() == idCandidature) {
+			if (itecheck1.next().getId() == idCandidature) {
 				candidatureTrouvee = true;
 			}
 		}
@@ -154,7 +154,7 @@ public class MenuEnseignant {
 			
 		System.out.println("Champ (local ou erasmus) :");
 		System.out.print(utilisateur+"> ");
-		String champ = getMenuAcc().getScan().nextLine();
+		String champ = Application.scan.nextLine();
 		
 		boolean executionOK = true;
 		if ("local".startsWith(champ.toLowerCase()))
@@ -169,10 +169,15 @@ public class MenuEnseignant {
 			System.out.println("L'enregistrement a bien été effectuée.");
 		}
 		return;
-	}
+	}*/
 	
 	
-	public  void afficher(Integer idResponsable) {
+	//TODO ADAPTER L'ID DE CANDIDATURE AUX CLES PRIMAIRES MULTIPLES
+	/**
+	 * 
+	 * @param idResponsable
+	 */
+	/*public  void afficher(Integer idResponsable) {
 		//chercher candidature selon id
 		System.out.println("Candidatures enregistrées : ");
 		
@@ -184,7 +189,7 @@ public class MenuEnseignant {
 		}
 		while (ite.hasNext()) {
 			Candidature can = ite.next();
-			Double score = Evaluation.calculerScore(can.getNumero());
+			Double score = Evaluation.calculerScore(can.getId());
 			String scoreStr = "Au moins une note n'a pas été évaluée";
 			if (score != null && score.toString().length() >= 5) {
 				scoreStr = score.toString().substring(0,5) + "/20";
@@ -192,24 +197,8 @@ public class MenuEnseignant {
 			System.out.print(can + "\n\tScore = " + scoreStr);
 			System.out.println();
 		}
-	}
+	}*/
 	
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public MenuAccueil getMenuAcc() {
-		return menuAcc;
-	}
-
-	/**
-	 * 
-	 * @param menuAcc
-	 */
-	public void setMenuAcc(MenuAccueil menuAcc) {
-		this.menuAcc = menuAcc;
-	}
 	
 	public String getUtilisateur() {
 		return utilisateur;

@@ -1,12 +1,13 @@
 package modele;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
 
 @Entity
 @IdClass(CompositeCandidatureId.class)
-public class Candidature {
+public class Candidature implements Serializable {
 	
 	@Id
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -115,20 +116,56 @@ public class Candidature {
 
 }
 
-abstract class CompositeCandidatureId {
+abstract class CompositeCandidatureId implements Serializable {
 
-	@SuppressWarnings("unused")
-	private Etudiant etudiant;
-	@SuppressWarnings("unused")
-	private Bourse bourse;
-	@SuppressWarnings("unused")
-	private List<Plan> plans;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5271356410079440977L;
+	private int etudiant;
+	private int bourse;
+	private int plans;
 	
 	
 	/**
 	 * 
 	 */
 	public CompositeCandidatureId() {
+	}
+	
+	
+	/**
+	 * 
+	 */
+	public CompositeCandidatureId(int etudiantId, int bourseId, int plansID) {
+		this.etudiant = etudiantId;
+		this.bourse = bourseId;
+		this.plans = plansID;
+	}
+	
+	
+	public int getEtudiant() {
+		return etudiant;
+	}
+	
+	public void setEtudiant(int etudiantId) {
+		this.etudiant = etudiantId;
+	}
+	
+	public int getBourse() {
+		return bourse;
+	}
+	
+	public void setBourse(int bourseId) {
+		this.bourse = bourseId;
+	}
+
+	public int getPlans() {
+		return plans;
+	}
+
+	public void setPlans(int plansID) {
+		this.plans = plansID;
 	}
 	
 }

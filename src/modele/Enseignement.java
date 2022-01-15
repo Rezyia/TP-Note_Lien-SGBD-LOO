@@ -14,7 +14,7 @@ public class Enseignement {
 	private Integer credits;
 	private Integer volumeH;
 	
-	@ManyToMany(mappedBy = "enseignements")
+	@ManyToMany
 	private List<Plan> plans;
 	
 	

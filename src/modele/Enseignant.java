@@ -9,10 +9,10 @@ import javax.persistence.*;
 @Table(name = "Enseignant")
 public class Enseignant extends Personne {
 	
-	@OneToOne(mappedBy = "respLocal")
+	@OneToMany(mappedBy = "respLocal")
 	private List<Candidature> copies_locales;
 	
-	@OneToOne(mappedBy = "respErasmus")
+	@OneToMany(mappedBy = "respErasmus")
 	private List<Candidature> copies_erasmus;
 	
 	@OneToMany(mappedBy = "respLocal")

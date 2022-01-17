@@ -19,6 +19,12 @@ public class Enseignement {
 	
 	
 	/**
+	 * 
+	 */
+	public Enseignement() {
+	}
+
+	/**
 	 * @param id
 	 * @param intitule
 	 * @param credits

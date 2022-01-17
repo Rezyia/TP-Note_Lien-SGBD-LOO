@@ -20,6 +20,13 @@ public class Enseignant extends Personne {
 	
 	
 	/**
+	 * @param nom
+	 * @param prenom
+	 */
+	public Enseignant() {
+	}
+
+	/**
 	 * @param id
 	 * @param nom
 	 * @param prenom

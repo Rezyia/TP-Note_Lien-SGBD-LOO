@@ -22,6 +22,12 @@ public class Bourse {
 
 	
 	/**
+	 * 
+	 */
+	public Bourse() {
+	}
+
+	/**
 	 * @param id
 	 * @param destination
 	 * @param nbPostes

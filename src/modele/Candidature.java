@@ -18,8 +18,8 @@ public class Candidature implements Serializable {
 	private Bourse bourse;
 	
 	@Id
-	@OneToMany(mappedBy = "candidature")
-	private List<Plan> plans;
+	@OneToOne(mappedBy = "candidature")
+	private Plan plan;
 	
 	@ManyToOne
 	private Enseignant respLocal;
@@ -31,6 +31,12 @@ public class Candidature implements Serializable {
 	
 	private Double noteErasmus;
 	
+	
+	/**
+	 * 
+	 */
+	public Candidature() {
+	}
 	
 	/**
 	 * @param etudiant
@@ -67,12 +73,12 @@ public class Candidature implements Serializable {
 		this.bourse = bourse;
 	}
 
-	public List<Plan> getPlans() {
-		return plans;
+	public Plan getplan() {
+		return plan;
 	}
 
-	public void setPlans(List<Plan> plans) {
-		this.plans = plans;
+	public void setplan(Plan plan) {
+		this.plan = plan;
 	}
 
 	public Enseignant getRespLocal() {
@@ -116,15 +122,11 @@ public class Candidature implements Serializable {
 
 }
 
-abstract class CompositeCandidatureId implements Serializable {
+class CompositeCandidatureId implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5271356410079440977L;
-	private int etudiant;
-	private int bourse;
-	private int plans;
+	private Etudiant etudiant;
+	private Bourse bourse;
+	private Plan plan;
 	
 	
 	/**
@@ -137,35 +139,73 @@ abstract class CompositeCandidatureId implements Serializable {
 	/**
 	 * 
 	 */
-	public CompositeCandidatureId(int etudiantId, int bourseId, int plansID) {
+	public CompositeCandidatureId(Etudiant etudiantId, Bourse bourseId, Plan planID) {
 		this.etudiant = etudiantId;
 		this.bourse = bourseId;
-		this.plans = plansID;
+		this.plan = planID;
 	}
 	
 	
-	public int getEtudiant() {
+	public Etudiant getEtudiant() {
 		return etudiant;
 	}
 	
-	public void setEtudiant(int etudiantId) {
+	public void setEtudiant(Etudiant etudiantId) {
 		this.etudiant = etudiantId;
 	}
 	
-	public int getBourse() {
+	public Bourse getBourse() {
 		return bourse;
 	}
 	
-	public void setBourse(int bourseId) {
+	public void setBourse(Bourse bourseId) {
 		this.bourse = bourseId;
 	}
 
-	public int getPlans() {
-		return plans;
+	public Plan getplan() {
+		return plan;
 	}
 
-	public void setPlans(int plansID) {
-		this.plans = plansID;
+	public void setplan(Plan planID) {
+		this.plan = planID;
+	}
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bourse == null) ? 0 : bourse.hashCode());
+		result = prime * result + ((etudiant == null) ? 0 : etudiant.hashCode());
+		result = prime * result + ((plan == null) ? 0 : plan.hashCode());
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CompositeCandidatureId other = (CompositeCandidatureId) obj;
+		if (bourse == null) {
+			if (other.bourse != null)
+				return false;
+		} else if (!bourse.equals(other.bourse))
+			return false;
+		if (etudiant == null) {
+			if (other.etudiant != null)
+				return false;
+		} else if (!etudiant.equals(other.etudiant))
+			return false;
+		if (plan == null) {
+			if (other.plan != null)
+				return false;
+		} else if (!plan.equals(other.plan))
+			return false;
+		return true;
 	}
 	
 }

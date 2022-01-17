@@ -15,6 +15,12 @@ public class Etudiant extends Personne {
 	
 	
 	/**
+	 * 
+	 */
+	public Etudiant() {
+	}
+
+	/**
 	 * @param numero
 	 * @param nom
 	 * @param prenom

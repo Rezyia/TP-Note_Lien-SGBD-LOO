@@ -15,6 +15,12 @@ public abstract class Personne {
 	
 	
 	/**
+	 * 
+	 */
+	public Personne() {
+	}
+
+	/**
 	 * @param nom
 	 * @param prenom
 	 */

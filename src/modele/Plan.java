@@ -60,8 +60,8 @@ public class Plan implements Serializable {
 
 class CompositePlanId implements Serializable {
 
-	private Candidature candidature;
-	private Enseignement enseignement;
+	private Integer candidature;
+	private Integer enseignement;
 	
 	
 	/**
@@ -74,25 +74,25 @@ class CompositePlanId implements Serializable {
 	/**
 	 * 
 	 */
-	public CompositePlanId(Candidature candidature, Enseignement enseignement) {
+	public CompositePlanId(Integer candidature, Integer enseignement) {
 		this.candidature = candidature;
 		this.enseignement = enseignement;
 	}
 	
 	
-	public Candidature getCandidature() {
+	public Integer getCandidature() {
 		return candidature;
 	}
 	
-	public void setCandidature(Candidature candidature) {
+	public void setCandidature(Integer candidature) {
 		this.candidature = candidature;
 	}
 	
-	public Enseignement getenseignement() {
+	public Integer getenseignement() {
 		return enseignement;
 	}
 	
-	public void setEnseignement(Enseignement enseignement) {
+	public void setEnseignement(Integer enseignement) {
 		this.enseignement = enseignement;
 	}
 	

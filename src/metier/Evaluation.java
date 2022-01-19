@@ -14,7 +14,6 @@ import modele.Enseignant;
 
 public abstract class Evaluation {
 	
-	//TODO ADAPTER L'ID DE CANDIDATURE AUX CLES PRIMAIRES MULTIPLES
 	/**
 	 * Change la note d'une candidature lié au responsable passé en paramètre 
 	 * @param idCandidature
@@ -22,7 +21,7 @@ public abstract class Evaluation {
 	 * @param note
 	 * @return
 	 */
-	/*public static boolean changeNote(Integer idCandidature, Integer idResponsable, Double note) {
+	public static boolean changeNote(Integer idCandidature, Integer idResponsable, Double note) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
 		
@@ -35,14 +34,14 @@ public abstract class Evaluation {
 			Enseignant era = c.getRespErasmus();
 			Enseignant local = c.getRespLocal();
 			if (era != null && era.getId() == resp.getId()) { // Si responsable Erasmus
-				str = "UPDATE Candidature" 
-						+ " SET noteErasmus=?"
-						+ " WHERE id=?;";
+				str = "UPDATE Candidature " 
+						+ "SET noteErasmus=? "
+						+ "WHERE id=?;";
 			}
 			else if (local != null && local.getId() == resp.getId()) { // Si responsable Local
-				str = "UPDATE Candidature" 
-						+ " SET noteLocal=?"
-						+ " WHERE id=?;";
+				str = "UPDATE Candidature " 
+						+ "SET noteLocal=? "
+						+ "WHERE id=?;";
 			}
 			else {
 				conn.rollback();
@@ -68,16 +67,15 @@ public abstract class Evaluation {
 			e.printStackTrace();
 		}
 		return false;
-	}*/
+	}
 	
 	
-	//TODO ADAPTER L'ID DE CANDIDATURE AUX CLES PRIMAIRES MULTIPLES
 	/**
 	 * Calcule le score d'une candidature passée en paramètre
 	 * @param idCandidature
 	 * @return null si le score n'a pas pu être calculé, un Double de la moyenne des 3 notes sinon
 	 */
-	/*public static Double calculerScore(Integer idCandidature) {
+	public static Double calculerScore(Integer idCandidature) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
 		
@@ -89,7 +87,7 @@ public abstract class Evaluation {
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(req);
-			//pstmt.setInt(1, c.getId());
+			pstmt.setInt(1, c.getId());
 
 			ResultSet res = pstmt.executeQuery();
 			res.next();
@@ -109,6 +107,6 @@ public abstract class Evaluation {
 			e.printStackTrace();
 		}
 		return score;
-	}*/
+	}
 	
 }

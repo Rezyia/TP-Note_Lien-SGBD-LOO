@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 import javax.persistence.*;
 
-import app.Application;
+import app.App;
 
-public class App {
+public class MenuApp {
 	
 	private MenuEnseignant menuEns;
 	private MenuEtudiant menuEtu;
@@ -16,7 +16,7 @@ public class App {
 	/**
 	 * Constructeur
 	 */
-	public App() {
+	public MenuApp() {
 		this.menuEns = null;
 		this.menuEtu = null;
 		moteur();
@@ -30,8 +30,14 @@ public class App {
 		String choix = "";
 		do {
 			choix = askUtilisateur();
+			Integer choixNum = 0;
 			try {
-				switch (Integer.valueOf(choix)) {
+				choixNum = Integer.valueOf(choix);
+			} catch (NumberFormatException e) {
+				System.out.println();
+			}
+			try {
+				switch (choixNum) {
 				case 1:
 					setMenuEtu(new MenuEtudiant(askID()));
 					break;
@@ -39,8 +45,9 @@ public class App {
 					setMenuEns(new MenuEnseignant(askID()));
 					break;
 				}
-			} catch (NumberFormatException e) {
-				// pas de problème
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				System.out.println("Annulation...");
 			}
 		} while (!choix.equals("q"));
 		return;
@@ -57,7 +64,7 @@ public class App {
 		+ "2: enseignant" + System.lineSeparator()
 		+ "q: quitter");
 		System.out.print("> ");
-		return Application.scan.nextLine();
+		return App.scan.nextLine();
 	}
 	
 	
@@ -69,7 +76,7 @@ public class App {
 	public Integer askID() throws NumberFormatException {
 		System.out.println("Quel est votre identifiant ?");
 		System.out.print("> ");
-		return Integer.valueOf(Application.scan.nextLine());
+		return Integer.valueOf(App.scan.nextLine());
 	}
 
 	

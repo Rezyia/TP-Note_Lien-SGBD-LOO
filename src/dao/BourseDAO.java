@@ -37,7 +37,7 @@ public class BourseDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	private static Bourse askBourse(ResultSet rs) throws SQLException {
+	private static Bourse newBourse(ResultSet rs) throws SQLException {
 		Integer id = rs.getInt(1);
 		Integer idRespLocal = rs.getInt(2);
 		String destination = rs.getString(3);
@@ -101,7 +101,7 @@ public class BourseDAO {
 			ResultSet rs = ps.executeQuery();
 			
 			if (rs.next()) {
-				bou = askBourse(rs);
+				bou = newBourse(rs);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

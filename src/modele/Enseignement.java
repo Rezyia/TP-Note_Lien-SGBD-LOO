@@ -25,7 +25,6 @@ public class Enseignement {
 	}
 
 	/**
-	 * @param id
 	 * @param intitule
 	 * @param credits
 	 * @param volumeH

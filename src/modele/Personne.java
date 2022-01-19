@@ -24,7 +24,8 @@ public abstract class Personne {
 	 * @param nom
 	 * @param prenom
 	 */
-	public Personne(String nom, String prenom) {
+	public Personne(Integer id, String nom, String prenom) {
+		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 	}

@@ -35,7 +35,7 @@ public class EnseignementDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	private static Enseignement askEnseignement(ResultSet rs) throws SQLException {
+	private static Enseignement newEnseignement(ResultSet rs) throws SQLException {
 		String intitule = rs.getString(2);
 		Integer credits = rs.getInt(3);
 		Integer volumeHeures = rs.getInt(4);
@@ -78,10 +78,10 @@ public class EnseignementDAO {
 	
 	/**
 	 * Retourne un objets Enseignement associé à l'id passé en paramètre
-	 * @param id
+	 * @param intitule
 	 * @return
 	 */
-	public static Enseignement getEnseignementById(Integer id) {
+	public static Enseignement getEnseignementByIntitule(String intitule) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
 		
@@ -90,15 +90,15 @@ public class EnseignementDAO {
 		}
 		
 		Enseignement ens = null;
-		String sql = "SELECT * FROM Enseignement WHERE id=?;";
+		String sql = "SELECT * FROM Enseignement WHERE intitule=?;";
 		
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, id);
+			ps.setString(1, intitule);
 			ResultSet rs = ps.executeQuery();
 			
 			if (rs.next()) {
-				ens = askEnseignement(rs);
+				ens = newEnseignement(rs);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

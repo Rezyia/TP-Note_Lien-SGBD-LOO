@@ -15,34 +15,33 @@ import modele.Enseignement;
 
 public class PlanDAO {
 	
-	//TODO TO CORRECT
 	/**
 	 * 
 	 * @param rs
 	 * @param liste
 	 * @throws SQLException
 	 */
-	/*private static void addPlan(ResultSet rs, List<Plan> liste) throws SQLException {
+	private static void addPlan(ResultSet rs, List<Plan> liste) throws SQLException {
 		Candidature candidature = CandidatureDAO.getCandidatureById(rs.getInt(1));
-		List<Enseignement> enseignements = EnseignementDAO.getEnseignementById(rs.getInt(2));
+		Enseignement enseignement = EnseignementDAO.getEnseignementByIntitule(rs.getString(2));
 
-		liste.add(new Plan(candidature, enseignements));
-	}*/
+		liste.add(new Plan(candidature, enseignement));
+	}
 	
 	
-	//TODO TO CORRECT
+	
 	/**
 	 * 
 	 * @param rs
 	 * @return
 	 * @throws SQLException
 	 */
-	/*private static Plan askPlan(ResultSet rs) throws SQLException {
+	private static Plan newPlan(ResultSet rs) throws SQLException {
 		Candidature candidature = CandidatureDAO.getCandidatureById(rs.getInt(1));
-		List<Enseignement> enseignements = EnseignementDAO.getEnseignementById(rs.getInt(2));
+		Enseignement enseignement = EnseignementDAO.getEnseignementByIntitule(rs.getString(2));
 
-		return new Plan(candidature, enseignements);
-	}*/
+		return new Plan(candidature, enseignement);
+	}
 	
 	
 	
@@ -50,7 +49,7 @@ public class PlanDAO {
 	 * Retourne une liste d'objets Plan initialisés à partir des données récupérées par la BDD
 	 * @return
 	 */
-	/*public static List<Plan> getPlans() {
+	public static List<Plan> getPlans() {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
 		
@@ -73,17 +72,17 @@ public class PlanDAO {
 		}
 		
 		return listePlans;
-	}*/
+	}
 	
 	
 	
 	/**
 	 * Retourne un objets Plan associé à l'id passé en paramètre
-	 * @param idCandidature
-	 * @param idEnseignement
+	 * @param candidature_id
+	 * @param enseignement_intitule
 	 * @return
 	 */
-	/*public static Plan getPlanById(Integer idCandidature, Integer idEnseignement) {
+	public static Plan getPlanById(Integer candidature_id, String enseignement_intitule) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
 		
@@ -92,22 +91,22 @@ public class PlanDAO {
 		}
 		
 		Plan pla = null;
-		String sql = "SELECT * FROM Plan WHERE idCandidature=? and idEnseignement=?;";
+		String sql = "SELECT * FROM Plan WHERE candidature_id=? and enseignement_intitule=?;";
 		
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, idCandidature);
-			ps.setInt(2, idEnseignement);
+			ps.setInt(1, candidature_id);
+			ps.setString(2, enseignement_intitule);
 			ResultSet rs = ps.executeQuery();
 			
 			if (rs.next()) {
-				pla = askPlan(rs);
+				pla = newPlan(rs);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		
 		return pla;
-	}*/
+	}
 	
 }

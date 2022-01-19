@@ -6,9 +6,10 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-public class Candidature implements Serializable {
+public class Candidature {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -45,8 +46,9 @@ public class Candidature implements Serializable {
 	 * @param noteLocale
 	 * @param noteErasmus
 	 */
-	public Candidature(Etudiant etudiant, Bourse bourse, Enseignant respLocal, Enseignant respErasmus,
+	public Candidature(Integer id, Etudiant etudiant, Bourse bourse, Enseignant respLocal, Enseignant respErasmus,
 			Double noteLocale, Double noteErasmus) {
+		this.id = id;
 		this.etudiant = etudiant;
 		this.bourse = bourse;
 		this.respLocal = respLocal;
@@ -56,6 +58,14 @@ public class Candidature implements Serializable {
 	}
 	
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Etudiant getEtudiant() {
 		return etudiant;
 	}
@@ -72,11 +82,11 @@ public class Candidature implements Serializable {
 		this.bourse = bourse;
 	}
 
-	public Plan getplan() {
+	public Plan getPlan() {
 		return plan;
 	}
 
-	public void setplan(Plan plan) {
+	public void setPlan(Plan plan) {
 		this.plan = plan;
 	}
 
@@ -107,16 +117,17 @@ public class Candidature implements Serializable {
 	public Double getNoteErasmus() {
 		return noteErasmus;
 	}
-
+	
 	public void setNoteErasmus(Double noteErasmus) {
 		this.noteErasmus = noteErasmus;
 	}
-
-
+	
+	
 	@Override
 	public String toString() {
-		return "Candidature [etudiant=" + etudiant + ", bourse=" + bourse + ", respLocal=" + respLocal
-				+ ", respErasmus=" + respErasmus + ", noteLocale=" + noteLocale + ", noteErasmus=" + noteErasmus + "]";
+		return "Candidature [id=" + id + ", etudiant=" + etudiant + ", bourse=" + bourse + ", plan=" + plan
+				+ ", respLocal=" + respLocal + ", noteLocale=" + noteLocale + ", respErasmus=" + respErasmus
+				+ ", noteErasmus=" + noteErasmus + "]";
 	}
 
 }

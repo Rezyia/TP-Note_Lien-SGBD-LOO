@@ -2,11 +2,12 @@ package metier;
 
 import java.util.Scanner;
 
-import app.Application;
+import app.App;
 import dao.EnseignantDAO;
 import dao.EtudiantDAO;
 import modele.Personne;
 import vue.MenuEnseignant;
+import vue.MenuEtudiant;
 
 public abstract class Authentification {
 	
@@ -20,7 +21,6 @@ public abstract class Authentification {
 		System.out.println("Etes-vous bien " + resp.getPrenom() + " " + resp.getNom() + " ? (oui / non) ");
 		System.out.print("> ");
 		String confirmation = scan.nextLine().toLowerCase();
-		System.out.print(System.lineSeparator());
 		if ("oui".startsWith(confirmation)) {
 			return true;
 		}
@@ -37,9 +37,12 @@ public abstract class Authentification {
 	public static boolean controlerEnseignant(MenuEnseignant menu, Integer id) {
 		// chercher selon id
 		Personne resp = EnseignantDAO.getEnseignantById(id);
-		menu.setUtilisateur(resp.getPrenom() + " " + resp.getNom());
-		// confirmation nom / prénom
-		return decider(Application.scan, resp);
+		if (decider(App.scan, resp)) {
+			// confirmation nom / prénom
+			menu.setUtilisateur(resp.getPrenom() + " " + resp.getNom());
+			return true;
+		}
+		return false;
 	}
 
 	
@@ -49,11 +52,15 @@ public abstract class Authentification {
 	 * @param numero
 	 * @return
 	 */
-	public static boolean controlerEtudiant(Scanner scan, Integer numero) {
+	public static boolean controlerEtudiant(MenuEtudiant menu, Integer numero) {
 		// chercher selon id
 		Personne resp = EtudiantDAO.getEtudiantByNumero(numero);
-		// confirmation nom / prénom
-		return decider(scan, resp);
+		if (decider(App.scan, resp)) {
+			// confirmation nom / prénom
+			menu.setUtilisateur(resp.getPrenom() + " " + resp.getNom());
+			return true;
+		}
+		return false;
 	}
 	
 }

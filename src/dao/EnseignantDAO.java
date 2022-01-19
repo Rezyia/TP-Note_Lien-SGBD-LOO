@@ -14,8 +14,8 @@ import modele.Enseignant;
 public class EnseignantDAO {
 	
 	/**
-	 * 
-	 * @param rs
+	 * Ajoute un enseignant à la liste passée en paramètre 
+	 * @param rs ResultSet contenant l'Enseignant à ajouter
 	 * @param liste
 	 * @throws SQLException
 	 */
@@ -30,9 +30,9 @@ public class EnseignantDAO {
 	
 	
 	/**
-	 * 
-	 * @param rs
-	 * @return
+	 * Crée et retourne un objet Enseignant à partir d'un ResultSet 
+	 * @param rs ResultSet contenant l'Enseignant
+	 * @return Enseignant
 	 * @throws SQLException
 	 */
 	private static Enseignant newEnseignant(ResultSet rs) throws SQLException {

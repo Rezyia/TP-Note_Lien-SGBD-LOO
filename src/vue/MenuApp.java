@@ -1,8 +1,5 @@
 package vue;
 
-import java.util.Scanner;
-
-import javax.persistence.*;
 
 import app.App;
 
@@ -12,10 +9,6 @@ public class MenuApp {
 	private MenuEtudiant menuEtu;
 	
 
-	
-	/**
-	 * Constructeur
-	 */
 	public MenuApp() {
 		this.menuEns = null;
 		this.menuEtu = null;
@@ -24,7 +17,7 @@ public class MenuApp {
 	
 	
 	/**
-	 * 
+	 * Moteur du menu de l'application
 	 */
 	public void moteur() {
 		String choix = "";
@@ -55,7 +48,7 @@ public class MenuApp {
 	
 	
 	/**
-	 * 
+	 * Menu de type de connexion
 	 * @return 1: étudiant, 2: enseignant, q: quitter 
 	 */
 	public String askUtilisateur() {
@@ -69,7 +62,7 @@ public class MenuApp {
 	
 	
 	/**
-	 * 
+	 * Affiche le menu de connexion par ID
 	 * @return Integer de l'id entré en input
 	 * @throws NumberFormatException
 	 */
@@ -80,26 +73,14 @@ public class MenuApp {
 	}
 
 	
-	/**
-	 * 
-	 * @return
-	 */
 	public MenuEnseignant getMenuEns() {
 		return menuEns;
 	}
 
-	/**
-	 * 
-	 * @param menuEns
-	 */
 	public void setMenuEns(MenuEnseignant menuEns) {
 		this.menuEns = menuEns;
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
 	public MenuEtudiant getMenuEtu() {
 		return menuEtu;
 	}

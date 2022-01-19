@@ -16,8 +16,8 @@ import modele.Enseignement;
 public class PlanDAO {
 	
 	/**
-	 * 
-	 * @param rs
+	 * Ajoute un plan à la liste passée en paramètre 
+	 * @param rs ResultSet contenant le plan à ajouter
 	 * @param liste
 	 * @throws SQLException
 	 */
@@ -31,8 +31,8 @@ public class PlanDAO {
 	
 	
 	/**
-	 * 
-	 * @param rs
+	 * Crée et retourne un objet Plan à partir d'un ResultSet 
+	 * @param rs ResultSet contenant le plan à ajouter
 	 * @return
 	 * @throws SQLException
 	 */

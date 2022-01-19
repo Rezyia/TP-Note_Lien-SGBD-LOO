@@ -15,9 +15,9 @@ import modele.Enseignant;
 public class BourseDAO {
 	
 	/**
-	 * 
-	 * @param rs
-	 * @param liste
+	 * Ajoute une bourse à la liste passée en paramètre 
+	 * @param rs ResultSet contenant la bourse à ajouter
+	 * @param liste 
 	 * @throws SQLException
 	 */
 	private static void addBourse(ResultSet rs, List<Bourse> liste) throws SQLException {
@@ -32,9 +32,9 @@ public class BourseDAO {
 	}
 	
 	/**
-	 * 
-	 * @param rs
-	 * @return
+	 * Crée et retourne un objet Bourse
+	 * @param rs ResultSet contenant la bourse
+	 * @return Bourse
 	 * @throws SQLException
 	 */
 	private static Bourse newBourse(ResultSet rs) throws SQLException {
@@ -50,7 +50,7 @@ public class BourseDAO {
 	
 	
 	/**
-	 * 
+	 * Retourne la liste statique des bourses
 	 * @return
 	 */
 	public static List<Bourse> getBourses() {

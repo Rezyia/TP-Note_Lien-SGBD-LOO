@@ -14,8 +14,8 @@ import modele.Enseignement;
 public class EnseignementDAO {
 
 	/**
-	 * 
-	 * @param rs
+	 * Ajoute un Enseignement à la liste passée en paramètre 
+	 * @param rs ResultSet contenant l'Enseignement
 	 * @param liste
 	 * @throws SQLException
 	 */
@@ -30,8 +30,8 @@ public class EnseignementDAO {
 	
 	
 	/**
-	 * 
-	 * @param rs
+	 * Crée et retourne un objet Enseigmenent à partir d'un ResultSet 
+	 * @param rs ResultSet contenant L'Enseignement
 	 * @return
 	 * @throws SQLException
 	 */

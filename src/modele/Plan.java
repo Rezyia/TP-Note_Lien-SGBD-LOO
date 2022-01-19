@@ -1,7 +1,6 @@
 package modele;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.*;
 
@@ -60,6 +59,10 @@ public class Plan {
 
 class CompositePlanId implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3616455865265704144L;
 	private Integer candidature;
 	private Integer enseignement;
 	

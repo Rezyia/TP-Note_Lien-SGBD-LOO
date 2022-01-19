@@ -1,6 +1,5 @@
 package metier;
 
-import java.util.Iterator;
 import java.util.List;
 
 import dao.CandidatureDAO;
@@ -10,6 +9,12 @@ import modele.Etudiant;
 
 public class Affichage {
 
+	/**
+	 * Retourne la liste des Candidatures à afficher de la personne correspondante
+	 * @param id Identifiant de la personne 
+	 * @param type Type de la personne (Champs.ETUDIANT ou Champs.ENSEIGNANT)
+	 * @return
+	 */
 	public static List<Candidature> afficherCandidatures(Integer id, Champs type) {
 		List<Candidature> liste = null;
 		
@@ -24,8 +29,14 @@ public class Affichage {
 		return liste;
 	}
 	
-	public static String afficherEtudiant(Integer numero) {
-		Etudiant etu = EtudiantDAO.getEtudiantByNumero(numero);
+	
+	/**
+	 * Retourne une chaîne de caractères correspondant à l'étudiant
+	 * @param id Numéro de l'étudiant 
+	 * @return
+	 */
+	public static String afficherEtudiant(Integer id) {
+		Etudiant etu = EtudiantDAO.getEtudiantById(id);
 		return etu.toString();
 	}
 	

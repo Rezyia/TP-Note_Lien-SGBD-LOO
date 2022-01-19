@@ -14,8 +14,8 @@ import modele.Etudiant;
 public class EtudiantDAO {
 	
 	/**
-	 * 
-	 * @param rs
+	 * Ajoute un etudiant à la liste passée en paramètre 
+	 * @param rs ResultSet contenant l'etudiant à ajouter
 	 * @param liste
 	 * @throws SQLException
 	 */
@@ -31,8 +31,8 @@ public class EtudiantDAO {
 	
 	
 	/**
-	 * 
-	 * @param rs
+	 * Crée et retourne un objet Etudiant à partir d'un ResultSet 
+	 * @param rs ResultSet contenant l'etudiant à ajouter
 	 * @return
 	 * @throws SQLException
 	 */
@@ -84,10 +84,6 @@ public class EtudiantDAO {
 	 * @return
 	 */
 	public static Etudiant getEtudiantById(Integer id) {
-		return getEtudiantByNumero(id);
-	}
-	
-	public static Etudiant getEtudiantByNumero(Integer numero) {
 		if (!BDD.isConnected()) BDD.connect();
 		Connection conn = BDD.getConnection();
 		
@@ -100,7 +96,7 @@ public class EtudiantDAO {
 		
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, numero);
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			
 			if (rs.next()) {

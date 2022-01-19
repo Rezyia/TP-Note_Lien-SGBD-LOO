@@ -12,9 +12,9 @@ import vue.MenuEtudiant;
 public abstract class Authentification {
 	
 	/**
-	 * 
-	 * @param scan
-	 * @param resp
+	 * Confirme la connexion
+	 * @param scan Scanner utilisé
+	 * @param resp Personne à connecter
 	 * @return
 	 */
 	private static boolean decider(Scanner scan, Personne resp) {
@@ -29,9 +29,9 @@ public abstract class Authentification {
 	
 	
 	/**
-	 * 
-	 * @param scan
-	 * @param id
+	 * Fonction de contrôle de connexion pour les enseignants
+	 * @param scan Scanner utilisé
+	 * @param id Numéro de l'enseignant
 	 * @return
 	 */
 	public static boolean controlerEnseignant(MenuEnseignant menu, Integer id) {
@@ -47,14 +47,14 @@ public abstract class Authentification {
 
 	
 	/**
-	 * 
-	 * @param scan
-	 * @param numero
+	 * Fonction de contrôle de connexion pour les étudiants
+	 * @param scan Scanner utilisé
+	 * @param id Numéro de l'étudiant
 	 * @return
 	 */
-	public static boolean controlerEtudiant(MenuEtudiant menu, Integer numero) {
+	public static boolean controlerEtudiant(MenuEtudiant menu, Integer id) {
 		// chercher selon id
-		Personne resp = EtudiantDAO.getEtudiantByNumero(numero);
+		Personne resp = EtudiantDAO.getEtudiantById(id);
 		if (decider(App.scan, resp)) {
 			// confirmation nom / prénom
 			menu.setUtilisateur(resp.getPrenom() + " " + resp.getNom());

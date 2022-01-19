@@ -14,9 +14,6 @@ public class MenuEtudiant {
 	private String utilisateur;
 	
 	
-	/**
-	 * @param idEtudiant
-	 */
 	public MenuEtudiant(Integer idEtudiant) {
 		this.utilisateur = "";
 		
@@ -29,6 +26,7 @@ public class MenuEtudiant {
 	
 	
 	/**
+	 * Moteur du menu des étudiants
 	 * @param idEtudiant
 	 */
 	public void moteur(Integer idEtudiant) {
@@ -59,6 +57,11 @@ public class MenuEtudiant {
 		return;
 	}
 	
+	
+	/**
+	 * Menu d'actions des étudiants
+	 * @return
+	 */
 	public String askAction() {
 		System.out.println("Que souhaitez-vous faire ?" + System.lineSeparator()
 		+ "1: Afficher mes informations" + System.lineSeparator()
@@ -68,6 +71,11 @@ public class MenuEtudiant {
 		return App.scan.nextLine();
 	}
 	
+	
+	/**
+	 * Affiche la liste des candidatures associées à l'étudiant connecté
+	 * @param idEtudiant
+	 */
 	public  void afficherCandidatures(Integer idEtudiant) {
 		// Affichage des candidatures évaluables :
 		List<Candidature> candidatures = Affichage.afficherCandidatures(idEtudiant, Champs.ETUDIANT);
@@ -77,6 +85,11 @@ public class MenuEtudiant {
 		}
 	}
 	
+	
+	/**
+	 * Affiche les informations de l'étudiant connecté
+	 * @param idEtudiant
+	 */
 	public  void afficherInfos(Integer idEtudiant) {
 		System.out.println(Affichage.afficherEtudiant(idEtudiant));
 	}

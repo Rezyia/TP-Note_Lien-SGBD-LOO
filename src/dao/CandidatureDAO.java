@@ -17,14 +17,14 @@ import modele.Etudiant;
 public class CandidatureDAO {
 	
 	/**
-	 * 
-	 * @param rs
+	 * Ajoute une candidature à la liste passée en paramètre 
+	 * @param rs ResultSet contenant la candidature à ajouter
 	 * @param liste
 	 * @throws SQLException
 	 */
 	private static void addCandidature(ResultSet rs, List<Candidature> liste) throws SQLException {
 		Integer id = rs.getInt(1);
-		Etudiant etudiant = EtudiantDAO.getEtudiantByNumero(rs.getInt(2));
+		Etudiant etudiant = EtudiantDAO.getEtudiantById(rs.getInt(2));
 		Bourse bourse = BourseDAO.getBourseById(rs.getInt(3));
 		Enseignant respLocal = EnseignantDAO.getEnseignantById(rs.getInt(4));
 		Enseignant respErasmus = EnseignantDAO.getEnseignantById(rs.getInt(5));
@@ -36,14 +36,14 @@ public class CandidatureDAO {
 	}
 	
 	/**
-	 * 
-	 * @param rs
-	 * @return
+	 * Crée et retourne un objet Candidature à partir d'un ResultSet 
+	 * @param rs ResultSet contenant une candidature
+	 * @return Candidature
 	 * @throws SQLException
 	 */
 	private static Candidature newCandidature(ResultSet rs) throws SQLException {
 		Integer id = rs.getInt(1);
-		Etudiant etudiant = EtudiantDAO.getEtudiantByNumero(rs.getInt(2));
+		Etudiant etudiant = EtudiantDAO.getEtudiantById(rs.getInt(2));
 		Bourse bourse = BourseDAO.getBourseById(rs.getInt(3));
 		Enseignant respLocal = EnseignantDAO.getEnseignantById(rs.getInt(4));
 		Enseignant respErasmus = EnseignantDAO.getEnseignantById(rs.getInt(5));
@@ -56,7 +56,7 @@ public class CandidatureDAO {
 	
 	
 	/**
-	 * 
+	 * Retourne la liste statique des candidatures
 	 * @return
 	 */
 	public static List<Candidature> getCandidatures() {

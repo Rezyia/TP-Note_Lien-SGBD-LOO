@@ -16,9 +16,7 @@ public class MenuEnseignant {
 	
 	private String utilisateur;
 	
-	/**
-	 * @param idEnseignant
-	 */
+
 	public MenuEnseignant(Integer idEnseignant) {
 		this.utilisateur = "";
 		
@@ -32,7 +30,7 @@ public class MenuEnseignant {
 	
 	
 	/**
-	 * 
+	 * Moteur du menu des enseignants
 	 * @param idEnseignant
 	 */
 	public void moteur(Integer idEnseignant) {
@@ -66,6 +64,10 @@ public class MenuEnseignant {
 		return;
 	}
 	
+	/**
+	 * Menu d'actions des enseignants
+	 * @return
+	 */
 	public String askAction() {
 		System.out.println("Que souhaitez-vous faire ?" + System.lineSeparator()
 		+ "1: evaluer mes candidatures enregistrées" + System.lineSeparator()
@@ -76,12 +78,14 @@ public class MenuEnseignant {
 		return App.scan.nextLine();
 	}
 
+	
 	/**
+	 * Evalue une candidature parmi celles associées à l'enseignant connecté
 	 * @param idResponsable
 	 * @param utilisateur
 	 * @throws NumberFormatException
 	 */
-	public  void evaluer(Integer idResponsable, String utilisateur) throws NumberFormatException {
+	public void evaluer(Integer idResponsable, String utilisateur) throws NumberFormatException {
 		//chercher candidature selon id
 		Integer idCandidature = null; Double note = null;
 		System.out.println("Quelle candidature souhaitez-vous evaluer ? ");
@@ -112,7 +116,9 @@ public class MenuEnseignant {
 		System.out.println("Score : " + score + System.lineSeparator());
 	}
 	
+	
 	/**
+	 * Enregiste l'enseignant connecté à l'une des candidatures disponibles 
 	 * @param idResponsable
 	 * @param utilisateur
 	 * @throws Exception
@@ -163,8 +169,9 @@ public class MenuEnseignant {
 		return;
 	}
 	
+	
 	/**
-	 * 
+	 * Affiche la liste des candidatures associées à l'enseignant connecté
 	 * @param idResponsable
 	 */
 	public  void afficher(Integer idResponsable) {

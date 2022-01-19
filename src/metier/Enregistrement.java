@@ -5,9 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import app.BDD;
-import dao.EnseignantDAO;
-import modele.Candidature;
-import modele.Enseignant;
 
 public abstract class Enregistrement {
 

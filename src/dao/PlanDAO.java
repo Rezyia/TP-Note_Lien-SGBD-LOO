@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import app.App;
+import app.BDD;
 import modele.Plan;
 
 public class PlanDAO {
@@ -15,9 +15,9 @@ public class PlanDAO {
 	 * @param liste
 	 */
 	public static void addPlan(Plan p) throws SQLException {
-		App.em.getTransaction().begin();
-		App.em.persist(p);
-		App.em.getTransaction().commit();
+		BDD.em.getTransaction().begin();
+		BDD.em.persist(p);
+		BDD.em.getTransaction().commit();
 	}
 		
 	
@@ -26,7 +26,7 @@ public class PlanDAO {
 	 * @return
 	 */
 	public static List<Plan> getPlans() {
-		Query query = App.em.createQuery("from Plan");
+		Query query = BDD.em.createQuery("from Plan");
 		
 		List<Plan> listePlans = query.getResultList();
 		
@@ -43,7 +43,7 @@ public class PlanDAO {
 	 * @return
 	 */
 	public static Plan getPlanById(Integer candidature_id, String intitule) {
-		Query query = App.em.createQuery("from Plan P where P.idCandidature = :c_id AND P.enseignement = :e_id"); 
+		Query query = BDD.em.createQuery("from Plan P where P.idCandidature = :c_id AND P.enseignement = :e_id"); 
 		query.setParameter("c_id", candidature_id);
 		query.setParameter("intitule", intitule);
 		

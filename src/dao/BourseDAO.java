@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import app.App;
+import app.BDD;
 import modele.Bourse;
 
 public class BourseDAO {
@@ -15,9 +15,9 @@ public class BourseDAO {
 	 * @param liste 
 	 */
 	public static void addBourse(Bourse b) throws SQLException {
-		App.em.getTransaction().begin();
-		App.em.persist(b);
-		App.em.getTransaction().commit();
+		BDD.em.getTransaction().begin();
+		BDD.em.persist(b);
+		BDD.em.getTransaction().commit();
 
 	}
 	
@@ -26,7 +26,7 @@ public class BourseDAO {
 	 * Retourne la liste des bourses
 	 */
 	public static List<Bourse> getBourses() {
-		Query query = App.em.createQuery("from Bourse");
+		Query query = BDD.em.createQuery("from Bourse");
 		
 		List<Bourse> listeBourses = query.getResultList();
 		
@@ -40,7 +40,7 @@ public class BourseDAO {
 	 * @return Bourse
 	 */
 	public static Bourse getBourseById(Integer id) {
-		Query query = App.em.createQuery("from Bourse B where B.id = :b_id"); 
+		Query query = BDD.em.createQuery("from Bourse B where B.id = :b_id"); 
 		query.setParameter("b_id", id);
 		
 		Bourse bourse = (Bourse) query.getSingleResult();

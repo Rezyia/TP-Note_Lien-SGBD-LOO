@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import app.App;
+import app.BDD;
 import modele.Enseignant;
 
 public class EnseignantDAO {
@@ -15,9 +15,9 @@ public class EnseignantDAO {
 	 * @throws SQLException
 	 */
 	public static void addEnseignant(Enseignant ens) throws SQLException {
-		App.em.getTransaction().begin();
-		App.em.persist(ens);
-		App.em.getTransaction().commit();
+		BDD.em.getTransaction().begin();
+		BDD.em.persist(ens);
+		BDD.em.getTransaction().commit();
 	}	
 	
 	
@@ -26,7 +26,7 @@ public class EnseignantDAO {
 	 * @return
 	 */
 	public static List<Enseignant> getEnseignants() {
-		Query query = App.em.createQuery("from Enseignant");
+		Query query = BDD.em.createQuery("from Enseignant");
 				
 		List<Enseignant> listeEnseignants = query.getResultList();
 		
@@ -41,7 +41,7 @@ public class EnseignantDAO {
 	 * @return
 	 */
 	public static Enseignant getEnseignantById(Integer id) {
-		Query query = App.em.createQuery("from Enseignant E where E.id = :ens_id"); 
+		Query query = BDD.em.createQuery("from Enseignant E where E.id = :ens_id"); 
 		query.setParameter("ens_id", id);
 		
 		Enseignant ens = (Enseignant) query.getSingleResult();

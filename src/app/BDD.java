@@ -5,11 +5,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
+
 import modele.*;
 
 public class BDD {
-	
-	
+		
+	public static EntityManager em;
+
+
 	/**
 	 * Drop les tables si elles existent déjà puis les recrée et insert des exemples dans la BDD.
 	 */
@@ -68,15 +72,15 @@ public class BDD {
 		PlatoPersist.add(new Plan(CandtoPersist.get(1), EsgetoPersist.get(3)));
 		
 		try {
-			App.em.getTransaction().begin();
+			BDD.em.getTransaction().begin();
 			for (List toPersist : ListsToPersist) {
 				for (Object obj : toPersist) {
-					App.em.persist(obj);
+					BDD.em.persist(obj);
 				}
 			}
-			App.em.getTransaction().commit();
+			BDD.em.getTransaction().commit();
 		} catch (Exception e) {
-			App.em.getTransaction().rollback();
+			BDD.em.getTransaction().rollback();
 			e.printStackTrace();
 		}
 	}

@@ -2,7 +2,6 @@ package app;
 
 import java.util.Scanner;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -10,14 +9,13 @@ import vue.*;
 
 public class App {
 
-	public static EntityManager em;
 	public static Scanner scan;
 	
 	public static void main(String [] args) {
 		System.out.println("Début du programme...");
 		
 		EntityManagerFactory em_factory = Persistence.createEntityManagerFactory("perUnitTPnote"); 
-		App.em = em_factory.createEntityManager();
+		BDD.em = em_factory.createEntityManager();
 		App.scan = new Scanner(System.in);
 		
 		
@@ -32,7 +30,7 @@ public class App {
 		
 		
 		App.scan.close();
-		App.em.close();
+		BDD.em.close();
 		em_factory.close();
 		
 		System.out.println("Fin du programme.");

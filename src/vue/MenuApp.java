@@ -1,6 +1,8 @@
 package vue;
 
 
+import javax.persistence.NoResultException;
+
 import app.App;
 
 public class MenuApp {
@@ -32,10 +34,20 @@ public class MenuApp {
 			try {
 				switch (choixNum) {
 				case 1:
-					setMenuEtu(new MenuEtudiant(askID()));
+					try {
+						setMenuEtu(new MenuEtudiant(askID()));
+					} catch (NoResultException e) {
+						System.out.println("Etudiant non reconnu.");
+						System.out.println("<POUR L'EXAMINATEUR> Les ID d'enseignants existant vont de 1 à 2.");
+					}
 					break;
 				case 2:
-					setMenuEns(new MenuEnseignant(askID()));
+					try {
+						setMenuEns(new MenuEnseignant(askID()));
+					} catch (NoResultException e) {
+						System.out.println("Enseignant non reconnu.");
+						System.out.println("<POUR L'EXAMINATEUR> Les ID d'enseignants existant vont de 3 à 6.");
+					}
 					break;
 				}
 			} catch (Exception e) {

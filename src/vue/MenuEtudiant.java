@@ -8,6 +8,7 @@ import dao.CandidatureDAO;
 import metier.Affichage;
 import metier.Authentification;
 import metier.Champs;
+import metier.Evaluation;
 import modele.Candidature;
 
 public class MenuEtudiant {
@@ -65,25 +66,37 @@ public class MenuEtudiant {
 	 */
 	public String askAction() {
 		System.out.println("Que souhaitez-vous faire ?" + System.lineSeparator()
-		+ "1: Afficher mes informations" + System.lineSeparator()
+		+ "1: afficher mes informations" + System.lineSeparator()
 		+ "2: afficher mes candidatures" + System.lineSeparator()
 		+ "q: retour à l'acceuil");
 		System.out.print(getUtilisateur() + "> ");
 		return App.scan.nextLine();
 	}
 	
-	
 	/**
 	 * Affiche la liste des candidatures associées à l'étudiant connecté
 	 * @param idEtudiant
 	 */
 	public  void afficherCandidatures(Integer idEtudiant) {
+		//chercher candidature selon id
+		System.out.println("Candidatures : ");
+		
 		// Affichage des candidatures :
 		List<Candidature> candidatures = CandidatureDAO.getCandidaturesByEtudiant(idEtudiant);
-		for (Candidature c : candidatures)
-			System.out.println(c);
+		Iterator<Candidature> ite = candidatures.iterator();
+		if (!ite.hasNext()) {
+			System.out.println("Aucune");
+		}
+		while (ite.hasNext()) {
+			Candidature can = ite.next();
+			Double score = Evaluation.calculerScore(can);
+			String scoreStr = "Au moins une note n'a pas été évaluée";
+			if (score != null) {
+				scoreStr = score.toString().substring(0,5) + "/20";
+			}
+			System.out.println(can + "\n\tScore = " + scoreStr);
+		}
 	}
-	
 	
 	/**
 	 * Affiche les informations de l'étudiant connecté

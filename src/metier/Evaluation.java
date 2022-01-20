@@ -43,12 +43,8 @@ public abstract class Evaluation {
 	 * @param idCandidature
 	 * @return null si le score n'a pas pu être calculé, un Double de la moyenne des 3 notes sinon
 	 */
-	public static Double calculerScore(Integer idCandidature) {
-		Candidature c = CandidatureDAO.getCandidatureById(idCandidature);
-		
-		Etudiant etu = EtudiantDAO.getEtudiantById(c.getEtudiant().getId());
-		
-		Double noteDS = etu.getMoyDS();
+	public static Double calculerScore(Candidature c) {
+		Double noteDS = c.getEtudiant().getMoyDS();
 		Double noteRespLocal = c.getNoteLocale();
 		Double noteRespErasmus = c.getNoteErasmus();
 		Double score = null;

@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import app.App;
+import app.BDD;
 import modele.Enseignement;
 
 public class EnseignementDAO {
@@ -15,9 +15,9 @@ public class EnseignementDAO {
 	 * @param liste
 	 */
 	public static void addEnseignement(Enseignement ens) throws SQLException {
-		App.em.getTransaction().begin();
-		App.em.persist(ens);
-		App.em.getTransaction().commit();
+		BDD.em.getTransaction().begin();
+		BDD.em.persist(ens);
+		BDD.em.getTransaction().commit();
 	}
 	
 	
@@ -26,7 +26,7 @@ public class EnseignementDAO {
 	 * @return
 	 */
 	public static List<Enseignement> getEnseignements() {
-		Query query = App.em.createQuery("from Enseignement");
+		Query query = BDD.em.createQuery("from Enseignement");
 		
 		List<Enseignement> listeEnseignements = query.getResultList();
 		
@@ -41,7 +41,7 @@ public class EnseignementDAO {
 	 * @return
 	 */
 	public static Enseignement getEnseignementById(String id) {
-		Query query = App.em.createQuery("from Enseignement E where E.id = :ens_id"); 
+		Query query = BDD.em.createQuery("from Enseignement E where E.id = :ens_id"); 
 		query.setParameter("ens_id", id);
 		
 		Enseignement ens = (Enseignement) query.getSingleResult();
@@ -55,7 +55,7 @@ public class EnseignementDAO {
 	 * @return
 	 */
 	public static Enseignement getEnseignementByIntitule(String intitule) {
-		Query query = App.em.createQuery("from Enseignement E where E.intitule = :intitule"); 
+		Query query = BDD.em.createQuery("from Enseignement E where E.intitule = :intitule"); 
 		query.setParameter("intitule", intitule);
 		
 		Enseignement ens = (Enseignement) query.getSingleResult();

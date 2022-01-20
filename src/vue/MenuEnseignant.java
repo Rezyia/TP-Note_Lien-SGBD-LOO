@@ -93,13 +93,22 @@ public class MenuEnseignant {
 		// Affichage des candidatures évaluables :
 		List<Candidature> candidatures = CandidatureDAO.getCandidaturesByResponsable(idResponsable);
 		Iterator<Candidature> ite = candidatures.iterator();
-		while (ite.hasNext()) {
-			System.out.println(ite.next());
+		if (ite.hasNext()) {
+			while (ite.hasNext()) {
+				System.out.println(ite.next());
+			}
+		} else {
+			System.out.println("Aucune candidature enregistrée.");
+			return;
 		}
 		
 		System.out.println("Selectionner l'ID de la candidature à évaluer : ");
 		System.out.print(utilisateur+"> ");
 		idCandidature = Integer.valueOf(App.scan.nextLine());
+		if (!candidatures.contains(CandidatureDAO.getCandidatureById(idCandidature))) {
+			System.out.println("Cette candidature ne fait pas partie de la liste proposée.");
+			return;
+		}
 	
 		System.out.println("Entrez la note (/20) :");
 		System.out.print(utilisateur+"> ");
@@ -112,8 +121,12 @@ public class MenuEnseignant {
 		}
 		
 		//appeler calculerScore
-		Double score = Evaluation.calculerScore(idCandidature);
-		System.out.println("Score : " + score + System.lineSeparator());
+		Double score = Evaluation.calculerScore(CandidatureDAO.getCandidatureById(idCandidature));
+		if (score != null) {
+			System.out.println("Score : " + score + System.lineSeparator());
+		} else {
+			System.out.println("Au moins une note du semestre, locale ou d'Erasmus reste à évaluer pour calculer le score.");
+		}
 	}
 	
 	
@@ -186,7 +199,7 @@ public class MenuEnseignant {
 		}
 		while (ite.hasNext()) {
 			Candidature can = ite.next();
-			Double score = Evaluation.calculerScore(can.getId());
+			Double score = Evaluation.calculerScore(can);
 			String scoreStr = "Au moins une note n'a pas été évaluée";
 			if (score != null && score.toString().length() >= 5) {
 				scoreStr = score.toString().substring(0,5) + "/20";

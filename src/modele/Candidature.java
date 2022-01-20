@@ -44,7 +44,7 @@ public class Candidature {
 	 * @param noteLocale
 	 * @param noteErasmus
 	 */
-	public Candidature(Integer id, Etudiant etudiant, Bourse bourse, Enseignant respLocal, Enseignant respErasmus,
+	public Candidature(Etudiant etudiant, Bourse bourse, Enseignant respLocal, Enseignant respErasmus,
 			Double noteLocale, Double noteErasmus) {
 		this.id = id;
 		this.etudiant = etudiant;

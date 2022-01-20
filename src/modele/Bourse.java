@@ -33,8 +33,7 @@ public class Bourse {
 	 * @param nbPostes
 	 * @param respLocal
 	 */
-	public Bourse(Integer id, Enseignant respLocal, String destination, Integer nbPostes) {
-		this.id = id;
+	public Bourse(Enseignant respLocal, String destination, Integer nbPostes) {
 		this.destination = destination;
 		this.nbPostes = nbPostes;
 		this.respLocal = respLocal;

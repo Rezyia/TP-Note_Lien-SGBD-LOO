@@ -31,8 +31,8 @@ public class Enseignant extends Personne {
 	 * @param nom
 	 * @param prenom
 	 */
-	public Enseignant(Integer id, String nom, String prenom) {
-		super(id, nom, prenom);
+	public Enseignant(String nom, String prenom) {
+		super(nom, prenom);
 		this.copies_locales = new ArrayList<>();
 		this.copies_erasmus = new ArrayList<>();
 	}

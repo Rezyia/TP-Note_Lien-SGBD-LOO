@@ -64,7 +64,7 @@ class CompositePlanId implements Serializable {
 	 */
 	private static final long serialVersionUID = -3616455865265704144L;
 	private Integer candidature;
-	private Integer enseignement;
+	private String enseignement;
 	
 	
 	/**
@@ -77,7 +77,7 @@ class CompositePlanId implements Serializable {
 	/**
 	 * 
 	 */
-	public CompositePlanId(Integer candidature, Integer enseignement) {
+	public CompositePlanId(Integer candidature, String enseignement) {
 		this.candidature = candidature;
 		this.enseignement = enseignement;
 	}
@@ -91,11 +91,11 @@ class CompositePlanId implements Serializable {
 		this.candidature = candidature;
 	}
 	
-	public Integer getenseignement() {
+	public String getEnseignement() {
 		return enseignement;
 	}
 	
-	public void setEnseignement(Integer enseignement) {
+	public void setEnseignement(String enseignement) {
 		this.enseignement = enseignement;
 	}
 	

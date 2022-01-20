@@ -51,7 +51,9 @@ public abstract class Evaluation {
 		Double noteDS = etu.getMoyDS();
 		Double noteRespLocal = c.getNoteLocale();
 		Double noteRespErasmus = c.getNoteErasmus();
-		Double score = (noteDS + noteRespLocal + noteRespErasmus) / 3;
+		Double score = null;
+		if (noteDS != null && noteRespLocal != null && noteRespErasmus != null)
+			score = (noteDS + noteRespLocal + noteRespErasmus) / 3;
 			
 		return score;
 	}

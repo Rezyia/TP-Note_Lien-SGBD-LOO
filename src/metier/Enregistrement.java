@@ -22,6 +22,8 @@ public abstract class Enregistrement {
 		} else if (champ == Champs.RESPONSABLE_ERASMUS) {
 			c.setRespErasmus(EnseignantDAO.getEnseignantById(ensId));
 		} else return false;
+		
+		CandidatureDAO.addCandidature(c);
 			
 		return true;
 	}

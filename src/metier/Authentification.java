@@ -30,13 +30,17 @@ public abstract class Authentification {
 	
 	/**
 	 * Fonction de contrôle de connexion pour les enseignants
-	 * @param scan Scanner utilisé
+	 * @param menu Menu utilisé
 	 * @param id Numéro de l'enseignant
 	 * @return
 	 */
 	public static boolean controlerEnseignant(MenuEnseignant menu, Integer id) {
 		// chercher selon id
 		Personne ens = EnseignantDAO.getEnseignantById(id);
+		if (ens == null) {
+			System.out.println("Erreur : l'identifiant ne correspond à aucun étudiant.");
+			return false;
+		}
 		if (decider(App.scan, ens)) {
 			// confirmation nom / prénom
 			menu.setUtilisateur(ens.getPrenom() + " " + ens.getNom());
@@ -48,7 +52,7 @@ public abstract class Authentification {
 	
 	/**
 	 * Fonction de contrôle de connexion pour les étudiants
-	 * @param scan Scanner utilisé
+	 * @param menu Menu utilisé
 	 * @param id Numéro de l'étudiant
 	 * @return
 	 */

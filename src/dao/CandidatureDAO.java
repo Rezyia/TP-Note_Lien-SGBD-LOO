@@ -57,7 +57,7 @@ public class CandidatureDAO {
 	 * @return
 	 */
 	public static List<Candidature> getCandidaturesByResponsable(Integer idResp) {
-		Query query = App.em.createQuery("SELECT c FROM Candidature c WHERE c.respLocal = :resp_id OR c.respErasmus = :resp_id"); 
+		Query query = App.em.createQuery("SELECT c FROM Candidature c WHERE c.respLocal.id = :resp_id OR c.respErasmus.id = :resp_id"); 
 				query.setParameter("resp_id", idResp);
 
 		List<Candidature> listeCandidatures = query.getResultList();
@@ -73,7 +73,7 @@ public class CandidatureDAO {
 	 * @return
 	 */
 	public static List<Candidature> getCandidaturesByEtudiant(Integer idEtu) {
-		Query query = App.em.createQuery("SELECT c FROM Candidature c WHERE c.etudiant = :etu_id"); 
+		Query query = App.em.createQuery("FROM Candidature c WHERE c.etudiant.id = :etu_id"); 
 		query.setParameter("etu_id", idEtu);
 
 		List<Candidature> listeCandidatures = query.getResultList();
@@ -87,8 +87,7 @@ public class CandidatureDAO {
 	 * @return
 	 */
 	public static List<Candidature> getCandidaturesDisponibles() {
-		String sql = "FROM Candidature WHERE respLocal IS NULL OR respErasmus IS NULL;";
-		Query query = App.em.createQuery(sql); 
+		Query query = App.em.createQuery("FROM Candidature WHERE respLocal IS NULL OR respErasmus IS NULL"); 
 
 		List<Candidature> listeCandidatures = query.getResultList();
 		

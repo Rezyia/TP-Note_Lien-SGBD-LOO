@@ -1,85 +1,34 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import app.BDD;
-import modele.Bourse;
+import javax.persistence.Query;
+
+import app.App;
 import modele.Candidature;
-import modele.Enseignant;
-import modele.Etudiant;
 
 public class CandidatureDAO {
 	
 	/**
 	 * Ajoute une candidature à la liste passée en paramètre 
-	 * @param rs ResultSet contenant la candidature à ajouter
 	 * @param liste
-	 * @throws SQLException
 	 */
-	private static void addCandidature(ResultSet rs, List<Candidature> liste) throws SQLException {
-		Integer id = rs.getInt(1);
-		Etudiant etudiant = EtudiantDAO.getEtudiantById(rs.getInt(2));
-		Bourse bourse = BourseDAO.getBourseById(rs.getInt(3));
-		Enseignant respLocal = EnseignantDAO.getEnseignantById(rs.getInt(4));
-		Enseignant respErasmus = EnseignantDAO.getEnseignantById(rs.getInt(5));
-		Double noteLocale = rs.getDouble(6);
-		Double noteErasmus = rs.getDouble(7);
+	public static void addCandidature(Candidature c) {
+		App.em.getTransaction().begin();
+		App.em.persist(c);
+		App.em.getTransaction().commit();
+	}
 		
-		liste.add(new Candidature(id, etudiant, bourse, respLocal,
-				respErasmus, noteLocale, noteErasmus));
-	}
-	
-	/**
-	 * Crée et retourne un objet Candidature à partir d'un ResultSet 
-	 * @param rs ResultSet contenant une candidature
-	 * @return Candidature
-	 * @throws SQLException
-	 */
-	private static Candidature newCandidature(ResultSet rs) throws SQLException {
-		Integer id = rs.getInt(1);
-		Etudiant etudiant = EtudiantDAO.getEtudiantById(rs.getInt(2));
-		Bourse bourse = BourseDAO.getBourseById(rs.getInt(3));
-		Enseignant respLocal = EnseignantDAO.getEnseignantById(rs.getInt(4));
-		Enseignant respErasmus = EnseignantDAO.getEnseignantById(rs.getInt(5));
-		Double noteLocale = rs.getDouble(6);
-		Double noteErasmus = rs.getDouble(7);
-
-		return new Candidature(id, etudiant, bourse, respLocal,
-				respErasmus, noteLocale, noteErasmus);
-	}
-	
 	
 	/**
 	 * Retourne la liste statique des candidatures
 	 * @return
 	 */
 	public static List<Candidature> getCandidatures() {
-		if (!BDD.isConnected()) BDD.connect();
-		Connection conn = BDD.getConnection();
+		Query query = App.em.createQuery("from Candidature");
 		
-		if (!BDD.isConnected()) {
-			return null;
-		}
-		
-		List<Candidature> listeCandidatures = new ArrayList<>();
-		String sql = "SELECT * FROM Candidature;";
-		
-		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			while (rs.next()) {
-				addCandidature(rs, listeCandidatures);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+		List<Candidature> listeCandidatures = query.getResultList();
 		
 		return listeCandidatures;
 	}
@@ -92,29 +41,12 @@ public class CandidatureDAO {
 	 * @return
 	 */
 	public static Candidature getCandidatureById(Integer id) {
-		if (!BDD.isConnected()) BDD.connect();
-		Connection conn = BDD.getConnection();
+		Query query = App.em.createQuery("from Candidature C where C.id = :c_id"); 
+		query.setParameter("c_id", id);
 		
-		if (!BDD.isConnected()) {
-			return null;
-		}
+		Candidature candidature = (Candidature) query.getSingleResult();
 		
-		Candidature can = null;
-		String sql = "SELECT * FROM Candidature WHERE id=?;";
-		
-		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			
-			if (rs.next()) {
-				can = newCandidature(rs);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		
-		return can;
+		return candidature;
 	}
 	
 	
@@ -125,30 +57,13 @@ public class CandidatureDAO {
 	 * @return
 	 */
 	public static List<Candidature> getCandidaturesByResponsable(Integer idResp) {
-		if (!BDD.isConnected()) BDD.connect();
-		Connection conn = BDD.getConnection();
-		
-		if (!BDD.isConnected()) {
-			return null;
-		}
-		
-		List<Candidature> listeCandidatures = new ArrayList<>();
-		String sql = "SELECT * FROM Candidature WHERE respLocal=? OR respErasmus=?;";
-		
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, idResp);
-			pstmt.setInt(2, idResp);
-			ResultSet rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				addCandidature(rs, listeCandidatures);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+		Query query = App.em.createQuery("SELECT c FROM Candidature c WHERE c.respLocal = :resp_id OR c.respErasmus = :resp_id"); 
+				query.setParameter("resp_id", idResp);
+
+		List<Candidature> listeCandidatures = query.getResultList();
 		
 		return listeCandidatures;
+
 	}
 	
 	
@@ -158,27 +73,10 @@ public class CandidatureDAO {
 	 * @return
 	 */
 	public static List<Candidature> getCandidaturesByEtudiant(Integer idEtu) {
-		if (!BDD.isConnected()) BDD.connect();
-		Connection conn = BDD.getConnection();
-		
-		if (!BDD.isConnected()) {
-			return null;
-		}
-		
-		List<Candidature> listeCandidatures = new ArrayList<>();
-		String sql = "SELECT * FROM Candidature WHERE etudiant=?;";
-		
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, idEtu);
-			ResultSet rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				addCandidature(rs, listeCandidatures);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+		Query query = App.em.createQuery("SELECT c FROM Candidature c WHERE c.etudiant = :etu_id"); 
+		query.setParameter("etu_id", idEtu);
+
+		List<Candidature> listeCandidatures = query.getResultList();
 		
 		return listeCandidatures;
 	}
@@ -189,24 +87,10 @@ public class CandidatureDAO {
 	 * @return
 	 */
 	public static List<Candidature> getCandidaturesDisponibles() {
-		if (!BDD.isConnected()) BDD.connect();
-		Connection conn = BDD.getConnection();
-		
-		if (!BDD.isConnected()) return null;
-		
-		List<Candidature> listeCandidatures = new ArrayList<>();
-		String sql = "SELECT * FROM Candidature WHERE respLocal IS NULL OR respErasmus IS NULL;";
-		
-		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			while (rs.next()) {
-				addCandidature(rs, listeCandidatures);
-			}
-		} catch (SQLException e) {
-			System.out.println("Erreur : " + e.getMessage());
-		}
+		String sql = "FROM Candidature WHERE respLocal IS NULL OR respErasmus IS NULL;";
+		Query query = App.em.createQuery(sql); 
+
+		List<Candidature> listeCandidatures = query.getResultList();
 		
 		return listeCandidatures;
 	}

@@ -1,79 +1,34 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import app.BDD;
+import javax.persistence.Query;
+
+import app.App;
 import modele.Bourse;
-import modele.Enseignant;
 
 public class BourseDAO {
 	
 	/**
-	 * Ajoute une bourse à la liste passée en paramètre 
-	 * @param rs ResultSet contenant la bourse à ajouter
+	 * Ajoute une bourse à la BDD
 	 * @param liste 
-	 * @throws SQLException
 	 */
-	private static void addBourse(ResultSet rs, List<Bourse> liste) throws SQLException {
-		Integer id = rs.getInt(1);
-		Integer idRespLocal = rs.getInt(2);
-		String destination = rs.getString(3);
-		Integer nbPostes = rs.getInt(4);
+	public static void addBourse(Bourse b) throws SQLException {
+		App.em.getTransaction().begin();
+		App.em.persist(b);
+		App.em.getTransaction().commit();
 
-		Enseignant respLocal = EnseignantDAO.getEnseignantById(idRespLocal);
-
-		liste.add(new Bourse(id , respLocal, destination, nbPostes));
-	}
-	
-	/**
-	 * Crée et retourne un objet Bourse
-	 * @param rs ResultSet contenant la bourse
-	 * @return Bourse
-	 * @throws SQLException
-	 */
-	private static Bourse newBourse(ResultSet rs) throws SQLException {
-		Integer id = rs.getInt(1);
-		Integer idRespLocal = rs.getInt(2);
-		String destination = rs.getString(3);
-		Integer nbPostes = rs.getInt(4);
-
-		Enseignant respLocal = EnseignantDAO.getEnseignantById(idRespLocal);
-
-		return new Bourse(id , respLocal, destination, nbPostes);
 	}
 	
 	
 	/**
-	 * Retourne la liste statique des bourses
-	 * @return
+	 * Retourne la liste des bourses
 	 */
 	public static List<Bourse> getBourses() {
-		if (!BDD.isConnected()) BDD.connect();
-		Connection conn = BDD.getConnection();
+		Query query = App.em.createQuery("from Bourse");
 		
-		if (!BDD.isConnected()) {
-			return null;
-		}
-		
-		List<Bourse> listeBourses = new ArrayList<>();
-		String sql = "SELECT * FROM Bourse;";
-		
-		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			while (rs.next()) {
-				addBourse(rs, listeBourses);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+		List<Bourse> listeBourses = query.getResultList();
 		
 		return listeBourses;
 	}
@@ -82,32 +37,15 @@ public class BourseDAO {
 	/**
 	 * Retourne un objet Bourse initialisé à partir des données récupérées depuis la BDD.
 	 * @param id
-	 * @return
+	 * @return Bourse
 	 */
 	public static Bourse getBourseById(Integer id) {
-		if (!BDD.isConnected()) BDD.connect();
-		Connection conn = BDD.getConnection();
+		Query query = App.em.createQuery("from Bourse B where B.id = :b_id"); 
+		query.setParameter("b_id", id);
 		
-		if (!BDD.isConnected()) {
-			return null;
-		}
+		Bourse bourse = (Bourse) query.getSingleResult();
 		
-		Bourse bou = null;
-		String sql = "SELECT * FROM Bourse WHERE id=?;";
-		
-		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			
-			if (rs.next()) {
-				bou = newBourse(rs);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		
-		return bou;
+		return bourse;
 	}
 	
 }

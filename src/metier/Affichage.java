@@ -22,8 +22,6 @@ public class Affichage {
 			liste = CandidatureDAO.getCandidaturesByEtudiant(id);
 		} else if (type == Champs.ENSEIGNANT) {
 			liste = CandidatureDAO.getCandidaturesByResponsable(id);
-		} else {
-			return null;
 		}
 		
 		return liste;

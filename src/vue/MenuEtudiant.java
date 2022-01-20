@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import app.App;
+import dao.CandidatureDAO;
 import metier.Affichage;
 import metier.Authentification;
 import metier.Champs;
@@ -77,12 +78,10 @@ public class MenuEtudiant {
 	 * @param idEtudiant
 	 */
 	public  void afficherCandidatures(Integer idEtudiant) {
-		// Affichage des candidatures évaluables :
-		List<Candidature> candidatures = Affichage.afficherCandidatures(idEtudiant, Champs.ETUDIANT);
-		Iterator<Candidature> ite = candidatures.iterator();
-		while (ite.hasNext()) {
-			System.out.println(ite.next());
-		}
+		// Affichage des candidatures :
+		List<Candidature> candidatures = CandidatureDAO.getCandidaturesByEtudiant(idEtudiant);
+		for (Candidature c : candidatures)
+			System.out.println(c);
 	}
 	
 	

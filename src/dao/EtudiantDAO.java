@@ -1,77 +1,34 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import app.BDD;
+import javax.persistence.Query;
+
+import app.App;
 import modele.Etudiant;
 
 public class EtudiantDAO {
 	
 	/**
-	 * Ajoute un etudiant à la liste passée en paramètre 
-	 * @param rs ResultSet contenant l'etudiant à ajouter
-	 * @param liste
-	 * @throws SQLException
+	 * Ajoute un etudiant à la BDD 
+	 * @param etu
 	 */
-	private static void addEtudiant(ResultSet rs, List<Etudiant> liste) throws SQLException {
-		Integer id = rs.getInt(1);
-		String nom = rs.getString(2);
-		String prenom = rs.getString(3);
-		Double moyDS = rs.getDouble(4);
-		
-		liste.add(new Etudiant(id, nom, prenom, moyDS));
+	public static void addEtudiant(Etudiant etu) throws SQLException {
+		App.em.getTransaction().begin();
+		App.em.persist(etu);
+		App.em.getTransaction().commit();
 	}
-	
-	
-	
-	/**
-	 * Crée et retourne un objet Etudiant à partir d'un ResultSet 
-	 * @param rs ResultSet contenant l'etudiant à ajouter
-	 * @return
-	 * @throws SQLException
-	 */
-	private static Etudiant newEtudiant(ResultSet rs) throws SQLException {
-		Integer id = rs.getInt(1);
-		String nom = rs.getString(2);
-		String prenom = rs.getString(3);
-		Double moyDS = rs.getDouble(4);
 		
-		return new Etudiant(id, nom, prenom, moyDS);
-	}
-	
-	
 	
 	/**
 	 * Retourne une liste d'objets Etudiant initialisés à partir des données récupérées par la BDD
 	 * @return
 	 */
 	public static List<Etudiant> getEtudiants() {
-		if (!BDD.isConnected()) BDD.connect();
-		Connection conn = BDD.getConnection();
+		Query query = App.em.createQuery("from Etudiant");
 		
-		if (!BDD.isConnected()) {
-			return null;
-		}
-		
-		List<Etudiant> listeEtudiants = new ArrayList<>();
-		String sql = "SELECT * FROM Etudiant;";
-		
-		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			while (rs.next()) {
-				addEtudiant(rs, listeEtudiants);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+		List<Etudiant> listeEtudiants = query.getResultList();
 		
 		return listeEtudiants;
 	}
@@ -84,29 +41,13 @@ public class EtudiantDAO {
 	 * @return
 	 */
 	public static Etudiant getEtudiantById(Integer id) {
-		if (!BDD.isConnected()) BDD.connect();
-		Connection conn = BDD.getConnection();
+		Query query = App.em.createQuery("from Etudiant E where E.id = :etu_id"); 
+		query.setParameter("etu_id", id);
 		
-		if (!BDD.isConnected()) {
-			return null;
-		}
-		
-		Etudiant etu = null;
-		String sql = "SELECT * FROM Etudiant WHERE numero=?;";
-		
-		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			
-			if (rs.next()) {
-				etu = newEtudiant(rs);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+		Etudiant etu = (Etudiant) query.getSingleResult();
 		
 		return etu;
+
 	}
 	
 }

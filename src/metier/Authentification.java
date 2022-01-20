@@ -14,11 +14,11 @@ public abstract class Authentification {
 	/**
 	 * Confirme la connexion
 	 * @param scan Scanner utilisé
-	 * @param resp Personne à connecter
+	 * @param personne Personne à connecter
 	 * @return
 	 */
-	private static boolean decider(Scanner scan, Personne resp) {
-		System.out.println("Etes-vous bien " + resp.getPrenom() + " " + resp.getNom() + " ? (oui / non) ");
+	private static boolean decider(Scanner scan, Personne personne) {
+		System.out.println("Etes-vous bien " + personne.getPrenom() + " " + personne.getNom() + " ? (oui / non) ");
 		System.out.print("> ");
 		String confirmation = scan.nextLine().toLowerCase();
 		if ("oui".startsWith(confirmation)) {
@@ -36,10 +36,10 @@ public abstract class Authentification {
 	 */
 	public static boolean controlerEnseignant(MenuEnseignant menu, Integer id) {
 		// chercher selon id
-		Personne resp = EnseignantDAO.getEnseignantById(id);
-		if (decider(App.scan, resp)) {
+		Personne ens = EnseignantDAO.getEnseignantById(id);
+		if (decider(App.scan, ens)) {
 			// confirmation nom / prénom
-			menu.setUtilisateur(resp.getPrenom() + " " + resp.getNom());
+			menu.setUtilisateur(ens.getPrenom() + " " + ens.getNom());
 			return true;
 		}
 		return false;
@@ -54,10 +54,10 @@ public abstract class Authentification {
 	 */
 	public static boolean controlerEtudiant(MenuEtudiant menu, Integer id) {
 		// chercher selon id
-		Personne resp = EtudiantDAO.getEtudiantById(id);
-		if (decider(App.scan, resp)) {
+		Personne etu = EtudiantDAO.getEtudiantById(id);
+		if (decider(App.scan, etu)) {
 			// confirmation nom / prénom
-			menu.setUtilisateur(resp.getPrenom() + " " + resp.getNom());
+			menu.setUtilisateur(etu.getPrenom() + " " + etu.getNom());
 			return true;
 		}
 		return false;

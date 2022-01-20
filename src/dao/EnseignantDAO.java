@@ -1,48 +1,24 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import app.BDD;
+import javax.persistence.Query;
+
+import app.App;
 import modele.Enseignant;
 
 public class EnseignantDAO {
 	
 	/**
-	 * Ajoute un enseignant à la liste passée en paramètre 
-	 * @param rs ResultSet contenant l'Enseignant à ajouter
-	 * @param liste
+	 * Ajoute un enseignant à la BDD
 	 * @throws SQLException
 	 */
-	private static void addEnseignant(ResultSet rs, List<Enseignant> liste) throws SQLException {
-		Integer id = rs.getInt(1);
-		String nom = rs.getString(2);
-		String prenom = rs.getString(3);
-		
-		liste.add(new Enseignant(id, nom, prenom));
-	}
-	
-	
-	
-	/**
-	 * Crée et retourne un objet Enseignant à partir d'un ResultSet 
-	 * @param rs ResultSet contenant l'Enseignant
-	 * @return Enseignant
-	 * @throws SQLException
-	 */
-	private static Enseignant newEnseignant(ResultSet rs) throws SQLException {
-		Integer id = rs.getInt(1);
-		String nom = rs.getString(2);
-		String prenom = rs.getString(3);
-
-		return new Enseignant(id, nom, prenom);
-	}
-	
+	public static void addEnseignant(Enseignant ens) throws SQLException {
+		App.em.getTransaction().begin();
+		App.em.persist(ens);
+		App.em.getTransaction().commit();
+	}	
 	
 	
 	/**
@@ -50,26 +26,9 @@ public class EnseignantDAO {
 	 * @return
 	 */
 	public static List<Enseignant> getEnseignants() {
-		if (!BDD.isConnected()) BDD.connect();
-		Connection conn = BDD.getConnection();
-		
-		if (!BDD.isConnected()) {
-			return null;
-		}
-		
-		List<Enseignant> listeEnseignants = new ArrayList<>();
-		String sql = "SELECT * FROM Enseignant;";
-		
-		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			while (rs.next()) {
-				addEnseignant(rs, listeEnseignants);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+		Query query = App.em.createQuery("from Enseignant");
+				
+		List<Enseignant> listeEnseignants = query.getResultList();
 		
 		return listeEnseignants;
 	}
@@ -77,33 +36,16 @@ public class EnseignantDAO {
 	
 	
 	/**
-	 * Retourne un objets Enseignant associé à l'id passé en paramètre
+	 * Retourne un objets Enseignant depuis la BDD associé à l'id passé en paramètre
 	 * @param id
 	 * @return
 	 */
 	public static Enseignant getEnseignantById(Integer id) {
-		if (!BDD.isConnected()) BDD.connect();
-		Connection conn = BDD.getConnection();
+		Query query = App.em.createQuery("from Enseignant E where E.id = :ens_id"); 
+		query.setParameter("ens_id", id);
 		
-		if (!BDD.isConnected()) {
-			return null;
-		}
+		Enseignant ens = (Enseignant) query.getSingleResult();
 		
-		Enseignant ens = null;
-		String sql = "SELECT * FROM Enseignant WHERE id=?";
-		
-		try {
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			
-			if (rs.next()) {
-				ens = newEnseignant(rs);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-
 		return ens;
 	}
 	
